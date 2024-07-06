@@ -5,6 +5,7 @@ import { updateLngHandle } from "../utils";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import TopNavbar from "../components/TopNavbar";
+import { useSelector } from "react-redux";
 
 function MainLayout() {
   const { i18n } = useTranslation();

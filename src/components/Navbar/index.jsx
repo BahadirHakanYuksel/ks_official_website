@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { NavLink, useNavigate } from "react-router-dom";
 import { convertFromTextToUrl } from "../../consts";
+import ThemeButton from "../ThemeButton";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function Navbar() {
 
   return (
     <div className="w-full h-12 sticky flex items-center justify-between px-[200px]">
-      <header className="text-3xl font-semibold text-green-500">
+      <header className="text-3xl font-semibold text-ksGreen">
         Katılım Sigorta
       </header>
       <div className="flex items-center gap-5">
@@ -37,7 +38,7 @@ function Navbar() {
               classNames(
                 "text-base text-gray-700 font-medium border-b-2 border-solid border-transparent duration-200 hover:text-gray-900",
                 {
-                  "!border-green-500 !text-black": isActive,
+                  "!border-ksGreen !text-myText": isActive,
                 }
               )
             }
@@ -47,6 +48,7 @@ function Navbar() {
             {menu.title}
           </NavLink>
         ))}
+        <ThemeButton />
       </div>
     </div>
   );

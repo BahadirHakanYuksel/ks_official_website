@@ -23,24 +23,32 @@ export const turkishToEnglish = (text) => {
 
 export const url_tr_data = [
   {
-    first: "/about",
+    first: "/about-us",
     second: "/kurumsal",
   },
-
   {
     first: "/contact",
     second: "/iletisim",
+  },
+
+  {
+    first: "/what-is-the-ks",
+    second: "/katilim-sigortasi-nedir",
   },
 ];
 
 export const url_en_data = [
   {
     first: "/kurumsal",
-    second: "/about",
+    second: "/about-us",
   },
   {
     first: "/iletisim",
     second: "/contact",
+  },
+  {
+    first: "/katilim-sigortasi-nedir",
+    second: "/what-is-the-ks",
   },
 ];
 

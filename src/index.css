@@ -1,3 +1,43 @@
+:root {
+  --ksGray: #383e42;
+  --ksGrayTp: rgba(56, 62, 66, 0.05);
+  --ksGreen: #22c55e;
+  --back_color: hwb(0 94% 6%);
+  --text_color: #0000;
+  --title_color: #ffff;
+  --lng_btn_back: #d1d5db;
+}
+[data-theme="light"] {
+  --ksGray: #383e42;
+  --ksGrayTp: rgba(56, 62, 66, 0.05);
+  --ksGreen: #22c55e;
+  --back_color: #f0f0f0;
+  --myText: black;
+  --title_color: #ffff;
+  --lng_btn_back: #e1e9e6;
+}
+
+[data-theme="dark"] {
+  --ksGray: #383e42;
+  --ksGrayTp: rgba(56, 62, 66, 0.05);
+  --ksGreen: #22c55e;
+  --back_color: rgb(15, 15, 15);
+  --myText: white;
+  --title_color: #0000;
+  --lng_btn_back: #234035;
+}
+
+html {
+  background-color: var(--back_color);
+  color: var(--myText);
+}
+
+button,
+input,
+textarea {
+  outline: 0;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
