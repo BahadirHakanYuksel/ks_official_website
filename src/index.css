@@ -3,28 +3,41 @@
   --ksGrayTp: rgba(56, 62, 66, 0.05);
   --ksGreen: #22c55e;
   --back_color: hwb(0 94% 6%);
-  --text_color: #0000;
-  --title_color: #ffff;
+  --myText: #0000;
+  --titleColor: #374151;
+  --titleColorHover: #111827;
   --lng_btn_back: #d1d5db;
+  --activeTitleColor: #000000;
+  --preKsBoxBack: #f3f4f6;
+  --preKsBoxIcon: #383e42;
 }
 [data-theme="light"] {
   --ksGray: #383e42;
   --ksGrayTp: rgba(56, 62, 66, 0.05);
   --ksGreen: #22c55e;
-  --back_color: #f0f0f0;
+  --back_color: #f7f7f7;
   --myText: black;
-  --title_color: #ffff;
+  --titleColor: #374151;
+  --titleColorHover: #111827;
   --lng_btn_back: #e1e9e6;
+  --activeTitleColor: #000000;
+  --preKsBoxBack: #f3f4f6;
+  --preKsBoxIcon: #383e42;
 }
 
 [data-theme="dark"] {
   --ksGray: #383e42;
-  --ksGrayTp: rgba(56, 62, 66, 0.05);
+  --ksGrayTp: #b4d7c93d;
   --ksGreen: #22c55e;
   --back_color: rgb(15, 15, 15);
   --myText: white;
-  --title_color: #0000;
+  --titleColor: #9ca3af;
+  --titleColorHover: #e5e7eb;
   --lng_btn_back: #234035;
+  --activeTitleColor: #ffffff;
+  /* --preKsBoxBack: #b4d7c93d; */
+  --preKsBoxBack: #262e2b;
+  --preKsBoxIcon: #a0c5b0;
 }
 
 html {
@@ -44,4 +57,41 @@ textarea {
 
 .page {
   padding: 0 200px;
+}
+
+.presenteKs {
+  display: grid;
+  grid-template-areas:
+    "preBox1 preBox1 preBox2"
+    "preBox3 preBox4 preBox5";
+  gap: 20px;
+}
+
+.presenteKs > div:hover .prKsIcon {
+  color: var(--ksGreen);
+}
+
+#preKsBox1 {
+  grid-area: preBox1;
+}
+
+#preKsBox2 {
+  grid-area: preBox2;
+}
+
+#preKsBox3 {
+  grid-area: preBox3;
+}
+
+#preKsBox4 {
+  grid-area: preBox4;
+}
+
+#preKsBox5 {
+  grid-area: preBox5;
+}
+
+.sliderBox:hover .sliderBtn {
+  opacity: 100%;
+  pointer-events: all;
 }

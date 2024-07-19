@@ -19,7 +19,7 @@ function LanguageButtons() {
           className={classNames(
             "w-16 h-8 rounded-full text-base font-medium bg-lngBtnBack duration-500",
             {
-              "!bg-[color:var(--ksGreen)] text-white": lng === i18n.language,
+              "!bg-ksGreen text-white": lng === i18n.language,
             }
           )}
         >
