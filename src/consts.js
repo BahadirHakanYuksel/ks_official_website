@@ -23,8 +23,8 @@ export const turkishToEnglish = (text) => {
 
 export const url_tr_data = [
   {
-    first: "/about-us",
-    second: "/kurumsal",
+    first: "/about",
+    second: "/hakkimizda",
   },
   {
     first: "/contact",
@@ -39,8 +39,8 @@ export const url_tr_data = [
 
 export const url_en_data = [
   {
-    first: "/kurumsal",
-    second: "/about-us",
+    first: "/hakkimizda",
+    second: "/about",
   },
   {
     first: "/iletisim",

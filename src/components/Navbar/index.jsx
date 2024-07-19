@@ -1,12 +1,13 @@
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
-import { NavLink, useNavigate } from "react-router-dom";
-import { convertFromTextToUrl } from "../../consts";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { convertFromTextToUrl, turkishToEnglish } from "../../consts";
 import ThemeButton from "../ThemeButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Navbar() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const path = useLocation().pathname;
   const [activeNavTitleId, setActiveNavTitleId] = useState(0);
   const navigate = useNavigate();
 
@@ -15,6 +16,25 @@ function Navbar() {
     navigate(url);
   };
 
+  const whenChangingLanguage = () => {
+    const myPageUrl = path.split("/");
+    navMenu.forEach((button) => {
+      console.log(
+        encodeURIComponent(turkishToEnglish(button.title).toLowerCase()),
+        myPageUrl[1]
+      );
+      if (
+        encodeURIComponent(turkishToEnglish(button.title).toLowerCase()) ===
+        myPageUrl[1]
+      )
+        setActiveNavTitleId(button.id);
+    });
+  };
+
+  useEffect(() => {
+    whenChangingLanguage();
+  }, [i18n.language]);
+
   const navMenu = [
     {
       url: "/",
@@ -22,8 +42,8 @@ function Navbar() {
       id: 0,
     },
     {
-      url: `/${convertFromTextToUrl(t("about"))}`,
-      title: t("about"),
+      url: `/${convertFromTextToUrl(t("about-us"))}`,
+      title: t("about-us"),
       id: 1,
     },
     {
@@ -67,12 +87,10 @@ function Navbar() {
             className={classNames(
               "text-base text-titleColor font-medium border-b-2 border-solid border-transparent duration-200 hover:text-titleColorHover relative",
               {
-                "!border-transparent !text-activeTitleColor":
-                  menu.id === activeNavTitleId,
+                "!text-activeTitleColor": menu.id === activeNavTitleId,
               }
             )}
             key={menu.id}
-            to={menu.url}
           >
             {menu.title}
             <div

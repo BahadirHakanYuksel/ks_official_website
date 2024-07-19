@@ -20,7 +20,7 @@ export const useDynamicRoutes = () => {
           element: <Home />,
         },
         {
-          path: i18n.language === "en" ? "about-us" : "kurumsal",
+          path: i18n.language === "en" ? "about" : "hakkimizda",
           element: <About />,
         },
         {

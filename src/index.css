@@ -95,3 +95,8 @@ textarea {
   opacity: 100%;
   pointer-events: all;
 }
+
+.agendaBoxHome:hover > .agendaBoxButtonHome {
+  background-color: var(--ksGreen);
+  color: white;
+}

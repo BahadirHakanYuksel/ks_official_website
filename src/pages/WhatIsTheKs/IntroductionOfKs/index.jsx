@@ -1,3 +1,5 @@
+import HomeTitle from "../../../components/HomeTitle";
+
 function IntroductionOfKs() {
   const introductionData = [
     {
@@ -39,9 +41,7 @@ function IntroductionOfKs() {
 
   return (
     <div className="flex flex-col gap-5">
-      <header className="text-4xl font-normal text-center">
-        Katılım Sigortası Nedir ?
-      </header>
+      <HomeTitle>Katılım Sigortası Nedir ?</HomeTitle>
       <div className="presenteKs">
         {introductionData.map((box) => (
           <div
