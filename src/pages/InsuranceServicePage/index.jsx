@@ -4,15 +4,20 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { turkishToEnglish } from "../../consts";
 import PageTitle from "../../components/PageTitle";
-import { updateServiceHandle } from "../../utils";
+import { updateMainContentHandle, updateServiceHandle } from "../../utils";
 import { useTranslation } from "react-i18next";
 import ErrorPage from "../ErrorPage";
 import classNames from "classnames";
+import InsuranceServiceContent from "./InsuranceServiceContent";
 
 function InsuranceServicePage() {
-  const { individual, corporate, activeService } = useSelector(
-    (state) => state.app
-  );
+  const {
+    individual,
+    corporate,
+    mainIndividualContents,
+    activeService,
+    activeMainContent,
+  } = useSelector((state) => state.app);
   const { pathServiceCategory, pathServiceName } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -30,9 +35,13 @@ function InsuranceServicePage() {
           ).toLowerCase() === pathServiceName
         );
       });
+      const thisMyMainContent = mainIndividualContents.filter((content) => {
+        return content.id === thisMyService[0].id;
+      });
       updateServiceHandle(thisMyService[0]);
       setActiveCategoryIndex(0);
       setActiveServiceButtonIndex(1);
+      updateMainContentHandle(thisMyMainContent[0].text);
     }
     if (pathServiceCategory === t("corporate").toLowerCase()) {
       const thisMyService = corporate.filter((service) => {
@@ -144,7 +153,7 @@ function InsuranceServicePage() {
                 {categories[activeServiceButtonIndex]} Hizmetlere Git
               </button>
             </div>
-            <div className="text-myText">asdasd</div>
+            <InsuranceServiceContent />
           </div>
         </motion.div>
       ) : (

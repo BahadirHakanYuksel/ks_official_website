@@ -102,7 +102,43 @@ const initialState = {
       url: "",
     },
   ],
+  mainIndividualContents: [
+    {
+      text: "DASK",
+      id: 0,
+    },
+    {
+      text: "Neoenerejik",
+      id: 1,
+    },
+    {
+      text: "Ferdi Kaza",
+      id: 2,
+    },
+    {
+      text: "Kasko Bireysel",
+      id: 3,
+    },
+    {
+      text: "IMM",
+      id: 4,
+    },
+    {
+      text: "Zorunlu Trafik",
+      id: 5,
+    },
+    {
+      text: "Tamamlayıcı Sağlık",
+      id: 6,
+    },
+    {
+      text: "Seyehat sağlık",
+      id: 7,
+    },
+  ],
   activeService: false,
+  activeMainContent: false,
+  activeSubContent: false,
 };
 
 const app = createSlice({
@@ -122,8 +158,12 @@ const app = createSlice({
     updateService: (state, action) => {
       state.activeService = action.payload;
     },
+    updateMainContent: (state, action) => {
+      state.activeMainContent = action.payload;
+    },
   },
 });
 
 export default app.reducer;
-export const { rigtSlider, leftSlider, updateService } = app.actions;
+export const { rigtSlider, leftSlider, updateService, updateMainContent } =
+  app.actions;
