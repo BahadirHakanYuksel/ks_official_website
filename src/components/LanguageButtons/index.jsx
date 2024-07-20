@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { updateLngHandle } from "../../utils";
+import { useDispatch } from "react-redux";
 
 function LanguageButtons() {
   const myLanguages = ["tr", "en"];

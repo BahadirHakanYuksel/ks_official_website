@@ -11,13 +11,10 @@ import classNames from "classnames";
 import InsuranceServiceContent from "./InsuranceServiceContent";
 
 function InsuranceServicePage() {
-  const {
-    individual,
-    corporate,
-    mainIndividualContents,
-    activeService,
-    activeMainContent,
-  } = useSelector((state) => state.app);
+  const { individual, corporate, activeService } = useSelector(
+    (state) => state.app
+  );
+
   const { pathServiceCategory, pathServiceName } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -25,6 +22,40 @@ function InsuranceServicePage() {
   const [activeServiceButtonIndex, setActiveServiceButtonIndex] = useState(1);
 
   const categories = [t("individual"), t("corporate")];
+  const mainIndividualContents = [
+    {
+      text: "bahadır",
+      id: 0,
+    },
+    {
+      text: "Neoenerejik",
+      id: 1,
+    },
+    {
+      text: "Ferdi Kaza",
+      id: 2,
+    },
+    {
+      text: "Kasko Bireysel",
+      id: 3,
+    },
+    {
+      text: "IMM",
+      id: 4,
+    },
+    {
+      text: "Zorunlu Trafik",
+      id: 5,
+    },
+    {
+      text: "Tamamlayıcı Sağlık",
+      id: 6,
+    },
+    {
+      text: "Seyehat sağlık\n###bu şekilde devam ediyor###\n\n##bahadur##\n#başlık#\n--bahadır hakan yüksel--\n**strong**\n* madde1\n* madde 2",
+      id: 7,
+    },
+  ];
 
   const serviceControl = () => {
     if (pathServiceCategory === t("individual").toLowerCase()) {
@@ -41,7 +72,7 @@ function InsuranceServicePage() {
       updateServiceHandle(thisMyService[0]);
       setActiveCategoryIndex(0);
       setActiveServiceButtonIndex(1);
-      updateMainContentHandle(thisMyMainContent[0].text);
+      updateMainContentHandle(thisMyMainContent[0].text.split("\n"));
     }
     if (pathServiceCategory === t("corporate").toLowerCase()) {
       const thisMyService = corporate.filter((service) => {

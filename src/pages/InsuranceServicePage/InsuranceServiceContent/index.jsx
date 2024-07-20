@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 
 function InsuranceServiceContent({ mainContent, subContent }) {
@@ -9,13 +8,29 @@ function InsuranceServiceContent({ mainContent, subContent }) {
 
     return parts.map((part, index) => {
       if (part.startsWith("**") && part.endsWith("**")) {
-        return <strong key={index}>{part.slice(2, -2)}</strong>;
+        return (
+          <strong className="text-ksGreen text-lg" key={index}>
+            {part.slice(2, -2)}
+          </strong>
+        );
       } else if (part.startsWith("###") && part.endsWith("###")) {
-        return <h3 key={index}>{part.slice(3, -3)}</h3>;
+        return (
+          <header className="text-3xl font-medium text-titleColor" key={index}>
+            {part.slice(3, -3)}
+          </header>
+        );
       } else if (part.startsWith("##") && part.endsWith("##")) {
-        return <h2 key={index}>{part.slice(2, -2)}</h2>;
+        return (
+          <header className="text-2xl font-medium text-titleColor" key={index}>
+            {part.slice(2, -2)}
+          </header>
+        );
       } else if (part.startsWith("#") && part.endsWith("#")) {
-        return <h1 key={index}>{part.slice(1, -1)}</h1>;
+        return (
+          <header className="text-xl font-medium text-titleColor" key={index}>
+            {part.slice(1, -1)}
+          </header>
+        );
       } else if (
         part.startsWith("[") &&
         part.includes("](") &&
@@ -37,7 +52,7 @@ function InsuranceServiceContent({ mainContent, subContent }) {
       } else if (part.startsWith("* ")) {
         return (
           <div key={index} className="flex items-center justify-start gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full text-ksGray"></div>
+            <div className="w-1.5 h-1.5 rounded-full bg-ksGray"></div>
             <span>{part.slice(2).trim()}</span>
           </div>
         );
@@ -48,9 +63,13 @@ function InsuranceServiceContent({ mainContent, subContent }) {
 
   const { activeMainContent } = useSelector((state) => state.app);
 
-  const [paragraph, setParagraph] = useState();
-
-  return <div>{activeMainContent}</div>;
+  return (
+    <div className="">
+      {activeMainContent.map((row, i) => (
+        <p key={i}>{parseContent(row)}</p>
+      ))}
+    </div>
+  );
 }
 
 export default InsuranceServiceContent;
