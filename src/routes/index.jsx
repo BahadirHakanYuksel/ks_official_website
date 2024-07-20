@@ -6,6 +6,7 @@ import Admin from "../pages/Admin";
 import ErrorPage from "../pages/ErrorPage";
 import { useTranslation } from "react-i18next";
 import WhatIsTheKs from "../pages/WhatIsTheKs";
+import InsuranceServicePage from "../pages/InsuranceServicePage";
 
 export const useDynamicRoutes = () => {
   const { i18n } = useTranslation();
@@ -37,6 +38,14 @@ export const useDynamicRoutes = () => {
         {
           path: i18n.language === "en" ? "admin" : "yonetici-paneli",
           element: <Admin />,
+        },
+        {
+          path: ":pathServiceCategory/:pathServiceName",
+          element: <InsuranceServicePage />,
+        },
+        {
+          path: "*",
+          element: <ErrorPage />,
         },
       ],
     },

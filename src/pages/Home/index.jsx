@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import HomeTitle from "../../components/HomeTitle";
 import IntroductionOfKs from "../WhatIsTheKs/IntroductionOfKs";
 import AgendaHome from "./AgendaHome";
 import InsuranceServices from "./InsuranceServices";
@@ -5,12 +7,19 @@ import PresentationSlider from "./PresentationSlider";
 
 function Home() {
   return (
-    <div className="page flex flex-col gap-24">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="page flex flex-col gap-24"
+    >
       <PresentationSlider />
-      <IntroductionOfKs />
+      <div className="flex flex-col gap-5">
+        <HomeTitle>Katılım Sigortası Nedir ?</HomeTitle>
+        <IntroductionOfKs />
+      </div>
       <InsuranceServices />
       <AgendaHome />
-    </div>
+    </motion.div>
   );
 }
 

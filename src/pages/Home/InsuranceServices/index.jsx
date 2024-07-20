@@ -2,118 +2,21 @@ import { useState } from "react";
 import HomeTitle from "../../../components/HomeTitle";
 import classNames from "classnames";
 import ServiceBox from "./ServiceBox";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 function InsuranceServices() {
   const [ActiveServiceId, setActiveServiceId] = useState(0);
+  const { t } = useTranslation();
+  const { individual, corporate } = useSelector((state) => state.app);
   const controlButtons = [
     {
-      text: "Bireysel",
+      text: t("individual"),
       id: 0,
     },
     {
-      text: "Kurumsal",
+      text: t("corporate"),
       id: 1,
-    },
-  ];
-
-  const bireysel = [
-    {
-      id: 0,
-      title: "DASK",
-      iconUrl: "/Dask.png",
-      url: "",
-    },
-    {
-      id: 1,
-      title: "NeoEnerjik Kask",
-      iconUrl: "/e_arac.png",
-      url: "",
-    },
-    {
-      id: 2,
-      title: "Ferdi Kaza Sigortası",
-      iconUrl: "/FerdiKaza.png",
-      url: "",
-    },
-    {
-      id: 3,
-      title: "Kasko Bireysel",
-      iconUrl: "/kasko.png",
-      url: "",
-    },
-    {
-      id: 4,
-      title: "İhtiyari Mali Masuliyet (İMM) Sigortası",
-      iconUrl: "/konutt.png",
-      url: "",
-    },
-    {
-      id: 5,
-      title: "Zorunlu Trafik Sigortası",
-      iconUrl: "/konutt.png",
-      url: "",
-    },
-    {
-      id: 6,
-      title: "Tamamlayıcı Sağlık Sigortası",
-      iconUrl: "/konutt.png",
-      url: "",
-    },
-    {
-      id: 7,
-      title: "Seyehat Sağlık Sigortası",
-      iconUrl: "/konutt.png",
-      url: "",
-    },
-  ];
-  const kurumsal = [
-    {
-      id: 0,
-      title: "DASK",
-      iconUrl: "/Dask.png",
-      url: "",
-    },
-    {
-      id: 1,
-      title: "Zorunlu Trafik Sigortası",
-      iconUrl: "/konutt.png",
-      url: "",
-    },
-    {
-      id: 2,
-      title: "Ferdi Kaza Sigortası",
-      iconUrl: "/FerdiKaza.png",
-      url: "",
-    },
-    {
-      id: 3,
-      title: "Kasko Kurumsal",
-      iconUrl: "/kasko.png",
-      url: "",
-    },
-    {
-      id: 4,
-      title: "Limitsiz (İMM) Sigortası",
-      iconUrl: "/konutt.png",
-      url: "",
-    },
-    {
-      id: 5,
-      title: "TARSİM",
-      iconUrl: "/e_arac.png",
-      url: "",
-    },
-    {
-      id: 6,
-      title: "İşyeri Sigortaları",
-      iconUrl: "/konutt.png",
-      url: "",
-    },
-    {
-      id: 7,
-      title: "Nakliyat Sigortaları",
-      iconUrl: "/konutt.png",
-      url: "",
     },
   ];
 
@@ -140,16 +43,18 @@ function InsuranceServices() {
       </div>
       <div className="flex flex-wrap justify-center gap-5">
         {ActiveServiceId === 0 &&
-          bireysel.map((service, i) => (
+          individual.map((service, i) => (
             <ServiceBox
+              category={t("individual")}
               title={service.title}
               iconUrl={service.iconUrl}
               key={service.id}
             />
           ))}
         {ActiveServiceId === 1 &&
-          kurumsal.map((service, i) => (
+          corporate.map((service, i) => (
             <ServiceBox
+              category={t("corporate")}
               title={service.title}
               iconUrl={service.iconUrl}
               key={service.id}

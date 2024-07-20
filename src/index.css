@@ -10,6 +10,8 @@
   --activeTitleColor: #000000;
   --preKsBoxBack: #f3f4f6;
   --preKsBoxIcon: #383e42;
+  --serviceMenuBack: #e5e7eb;
+  --serviceMenuBtnBack: #ffffff;
 }
 [data-theme="light"] {
   --ksGray: #383e42;
@@ -23,6 +25,8 @@
   --activeTitleColor: #000000;
   --preKsBoxBack: #f3f4f6;
   --preKsBoxIcon: #383e42;
+  --serviceMenuBack: #e5e7eb;
+  --serviceMenuBtnBack: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -38,6 +42,8 @@
   /* --preKsBoxBack: #b4d7c93d; */
   --preKsBoxBack: #262e2b;
   --preKsBoxIcon: #a0c5b0;
+  --serviceMenuBack: #262e2b;
+  --serviceMenuBtnBack: #171919;
 }
 
 html {
@@ -99,4 +105,9 @@ textarea {
 .agendaBoxHome:hover > .agendaBoxButtonHome {
   background-color: var(--ksGreen);
   color: white;
+}
+
+.servicePageGrid {
+  grid-template-columns: 320px auto;
+  padding: 0 200px;
 }

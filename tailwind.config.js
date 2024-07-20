@@ -15,6 +15,8 @@ export default {
         lngBtnBack: "var(--lng_btn_back)",
         preKsBoxBack: "var(--preKsBoxBack)",
         preKsBoxIcon: "var(--preKsBoxIcon)",
+        serviceMenuBack: "var(--serviceMenuBack)",
+        serviceMenuBtnBack: "var(--serviceMenuBtnBack)",
       },
     },
   },

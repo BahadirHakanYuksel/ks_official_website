@@ -1,5 +1,5 @@
 import stores from "../stores";
-import { leftSlider, rigtSlider } from "../stores/app";
+import { leftSlider, rigtSlider, updateService } from "../stores/app";
 import { updateLng } from "../stores/lng";
 import { updateTheme } from "../stores/theme";
 
@@ -19,4 +19,10 @@ export const rightSliderHandle = () => {
 
 export const leftSliderHandle = () => {
   stores.dispatch(leftSlider());
+};
+
+//service
+
+export const updateServiceHandle = (serviceInfos) => {
+  stores.dispatch(updateService(serviceInfos));
 };

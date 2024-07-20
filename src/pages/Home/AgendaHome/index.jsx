@@ -92,6 +92,11 @@ function AgendaHome() {
             )
         )}
       </div>
+      <div className="flex items-center justify-center mt-5">
+        <button className="bg-preKsBoxBack w-[200px] border-2 border-solid border-ksGray duration-200 hover:text-ksGreen hover:border-ksGreen h-10 rounded-full hover:bg-ksGray font-semibold">
+          Tüm {agendaTitles[activeAgendaTitleId].title}
+        </button>
+      </div>
     </div>
   );
 }
