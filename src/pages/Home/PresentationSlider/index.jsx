@@ -31,17 +31,17 @@ function PresentationSlider() {
   const sliderData = [
     {
       id: 0,
-      url: "",
+      url: "slider1.png",
       link: "page 1",
     },
     {
       id: 1,
-      url: "",
+      url: "slider2.png",
       link: "page 2",
     },
     {
       id: 2,
-      url: "",
+      url: "slider3.png",
       link: "page 3",
     },
   ];
@@ -60,19 +60,17 @@ function PresentationSlider() {
   };
 
   return (
-    <div className="rounded-md overflow-hidden h-[600px]">
-      <Slider
-        {...settings}
-        className="flex gap-2.5 rounded-md relative sliderBox"
-      >
+    <div className="rounded-md overflow-hidden h-[700px]">
+      <Slider {...settings} className="flex gap-2.5 relative sliderBox">
         {sliderData.map((sliderSection) => (
           <div
+            key={sliderSection.id}
             className={classNames(
-              "h-[550px] aspect-video text-white bg-gray-700 duration-300"
+              " aspect-video text-white bg-gray-700 duration-300 rounded-lg min-h-[600px]"
             )}
           >
             {/* <img src="" className="aspect-video" alt="" /> */}
-            <span>{sliderSection.link}</span>
+            <img src={`images/${sliderSection.url}`} alt="" />
           </div>
         ))}
       </Slider>

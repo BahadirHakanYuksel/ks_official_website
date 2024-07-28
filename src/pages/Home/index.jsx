@@ -4,6 +4,7 @@ import IntroductionOfKs from "../WhatIsTheKs/IntroductionOfKs";
 import AgendaHome from "./AgendaHome";
 import InsuranceServices from "./InsuranceServices";
 import PresentationSlider from "./PresentationSlider";
+import ContactHome from "./ContactHome";
 
 function Home() {
   return (
@@ -19,6 +20,7 @@ function Home() {
       </div>
       <InsuranceServices />
       <AgendaHome />
+      <ContactHome />
     </motion.div>
   );
 }

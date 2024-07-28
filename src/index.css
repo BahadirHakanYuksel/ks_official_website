@@ -27,24 +27,53 @@
   --preKsBoxIcon: #383e42;
   --serviceMenuBack: #e5e7eb;
   --serviceMenuBtnBack: #ffffff;
+  --messageBoxBack: white;
+  --messageBoxInputBack: var(--ksGray);
+  --contactBoxBack: #f1f1f1;
+  --contactBoxTitleBack: white;
 }
 
 [data-theme="dark"] {
   --ksGray: #383e42;
   --ksGrayTp: #b4d7c93d;
   --ksGreen: #22c55e;
-  --back_color: rgb(15, 15, 15);
+  /* --back_color: rgb(15, 15, 15); */
+  --back_color: var(--ksGray);
   --myText: white;
   --titleColor: #9ca3af;
   --titleColorHover: #e5e7eb;
   --lng_btn_back: #234035;
   --activeTitleColor: #ffffff;
   /* --preKsBoxBack: #b4d7c93d; */
+  --preKsBoxBack: #24282a;
+  --preKsBoxIcon: #a0c5b0;
+  --serviceMenuBack: #131615;
+  --serviceMenuBtnBack: #232828;
+  --messageBoxBack: #24282a;
+  --messageBoxInputBack: #e8e8e8;
+  --contactBoxBack: #33373a;
+  --contactBoxTitleBack: var(--preKsBoxBack);
+}
+/** old  */
+/* 
+[data-theme="dark"] {
+  --ksGray: #383e42;
+  --ksGrayTp: #b4d7c93d;
+  --ksGreen: #22c55e;
+  --back_color: rgb(15, 15, 15); 
+  --back_color: var(--ksGray);
+  --myText: white;
+  --titleColor: #9ca3af;
+  --titleColorHover: #e5e7eb;
+  --lng_btn_back: #234035;
+  --activeTitleColor: #ffffff;
+   --preKsBoxBack: #b4d7c93d; 
   --preKsBoxBack: #262e2b;
   --preKsBoxIcon: #a0c5b0;
   --serviceMenuBack: #262e2b;
   --serviceMenuBtnBack: #171919;
-}
+} 
+*/
 
 html {
   background-color: var(--back_color);
@@ -110,4 +139,9 @@ textarea {
 .servicePageGrid {
   grid-template-columns: 320px auto;
   padding: 0 200px;
+}
+
+.contactBoxButton:hover .contactBoxInfo {
+  opacity: 100%;
+  visibility: visible;
 }
