@@ -12,15 +12,15 @@ function LanguageButtons() {
     updateLngHandle(lng);
   };
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-2.5">
       {myLanguages.map((lng, i) => (
         <button
           key={i}
           onClick={() => changeLng(lng)}
           className={classNames(
-            "w-16 h-8 rounded-full text-base font-medium bg-lngBtnBack duration-500",
+            "w-14 h-7 rounded-sm text-sm font-medium bg-lngBtnBack duration-500 opacity-70 hover:opacity-90",
             {
-              "!bg-ksGreen text-white": lng === i18n.language,
+              "!bg-ksGreen text-white !opacity-100": lng === i18n.language,
             }
           )}
         >

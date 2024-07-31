@@ -56,7 +56,40 @@ function InsuranceServicePage() {
       id: 7,
     },
   ];
-
+  const mainCorporateContents = [
+    {
+      text: "dask",
+      id: 0,
+    },
+    {
+      text: "zorunlu trafik sigortası",
+      id: 1,
+    },
+    {
+      text: "Ferdi Kaza sigortası",
+      id: 2,
+    },
+    {
+      text: "Kasko Kurumsal",
+      id: 3,
+    },
+    {
+      text: "IMM",
+      id: 4,
+    },
+    {
+      text: "Tarsim",
+      id: 5,
+    },
+    {
+      text: "işyeri",
+      id: 6,
+    },
+    {
+      text: t("deneme"),
+      id: 7,
+    },
+  ];
   const serviceControl = () => {
     if (pathServiceCategory === t("individual").toLowerCase()) {
       const thisMyService = individual.filter((service) => {
@@ -82,10 +115,13 @@ function InsuranceServicePage() {
           ).toLowerCase() === pathServiceName
         );
       });
-
+      const thisMyMainContent = mainCorporateContents.filter((content) => {
+        return content.id === thisMyService[0].id;
+      });
       updateServiceHandle(thisMyService[0]);
       setActiveCategoryIndex(1);
       setActiveServiceButtonIndex(0);
+      updateMainContentHandle(thisMyMainContent[0].text.split("\n"));
     }
 
     console.log(activeService);

@@ -12,8 +12,10 @@ function App() {
 
   useEffect(() => {
     const path_name = location.pathname;
+    console.log("pathname : ", path_name);
     if (i18n.language === "tr") {
       url_tr_data.forEach((url) => {
+        console.log(url.first, " ", path_name);
         url.first === path_name && navigate(url.second);
       });
     } else {

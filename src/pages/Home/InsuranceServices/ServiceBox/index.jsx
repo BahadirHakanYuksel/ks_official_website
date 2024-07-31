@@ -5,6 +5,7 @@ function ServiceBox({ title, iconUrl, category }) {
   const navigate = useNavigate();
 
   const goServicePage = () => {
+    document.scrollingElement.scrollTop = 0;
     navigate(
       `/${encodeURIComponent(
         turkishToEnglish(category.replace(/ /g, "-"))

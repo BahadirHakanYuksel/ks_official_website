@@ -32,8 +32,17 @@ export const url_tr_data = [
   },
 
   {
-    first: "/what-is-the-ks",
+    first: "/what-is-the-participation-insurance",
     second: "/katilim-sigortasi-nedir",
+  },
+  {
+    first: "/corporate/dask",
+    second: "/kurumsal/dask",
+  },
+  ,
+  {
+    first: "/individual/dask",
+    second: "/bireysel/dask",
   },
 ];
 
@@ -48,7 +57,17 @@ export const url_en_data = [
   },
   {
     first: "/katilim-sigortasi-nedir",
-    second: "/what-is-the-ks",
+    second: "/what-is-the-participation-insurance",
+  },
+  ,
+  {
+    first: "/kurumsal/dask",
+    second: "/corporate/dask",
+  },
+  ,
+  {
+    first: "/bireysel/dask",
+    second: "/individual/dask",
   },
 ];
 

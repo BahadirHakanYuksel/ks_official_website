@@ -61,9 +61,10 @@ function AgendaHome() {
             onClick={() => setActiveAgendaTitleId(agenda.id)}
             key={agenda.id}
             className={classNames(
-              "rounded-md bg-ksGray border-2 border-solid border-transparent hover:border-ksGreen h-10 min-w-32 text-white text-base font-medium opacity-70 hover:opacity-100 duration-200",
+              "rounded-md bg-backColor text-myText border-2 border-solid border-transparent hover:border-ksGreen h-10 min-w-32 text-base font-medium opacity-70 hover:opacity-100 duration-200",
               {
-                "!bg-ksGreen !opacity-100": activeAgendaTitleId === agenda.id,
+                "!bg-ksGreen !opacity-100 !text-white":
+                  activeAgendaTitleId === agenda.id,
               }
             )}
           >

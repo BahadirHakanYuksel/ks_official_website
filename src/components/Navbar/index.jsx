@@ -77,9 +77,17 @@ function Navbar() {
 
   return (
     <div className="w-full h-12 sticky top-0 left-0 bg-backColor flex items-center justify-between px-[200px] z-20 mb-5">
-      <header className="text-3xl font-semibold text-ksGreen">
-        Katılım Sigorta
-      </header>
+      <button
+        onClick={() => navigate("/")}
+        className="flex gap-2.5 items-center active:scale-105 duration-200"
+      >
+        <div className="bg-ksGray rounded-sm">
+          <img src="images/logo.png" className="p-1 w-9" alt="" />
+        </div>
+        <header className="text-3xl font-semibold text-ksGreen">
+          Katılım Sigortası
+        </header>
+      </button>
       <div className="flex items-center gap-5">
         {navMenu.map((menu) => (
           <button

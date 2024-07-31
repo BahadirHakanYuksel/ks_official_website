@@ -5,8 +5,11 @@ import AgendaHome from "./AgendaHome";
 import InsuranceServices from "./InsuranceServices";
 import PresentationSlider from "./PresentationSlider";
 import ContactHome from "./ContactHome";
+import { useTranslation } from "react-i18next";
 
 function Home() {
+  const { t } = useTranslation();
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -15,7 +18,7 @@ function Home() {
     >
       <PresentationSlider />
       <div className="flex flex-col gap-5">
-        <HomeTitle>Katılım Sigortası Nedir ?</HomeTitle>
+        <HomeTitle>{t("what-is-the-ks")} ?</HomeTitle>
         <IntroductionOfKs />
       </div>
       <InsuranceServices />
