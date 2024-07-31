@@ -31,7 +31,7 @@ export const useDynamicRoutes = () => {
         {
           path:
             i18n.language === "en"
-              ? "what-is-the-ks"
+              ? "what-is-participation-insurance"
               : "katilim-sigortasi-nedir",
           element: <WhatIsTheKs />,
         },

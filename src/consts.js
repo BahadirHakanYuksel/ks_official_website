@@ -32,7 +32,7 @@ export const url_tr_data = [
   },
 
   {
-    first: "/what-is-the-participation-insurance",
+    first: "/what-is-participation-insurance",
     second: "/katilim-sigortasi-nedir",
   },
   {
@@ -57,7 +57,7 @@ export const url_en_data = [
   },
   {
     first: "/katilim-sigortasi-nedir",
-    second: "/what-is-the-participation-insurance",
+    second: "/what-is-participation-insurance",
   },
   ,
   {

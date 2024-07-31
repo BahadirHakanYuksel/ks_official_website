@@ -1,8 +1,12 @@
+import { useTranslation } from "react-i18next";
+
 function ContactBox() {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col gap-5 bg-contactBoxBack p-5 opacity-100 hover:opacity-100 duration-300">
       <header className="text-2xl font-medium flex items-center justify-center rounded-sm h-12 bg-contactBoxTitleBack text-ksGreen">
-        Adres ve İletişim Bilgileri
+        {t("addressAndContactDetails")}
       </header>
       <div className="grid grid-cols-2 gap-5">
         <a
@@ -11,10 +15,10 @@ function ContactBox() {
         >
           <i className="fa-solid fa-location-dot text-3xl h-8"></i>
           <header className="text-myText font-medium text-center">
-            Akabe, Saçlı Kasap Cd. No:157A D:204, 42090 Karatay/Konya
+            {t("address")}
           </header>
           <span className="bg-black bg-opacity-90 text-2xl font-medium w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo">
-            Adresimiz
+            {t("ourAddress")}
           </span>
         </a>
         <a
@@ -26,7 +30,7 @@ function ContactBox() {
             0551 123 45 67
           </header>
           <span className="bg-black bg-opacity-90 font-medium text-2xl w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo">
-            Bizi ara
+            {t("callUs")}
           </span>
         </a>
       </div>

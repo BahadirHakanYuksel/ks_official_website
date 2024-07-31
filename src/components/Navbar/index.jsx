@@ -53,7 +53,7 @@ function Navbar() {
     },
     {
       url: false,
-      title: "Gündem",
+      title: t("agenda"),
       subCategories: [
         {
           url: "haberler",

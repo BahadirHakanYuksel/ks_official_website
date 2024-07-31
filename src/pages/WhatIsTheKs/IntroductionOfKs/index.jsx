@@ -1,36 +1,40 @@
+import { useTranslation } from "react-i18next";
+
 function IntroductionOfKs() {
+  const { t } = useTranslation();
+
   const introductionData = [
     {
-      title: "Faizsiz Sistem",
-      text: "Katılım sigortası, faizsiz bir sistemle çalışır.",
+      title: t("interestFreeSystem"),
+      text: t("iks1"),
       iconUrl: "fa-solid fa-credit-card",
       idNo: 0,
       id: "preKsBox1",
     },
     {
-      title: "Risk Paylaşımı",
-      text: "Sigorta sahipleri arasında risk paylaşımı yapılır.",
+      title: t("riskSharing"),
+      text: t("iks2"),
       iconUrl: "fa-solid fa-handshake",
       idNo: 1,
       id: "preKsBox2",
     },
     {
-      title: "Şeffaflık",
-      text: "Gelir ve giderler şeffaf bir şekilde paylaşılır.",
+      title: t("transparency"),
+      text: t("iks3"),
       iconUrl: "fa-solid fa-eye",
       idNo: 2,
       id: "preKsBox3",
     },
     {
-      title: "Topluluk Desteği",
-      text: "Katılımcılar birbirlerine destek olurlar.",
+      title: t("communitySupport"),
+      text: t("iks4"),
       iconUrl: "fa-solid fa-people-group",
       idNo: 3,
       id: "preKsBox4",
     },
     {
-      title: "Etik Yatırımlar",
-      text: "Fonlar etik ve İslami değerlere uygun yatırımlarda kullanılır.",
+      title: t("ethicalInvestments"),
+      text: t("iks5"),
       iconUrl: "fa-solid fa-coins",
       idNo: 4,
       id: "preKsBox5",

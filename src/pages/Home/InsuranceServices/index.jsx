@@ -22,7 +22,7 @@ function InsuranceServices() {
 
   return (
     <div className="flex flex-col gap-5">
-      <HomeTitle>Sigorta Hizmetleri</HomeTitle>
+      <HomeTitle>{t("insuranceServices")}</HomeTitle>
       <div className="flex items-center justify-center">
         <div className="flex items-center gap-2.5">
           {controlButtons.map((btn) => (

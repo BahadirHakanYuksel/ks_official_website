@@ -1,22 +1,25 @@
 import { useState } from "react";
 import HomeTitle from "../../../components/HomeTitle";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 function AgendaHome() {
   const [activeAgendaTitleId, setActiveAgendaTitleId] = useState(0);
+  const { t } = useTranslation();
+
   const agendaTitles = [
     {
-      title: "Haberler",
+      title: t("news"),
       dbKeyUrl: "",
       id: 0,
     },
     {
-      title: "Makaleler",
+      title: t("articles"),
       dbKeyUrl: "",
       id: 1,
     },
     {
-      title: "Duyurular",
+      title: t("announcements"),
       dbKeyUrl: "",
       id: 2,
     },
@@ -51,10 +54,10 @@ function AgendaHome() {
 
   return (
     <div className="flex flex-col gap-5">
-      <HomeTitle>Gündeme Dair Her Şey Burada</HomeTitle>
+      <HomeTitle>{t("EverythingOnTheAgenda")}</HomeTitle>
       <div className="flex justify-center h-10 items-center gap-5">
         <div className="h-7 flex items-center justify-center font-medium text-lg border-r-2 border-solid border-r-ksGreen px-2.5">
-          Son Paylaşılan
+          {t("lastShared")}
         </div>
         {agendaTitles.map((agenda) => (
           <button
@@ -87,7 +90,7 @@ function AgendaHome() {
                   {agenda.title}
                 </header>
                 <button className="agendaBoxButtonHome h-8 w-full text-myText rounded-full bg-ksGrayTp font-medium text-sm duration-200">
-                  Oku
+                  {t("read")}
                 </button>
               </button>
             )
@@ -95,7 +98,7 @@ function AgendaHome() {
       </div>
       <div className="flex items-center justify-center mt-5">
         <button className="bg-preKsBoxBack w-[200px] border-2 border-solid border-ksGray duration-200 hover:text-ksGreen hover:border-ksGreen h-10 rounded-full hover:bg-ksGray font-semibold">
-          Tüm {agendaTitles[activeAgendaTitleId].title}
+          {t("all")} {agendaTitles[activeAgendaTitleId].title}
         </button>
       </div>
     </div>

@@ -15,7 +15,7 @@ function Footer() {
     },
     {
       title: t("agenda"),
-      description: "Son paylaşılan haberler,duyurular ve makaleler.",
+      description: t("footerBox2Desc"),
     },
     {
       title: `${t("what-is-the-ks")} ?`,
@@ -63,12 +63,12 @@ function Footer() {
             <header className="text-3xl text-ksGreen font-medium">
               Katılım Sigortası
             </header>
-            <p>Sigortanın Helali</p>
+            <p>{t("halalInsurance")}</p>
           </div>
         </div>
         <div className="flex gap-2.5 items-center">
           <header className="text-lg font-medium text-titleColor px-2.5 border-r-2 border-solid border-r-ksGrayTp">
-            Sosyal Medya Hesaplarımız
+            {t("socialMediaAccouts")}
           </header>
           <div className="flex items-center gap-2.5">
             {socialMediaButtons.map((smButton, i) => (
@@ -86,13 +86,13 @@ function Footer() {
       <div className="flex justify-between p-3">
         <div className="flex items-center gap-4">
           <header className="text-sm font-medium border-r-2 border-solid border-r-ksGrayTp pr-2.5">
-            Dil Değiştir
+            {t("changeLanguage")}
           </header>
           <LanguageButtons />
         </div>
         <p className="text-center font-medium">
-          © 2024 <span className="text-ksGreen">Katılım Sigortası </span> Resmi
-          Websitesi
+          © 2024 <span className="text-ksGreen">Katılım Sigortası </span>{" "}
+          {t("officialWebsite")}
         </p>
       </div>
     </footer>

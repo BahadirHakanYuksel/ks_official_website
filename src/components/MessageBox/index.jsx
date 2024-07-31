@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 function MessageBox() {
+  const { t } = useTranslation();
+
   const [formKs, setFormKs] = useState({
     name: "",
     surname: "",
@@ -42,49 +45,49 @@ function MessageBox() {
       className="flex flex-col gap-5 bg-messageBoxBack p-5"
     >
       <header className="text-2xl font-medium flex items-center justify-center rounded-sm h-12 bg-ksGreen text-white">
-        Bizimle iletişime geçin
+        {t("getInTouchWithUs")}
       </header>
       <div className="grid grid-cols-2 gap-2.5">
         <div className="flex flex-col gap-0.5">
-          <header className="text-lg font-medium">Adınız</header>
+          <header className="text-lg font-medium">{t("yourName")}</header>
           <input
             maxLength={100}
             name="name"
             onChange={(e) => formUpdate(e)}
             value={formKs.name}
             type="text"
-            placeholder="Adınızı Giriniz"
+            placeholder={t("enterTheName")}
             className="h-12 rounded-md px-3 text-base font-medium text-messageBoxInputBack bg-backColor border-2 border-solid border-gray-400 focus:border-ksGreen duration-200"
           />
         </div>
         <div className="flex flex-col gap-0.5">
-          <header className="text-lg font-medium">Soyadınız</header>
+          <header className="text-lg font-medium">{t("yourSurname")}</header>
           <input
             maxLength={100}
             name="surname"
             onChange={(e) => formUpdate(e)}
             value={formKs.surname}
             type="text"
-            placeholder="Soyadınızı Giriniz"
+            placeholder={t("enterTheSurname")}
             className="h-12 rounded-md px-3 text-base font-medium text-messageBoxInputBack bg-backColor border-2 border-solid border-gray-400 focus:border-ksGreen duration-200"
           />
         </div>
       </div>
       <div className="flex flex-col gap-0.5">
-        <header className="text-lg font-medium">E-Posta Adresiniz</header>
+        <header className="text-lg font-medium">{t("yourEmail")}</header>
         <input
           maxLength={60}
           name="email"
           onChange={(e) => formUpdate(e)}
           value={formKs.email}
           type="email"
-          placeholder="E-Posta Adresinizi Giriniz"
+          placeholder={t("enterTheEmail")}
           className="h-12 rounded-md px-3 text-base font-medium text-messageBoxInputBack bg-backColor border-2 border-solid border-gray-400 focus:border-ksGreen duration-200"
         />
       </div>
       <div className="flex flex-col gap-0.5">
         <div className="flex items-center justify-between">
-          <header className="text-lg font-medium">Mesajınız</header>
+          <header className="text-lg font-medium">{t("yourMessage")}</header>
           <span className="text-gray-300 font-medium text-sm">
             {formKs.message.length}/2000
           </span>
@@ -95,7 +98,7 @@ function MessageBox() {
           onChange={(e) => formUpdate(e)}
           value={formKs.message}
           type="text"
-          placeholder="Mesajınızı Giriniz"
+          placeholder={t("enterTheMessage")}
           className="h-40 rounded-md p-3 text-base font-medium text-messageBoxInputBack bg-backColor border-2 border-solid border-gray-400 focus:border-ksGreen duration-200 resize-none"
         />
       </div>
@@ -104,7 +107,7 @@ function MessageBox() {
         type="submit"
         className="bg-messageBoxBack border-2 border-solid border-ksGreen text-ksGreen hover:bg-ksGreen hover:text-white h-12 rounded-full text-lg font-medium duration-200 disabled:pointer-events-none disabled:opacity-50"
       >
-        Gönder
+        {t("send")}
       </button>
     </form>
   );

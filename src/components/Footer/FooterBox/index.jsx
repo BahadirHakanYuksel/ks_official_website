@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import FooterHeader from "../FooterHeader";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 function FooterBox({ title, description, url = "/", type = 0 }) {
   const navigation = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -23,7 +25,7 @@ function FooterBox({ title, description, url = "/", type = 0 }) {
                 "mt-2 h-8 w-28 font-medium rounded-sm text-[13px] text-white hover:bg-ksGray duration-200 bg-ksGreen"
               }
             >
-              Devamını Oku
+              {t("readMore")}
             </button>
           </div>
         )}
@@ -33,19 +35,19 @@ function FooterBox({ title, description, url = "/", type = 0 }) {
               onClick={() => navigation(url)}
               className="h-8 w-full font-medium rounded-full text-sm hover:text-white hover:bg-ksGreen duration-200 bg-footerAgendaButtonBack text-myText"
             >
-              Haberler
+              {t("news")}
             </button>
             <button
               onClick={() => navigation(url)}
               className="h-8 w-full font-medium rounded-full text-sm hover:text-white hover:bg-ksGreen duration-200 bg-footerAgendaButtonBack text-myText"
             >
-              Makaleler
+              {t("articles")}
             </button>
             <button
               onClick={() => navigation(url)}
               className="h-8 w-full font-medium rounded-full text-sm hover:text-white hover:bg-ksGreen duration-200 bg-footerAgendaButtonBack text-myText"
             >
-              Duyurular
+              {t("announcements")}
             </button>
           </div>
         )}
