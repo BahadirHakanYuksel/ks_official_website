@@ -21,6 +21,7 @@ export default {
         messageBoxInputBack: "var(--messageBoxInputBack)",
         contactBoxBack: "var(--contactBoxBack)",
         contactBoxTitleBack: "var(--contactBoxTitleBack)",
+        footerAgendaButtonBack: "var(--footerAgendaButtonBack)",
       },
     },
   },

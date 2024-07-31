@@ -31,6 +31,7 @@
   --messageBoxInputBack: var(--ksGray);
   --contactBoxBack: #f1f1f1;
   --contactBoxTitleBack: white;
+  --footerAgendaButtonBack: #e1e9e6;
 }
 
 [data-theme="dark"] {
@@ -53,6 +54,7 @@
   --messageBoxInputBack: #e8e8e8;
   --contactBoxBack: #33373a;
   --contactBoxTitleBack: var(--preKsBoxBack);
+  --footerAgendaButtonBack: var(--ksGray);
 }
 /** old  */
 /* 
