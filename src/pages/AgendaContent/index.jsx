@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import RightSidebar from "./RightSidebar";
 
 function AgendaContent() {
   const { pathAgendaInfo } = useParams();
@@ -71,7 +72,7 @@ function AgendaContent() {
         </div>
         <div className="flex flex-col gap-5">content</div>
       </div>
-      <div className="flex flex-col gap-5 w-[25%]">sağ</div>
+      <RightSidebar />
     </div>
   );
 }
