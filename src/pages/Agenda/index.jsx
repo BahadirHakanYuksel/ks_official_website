@@ -22,6 +22,8 @@ function Agenda() {
       convertFromTextToUrl(category.urlName) === pathAgendaCategory
         ? setactiveCategoryId(category.id)
         : pageControlCounter++;
+
+      console.log(category);
     });
     pageControlCounter === 3
       ? setThisPageIsAgenda(false)
@@ -60,51 +62,74 @@ function Agenda() {
         >
           <PageTitle>{categories[activeCategoryId].title}</PageTitle>
           <div className="page flex flex-col gap-5">
-            <div className="flex gap-5 items-center">
-              <header className="text-ksGreen font-medium text-xl relative">
-                {t("otherCategories")}
-                <span className="absolute h-full w-0.5 rounded-full bg-ksGrayTp -right-2.5"></span>
-              </header>
-              <div className="flex gap-2.5">
-                {categories.map(
-                  (category) =>
-                    category.urlName !== pathAgendaCategory && (
-                      <button
-                        onClick={() => navigate(`/agenda/${category.urlName}`)}
-                        key={category.id}
-                        className={classNames(
-                          "rounded-md bg-backColor text-myText border-2 border-solid border-ksGrayTp hover:border-ksGreen h-10 min-w-32 text-base font-medium duration-200"
-                        )}
-                      >
-                        {category.title}
-                      </button>
-                    )
-                )}
+            <div className="flex justify-between items-center">
+              <div className="flex gap-5 items-center">
+                <header className="text-ksGreen font-medium text-xl relative">
+                  {t("otherCategories")}
+                  <span className="absolute h-full w-0.5 rounded-full bg-ksGrayTp -right-2.5"></span>
+                </header>
+                <div className="flex gap-2.5">
+                  {categories.map(
+                    (category) =>
+                      category.urlName !== pathAgendaCategory && (
+                        <button
+                          onClick={() =>
+                            navigate(`/agenda/${category.urlName}`)
+                          }
+                          key={category.id}
+                          className={classNames(
+                            "rounded-md bg-backColor text-myText border-2 border-solid border-ksGrayTp hover:border-ksGreen h-10 min-w-32 text-base font-medium duration-200"
+                          )}
+                        >
+                          {category.title}
+                        </button>
+                      )
+                  )}
+                </div>
               </div>
+              {/* <div className="flex gap-2.5">
+                <button
+                  className={classNames(
+                    "rounded-md bg-backColor text-myText border-2 border-solid border-ksGrayTp hover:border-ksGreen h-10 min-w-32 text-base font-medium duration-200"
+                  )}
+                >
+                  {t("filter")}
+                </button>
+              </div> */}
             </div>
-            <div className="flex gap-x-16 gap-y-8 flex-wrap">
+            <div className="flex gap-x-[76px] gap-y-8 flex-wrap">
               <AgendaBox
                 agendaTitle={
-                  categories[activeCategoryId].title +
-                  " Başlık deneme birden fazla kelime vs vsbunun bir sonu yokmu ulenn"
+                  "Başlık deneme birden fazla kelime vs vsbunun bir sonu yokmu ulenn"
                 }
                 agendaDate={"01/08/2024"}
+                category={categories[activeCategoryId].urlName}
               />
               <AgendaBox
-                agendaTitle={categories[activeCategoryId].title + " Başlık"}
+                agendaTitle={
+                  "Başlık deneme birden fazla kelime vs vsbunun bir sonu yokmu ulenn"
+                }
                 agendaDate={"01/08/2024"}
+                category={categories[activeCategoryId].urlName}
               />
               <AgendaBox
-                agendaTitle={categories[activeCategoryId].title + " Başlık"}
+                agendaTitle={
+                  "Başlık deneme birden fazla kelime vs vsbunun bir sonu yokmu ulenn"
+                }
                 agendaDate={"01/08/2024"}
+                category={categories[activeCategoryId].urlName}
               />
               <AgendaBox
-                agendaTitle={categories[activeCategoryId].title + " Başlık"}
+                agendaTitle={"Deneme"}
                 agendaDate={"01/08/2024"}
+                category={categories[activeCategoryId].urlName}
               />
               <AgendaBox
-                agendaTitle={categories[activeCategoryId].title + " Başlık"}
+                agendaTitle={
+                  "Başlık deneme birden fazla kelime vs vsbunun bir sonu yokmu ulenn"
+                }
                 agendaDate={"01/08/2024"}
+                category={categories[activeCategoryId].urlName}
               />
             </div>
           </div>

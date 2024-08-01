@@ -22,6 +22,7 @@ function InsuranceServicePage() {
   const [activeServiceButtonIndex, setActiveServiceButtonIndex] = useState(1);
 
   const categories = [t("individual"), t("corporate")];
+  const urlCategories = ["individual", "corporate"];
   const mainIndividualContents = [
     {
       text: "bahadır",
@@ -91,7 +92,7 @@ function InsuranceServicePage() {
     },
   ];
   const serviceControl = () => {
-    if (pathServiceCategory === t("individual").toLowerCase()) {
+    if (pathServiceCategory === "individual") {
       const thisMyService = individual.filter((service) => {
         return (
           encodeURIComponent(
@@ -107,7 +108,7 @@ function InsuranceServicePage() {
       setActiveServiceButtonIndex(1);
       updateMainContentHandle(thisMyMainContent[0].text.split("\n"));
     }
-    if (pathServiceCategory === t("corporate").toLowerCase()) {
+    if (pathServiceCategory === "corporate") {
       const thisMyService = corporate.filter((service) => {
         return (
           encodeURIComponent(
@@ -144,7 +145,7 @@ function InsuranceServicePage() {
   const changeService = (title) => {
     navigate(
       `/${encodeURIComponent(
-        turkishToEnglish(categories[activeCategoryIndex].replace(/ /g, "-"))
+        turkishToEnglish(urlCategories[activeCategoryIndex].replace(/ /g, "-"))
       ).toLowerCase()}/${encodeURIComponent(
         turkishToEnglish(title.replace(/ /g, "-"))
       ).toLowerCase()}`

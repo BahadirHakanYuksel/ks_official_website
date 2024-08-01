@@ -9,6 +9,7 @@ import WhatIsTheKs from "../pages/WhatIsTheKs";
 import InsuranceServicePage from "../pages/InsuranceServicePage";
 import AgendaLayout from "../AgendaLayout";
 import Agenda from "../pages/Agenda";
+import AgendaContent from "../pages/AgendaContent";
 
 export const useDynamicRoutes = () => {
   const { i18n } = useTranslation();
@@ -35,14 +36,12 @@ export const useDynamicRoutes = () => {
           element: <WhatIsTheKs />,
         },
         {
-          path: "agenda/:pathAgendaCategory",
+          path: `agenda/:pathAgendaCategory`,
           element: <Agenda />,
-          children: [
-            {
-              path: "agenda/:pathAgendaCategory/:agendaTitle",
-              element: "gündem sayfası",
-            },
-          ],
+        },
+        {
+          path: "agenda/:pathAgendaCategory/:pathAgendaInfo",
+          element: <AgendaContent />,
         },
         {
           path: "admin",

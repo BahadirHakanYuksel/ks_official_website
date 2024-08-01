@@ -1,10 +1,24 @@
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { convertFromTextToUrl } from "../../consts";
 
-function AgendaBox({ agendaDate, agendaTitle, agendaImgUrl }) {
+function AgendaBox({ agendaDate, agendaTitle, agendaImgUrl, category }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const goAgendaContentPage = () => {
+    navigate(
+      `/agenda/${category}/${encodeURIComponent(
+        convertFromTextToUrl(agendaTitle)
+      )}-123231`
+    );
+  };
 
   return (
-    <button className="agendaBoxHome h-[290.5px] w-80 bg-preKsBoxBack rounded-lg shadow-xl p-3 flex flex-col gap-2.5 hover:text-ksGreen transition-all hover:shadow-md relative overflow-hidden">
+    <button
+      onClick={goAgendaContentPage}
+      className="agendaBoxHome h-[290.5px] w-80 bg-preKsBoxBack rounded-lg shadow-xl p-3 flex flex-col gap-2.5 hover:text-ksGreen transition-all hover:shadow-md relative overflow-hidden"
+    >
       <div className="w-full bg-ksGrayTp aspect-video rounded-lg flex items-center justify-center font-medium relative">
         <span className="text-myText">resim</span>
         <p className="absolute right-1 top-1 text-xs font-medium bg-preKsBoxBack px-2 h-5 flex items-center justify-center rounded-full">

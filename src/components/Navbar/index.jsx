@@ -25,7 +25,6 @@ function Navbar() {
       if (button.url === path) setActiveNavTitleId(button.id);
       if (button.id === 3 && path.split("/")[1] === "agenda")
         setActiveNavTitleId(button.id);
-      console.log(button.id, path.split("/")[1]);
     });
   }, [path]);
 

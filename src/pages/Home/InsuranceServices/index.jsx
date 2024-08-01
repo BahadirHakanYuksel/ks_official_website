@@ -45,7 +45,7 @@ function InsuranceServices() {
         {ActiveServiceId === 0 &&
           individual.map((service, i) => (
             <ServiceBox
-              category={t("individual")}
+              category="individual"
               title={service.title}
               iconUrl={service.iconUrl}
               key={service.id}
@@ -54,7 +54,7 @@ function InsuranceServices() {
         {ActiveServiceId === 1 &&
           corporate.map((service, i) => (
             <ServiceBox
-              category={t("corporate")}
+              category="corporate"
               title={service.title}
               iconUrl={service.iconUrl}
               key={service.id}

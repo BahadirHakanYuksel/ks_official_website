@@ -33,8 +33,8 @@
   "yourMessage": "Message",
   "enterTheName": "Enter your name",
   "enterTheSurname": "Enter your surname",
-  "enterTheEmail": "Enter your mail",
-  "enterTheMessage": "Enter your e-message",
+  "enterTheEmail": "Enter your e-mail",
+  "enterTheMessage": "Enter your message",
   "send": "Send",
   "addressAndContactDetails": "Address and Contact Details",
   "ourAddress": "Our Address",
@@ -45,5 +45,6 @@
   "officialWebsite": "Official Website",
   "halalInsurance": "Helal Insurance",
   "footerBox2Desc": "Recently shared news, announcements and articles.",
-  "otherCategories": "Other Categories"
+  "otherCategories": "Other Categories",
+  "filter": "Filter"
 }

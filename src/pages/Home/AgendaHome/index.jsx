@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { convertFromTextToUrl } from "../../../consts";
+import AgendaBox from "../../../components/AgendaBox";
 
 function AgendaHome() {
   const [activeAgendaTitleId, setActiveAgendaTitleId] = useState(0);
@@ -90,20 +91,13 @@ function AgendaHome() {
         {lastAgendas.map(
           (agenda) =>
             agenda.id < 3 && (
-              <button className="agendaBoxHome h-auto w-80 bg-preKsBoxBack rounded-lg shadow-xl p-3 flex flex-col gap-2.5 hover:text-ksGreen transition-all hover:shadow-md">
-                <div className="w-full bg-ksGrayTp aspect-video rounded-lg flex items-center justify-center font-medium relative">
-                  <span className="text-myText">resim</span>
-                  <p className="absolute right-1 top-1 text-xs font-medium bg-preKsBoxBack px-2 h-5 flex items-center justify-center rounded-full">
-                    12/05/2024
-                  </p>
-                </div>
-                <header className="text-base mb-2.5 h-12 font-medium line-clamp-2">
-                  {agenda.title}
-                </header>
-                <button className="agendaBoxButtonHome h-8 w-full text-myText rounded-full bg-ksGrayTp font-medium text-sm duration-200">
-                  {t("read")}
-                </button>
-              </button>
+              <AgendaBox
+                agendaDate={"12/10/2024"}
+                agendaImgUrl={agenda.imgUrl}
+                agendaTitle={agenda.title}
+                key={agenda.id}
+                category={agendaTitles[activeAgendaTitleId].urlName}
+              />
             )
         )}
       </div>
