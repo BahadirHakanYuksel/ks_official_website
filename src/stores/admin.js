@@ -1,6 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+  ksAdmin: {
+    email: "bhy123",
+    password: "123123",
+    id: "1",
+    localId: "2",
+  },
+};
 
 const admin = createSlice({
   name: "admin",

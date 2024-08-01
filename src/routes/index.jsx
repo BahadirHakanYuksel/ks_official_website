@@ -10,6 +10,9 @@ import InsuranceServicePage from "../pages/InsuranceServicePage";
 import AgendaLayout from "../AgendaLayout";
 import Agenda from "../pages/Agenda";
 import AgendaContent from "../pages/AgendaContent";
+import AdminLayout from "../pages/Admin/AdminLayout";
+import AdminSettings from "../pages/Admin/AdminSettings";
+import AdminAgenda from "../pages/Admin/AdminAgenda";
 
 export const useDynamicRoutes = () => {
   const { i18n } = useTranslation();
@@ -44,12 +47,30 @@ export const useDynamicRoutes = () => {
           element: <AgendaContent />,
         },
         {
-          path: "admin",
+          path: ":pathServiceCategory/:pathServiceName",
+          element: <InsuranceServicePage />,
+        },
+        {
+          path: "*",
+          element: <ErrorPage />,
+        },
+      ],
+    },
+    {
+      path: "/admin/",
+      element: <AdminLayout />,
+      children: [
+        {
+          index: true,
           element: <Admin />,
         },
         {
-          path: ":pathServiceCategory/:pathServiceName",
-          element: <InsuranceServicePage />,
+          path: "account-settings",
+          element: <AdminSettings />,
+        },
+        {
+          path: ":pathAdminCategory",
+          element: <AdminAgenda />,
         },
         {
           path: "*",
