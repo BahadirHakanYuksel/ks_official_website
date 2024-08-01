@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 function ThemeButton() {
   const { act_theme } = useSelector((state) => state.theme);
 
-  const [themeIcon, setthemeIcon] = useState("fa-moon");
+  const [themeIcon, setthemeIcon] = useState(undefined);
 
   const changeTheme = () => {
     switch (act_theme) {
@@ -26,6 +26,10 @@ function ThemeButton() {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("ks_theme")) {
+      if (localStorage.getItem("ks_theme") === "light") setthemeIcon("fa-moon");
+      else setthemeIcon("fa-sun");
+    } else setthemeIcon("fa-moon");
     document.documentElement.setAttribute("data-theme", act_theme);
   }, []);
   return (

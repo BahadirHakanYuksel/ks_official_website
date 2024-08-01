@@ -16,24 +16,18 @@ function Navbar() {
     navigate(url);
   };
 
-  const whenChangingLanguage = () => {
-    const myPageUrl = path.split("/");
-    navMenu.forEach((button) => {
-      console.log(
-        encodeURIComponent(turkishToEnglish(button.title).toLowerCase()),
-        myPageUrl[1]
-      );
-      if (
-        encodeURIComponent(turkishToEnglish(button.title).toLowerCase()) ===
-        myPageUrl[1]
-      )
-        setActiveNavTitleId(button.id);
-    });
-  };
-
   useEffect(() => {
-    whenChangingLanguage();
-  }, [i18n.language]);
+    const keyWord = path.split("/")[1];
+    if (keyWord !== "" && keyWord !== "about" && keyWord !== "contact") {
+      setActiveNavTitleId(99);
+    }
+    navMenu.forEach((button) => {
+      if (button.url === path) setActiveNavTitleId(button.id);
+      if (button.id === 3 && path.split("/")[1] === "agenda")
+        setActiveNavTitleId(button.id);
+      console.log(button.id, path.split("/")[1]);
+    });
+  }, [path]);
 
   const navMenu = [
     {
@@ -42,18 +36,19 @@ function Navbar() {
       id: 0,
     },
     {
-      url: `/${convertFromTextToUrl(t("about-us"))}`,
+      url: "/about",
       title: t("about-us"),
       id: 1,
     },
     {
-      url: `/${convertFromTextToUrl(t("contact"))}`,
+      url: "/contact",
       title: t("contact"),
       id: 2,
     },
     {
       url: false,
       title: t("agenda"),
+      id: 3,
       subCategories: [
         {
           url: "haberler",
@@ -71,14 +66,16 @@ function Navbar() {
           id: 2,
         },
       ],
-      id: 3,
     },
   ];
 
   return (
     <div className="w-full h-12 sticky top-0 left-0 bg-backColor flex items-center justify-between px-[200px] z-20 mb-5">
       <button
-        onClick={() => navigate("/")}
+        onClick={() => {
+          setActiveNavTitleId(0);
+          navigate("/");
+        }}
         className="flex gap-2.5 items-center active:scale-105 duration-200"
       >
         <div className="bg-ksGray rounded-sm">

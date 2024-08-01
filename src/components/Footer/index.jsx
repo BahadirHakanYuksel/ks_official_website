@@ -3,6 +3,7 @@ import LanguageButtons from "../LanguageButtons";
 import ThemeButton from "../ThemeButton";
 import FooterHeader from "./FooterHeader";
 import FooterBox from "./FooterBox";
+import { convertFromTextToUrl, turkishToEnglish } from "../../consts";
 
 function Footer() {
   const { t, i18n } = useTranslation();
@@ -12,15 +13,18 @@ function Footer() {
       title: t("about-us"),
       description:
         "Katılım-Tekafül Sigorta olarak, müşterilerimize İslami prensiplere uygun, adil ve şeffaf bir sigorta deneyimi sunmayı taahhüt ediyoruz. Amacımız, bireylerin ve işletmelerin risklerini paylaşarak vence altına almalarına yardımcı olmak ve bu süreçte toplumsal dayanışmayıajshdashdaksdh",
+      buttonUrl: "/about",
     },
     {
       title: t("agenda"),
       description: t("footerBox2Desc"),
+      buttonUrl: "/",
     },
     {
       title: `${t("what-is-the-ks")} ?`,
       description:
         "Katılım sigortası, İslami finans prensiplerine uygun olarak faaliyet gösteren ve sigorta risklerinin paylaşımını esas alan bir sigorta modelidir. Bu model, geleneksel sigorta sistemlerinden farklı olarak,müşteri ve sigorta şirketi arasındaki ilişkiyi bir ortaklık şeklinde yapılandırır. Katılımasdasdasdasdasd",
+      buttonUrl: "/what-is-participation-insurance",
     },
   ];
 
@@ -51,6 +55,7 @@ function Footer() {
             description={box.description}
             type={i}
             key={i}
+            url={box.buttonUrl}
           />
         ))}
       </div>

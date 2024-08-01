@@ -1,8 +1,15 @@
+import { motion } from "framer-motion";
+
 function PageTitle({ children }) {
   return (
-    <header className="bg-ksGreen text-white w-full h-20 text-4xl font-medium flex justify-center items-center mb-10">
+    <motion.header
+      initial={{ height: 0 }}
+      animate={{ height: "80px" }}
+      transition={{ duration: 0.3 }}
+      className="bg-ksGreen text-white w-full text-4xl font-medium flex justify-center items-center mb-5 overflow-hidden"
+    >
       {children}
-    </header>
+    </motion.header>
   );
 }
 

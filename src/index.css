@@ -133,9 +133,20 @@ textarea {
   pointer-events: all;
 }
 
-.agendaBoxHome:hover > .agendaBoxButtonHome {
+.agendaBoxHome:hover > .agendaBoxButtonHome,
+.agendaBoxButton {
   background-color: var(--ksGreen);
   color: white;
+}
+.agendaBoxHome:hover > .agendaBoxButton {
+  bottom: 12px;
+  width: calc(100% - 24px);
+}
+.agendaBoxMarkName {
+  width: calc(100% - 24px);
+}
+.agendaBoxHome:hover > .agendaBoxMarkName {
+  bottom: -20px;
 }
 
 .servicePageGrid {

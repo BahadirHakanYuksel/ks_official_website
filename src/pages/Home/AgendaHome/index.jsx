@@ -2,23 +2,29 @@ import { useState } from "react";
 import HomeTitle from "../../../components/HomeTitle";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { convertFromTextToUrl } from "../../../consts";
 
 function AgendaHome() {
   const [activeAgendaTitleId, setActiveAgendaTitleId] = useState(0);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const agendaTitles = [
     {
+      urlName: "news",
       title: t("news"),
       dbKeyUrl: "",
       id: 0,
     },
     {
+      urlName: "articles",
       title: t("articles"),
       dbKeyUrl: "",
       id: 1,
     },
     {
+      urlName: "announcements",
       title: t("announcements"),
       dbKeyUrl: "",
       id: 2,
@@ -51,6 +57,11 @@ function AgendaHome() {
       url: "",
     },
   ];
+
+  const goAgendaMain = () => {
+    const myUrl = `/agenda/${agendaTitles[activeAgendaTitleId].urlName}`;
+    navigate(myUrl);
+  };
 
   return (
     <div className="flex flex-col gap-5">
@@ -97,7 +108,10 @@ function AgendaHome() {
         )}
       </div>
       <div className="flex items-center justify-center mt-5">
-        <button className="bg-preKsBoxBack w-[200px] border-2 border-solid border-ksGray duration-200 hover:text-ksGreen hover:border-ksGreen h-10 rounded-full hover:bg-ksGray font-semibold">
+        <button
+          onClick={goAgendaMain}
+          className="bg-preKsBoxBack w-[200px] border-2 border-solid border-ksGray duration-200 hover:text-ksGreen hover:border-ksGreen h-10 rounded-full hover:bg-ksGray font-semibold"
+        >
           {t("all")} {agendaTitles[activeAgendaTitleId].title}
         </button>
       </div>

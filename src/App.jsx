@@ -1,29 +1,34 @@
-import { useLocation, useNavigate, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import { useDynamicRoutes } from "./routes";
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { url_en_data, url_tr_data } from "./consts";
+import { useSelector } from "react-redux";
+import { updateThemeHandle } from "./utils";
 
 function App() {
   const routes = useDynamicRoutes();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { i18n } = useTranslation();
+  const act_theme = useSelector((state) => state.theme);
+  // useEffect(() => {
+  //   const path_name = location.pathname;
+  //   console.log("pathname : ", path_name);
+  //   if (i18n.language === "tr") {
+  //     url_tr_data.forEach((url) => {
+  //       url.first === path_name && navigate(url.second);
+  //     });
+  //   } else {
+  //     url_en_data.forEach((url) => {
+  //       url.first === path_name && navigate(url.second);
+  //     });
+  //   }
+  // }, [i18n.language]);
 
   useEffect(() => {
-    const path_name = location.pathname;
-    console.log("pathname : ", path_name);
-    if (i18n.language === "tr") {
-      url_tr_data.forEach((url) => {
-        console.log(url.first, " ", path_name);
-        url.first === path_name && navigate(url.second);
-      });
-    } else {
-      url_en_data.forEach((url) => {
-        url.first === path_name && navigate(url.second);
-      });
+    if (localStorage.getItem("ks_theme")) {
+      document.documentElement.setAttribute(
+        "data-theme",
+        localStorage.getItem("ks_theme")
+      );
     }
-  }, [i18n.language]);
+  }, [act_theme]);
 
   return useRoutes(routes);
 }

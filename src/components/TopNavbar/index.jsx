@@ -7,7 +7,7 @@ function TopNavbar() {
   const { t } = useTranslation();
   const myUrls = [
     {
-      url: `/${convertFromTextToUrl(t("what-is-the-ks"))}`,
+      url: "/what-is-participation-insurance",
       title: t("what-is-the-ks") + " ?",
       id: 0,
     },

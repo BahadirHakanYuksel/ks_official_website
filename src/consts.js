@@ -44,6 +44,18 @@ export const url_tr_data = [
     first: "/individual/dask",
     second: "/bireysel/dask",
   },
+  {
+    first: "/agenda/news",
+    second: "/gundem/haberler",
+  },
+  {
+    first: "/agenda/articles",
+    second: "/gundem/makaleler",
+  },
+  {
+    first: "/agenda/announcements",
+    second: "/gundem/duyurular",
+  },
 ];
 
 export const url_en_data = [
@@ -68,6 +80,18 @@ export const url_en_data = [
   {
     first: "/bireysel/dask",
     second: "/individual/dask",
+  },
+  {
+    first: "/gundem/haberler",
+    second: "/agenda/news",
+  },
+  {
+    first: "/gundem/makaleler",
+    second: "/agenda/articles",
+  },
+  {
+    first: "/gundem/duyurular",
+    second: "/agenda/announcements",
   },
 ];
 

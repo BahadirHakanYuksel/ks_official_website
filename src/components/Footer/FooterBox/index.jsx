@@ -7,6 +7,27 @@ function FooterBox({ title, description, url = "/", type = 0 }) {
   const navigation = useNavigate();
   const { t } = useTranslation();
 
+  const categories = [
+    {
+      urlName: "/agenda/news",
+      title: t("news"),
+      dbKeyUrl: "",
+      id: 0,
+    },
+    {
+      urlName: "/agenda/articles",
+      title: t("articles"),
+      dbKeyUrl: "",
+      id: 1,
+    },
+    {
+      urlName: "/agenda/announcements",
+      title: t("announcements"),
+      dbKeyUrl: "",
+      id: 2,
+    },
+  ];
+
   return (
     <>
       <div className="flex flex-col gap-2.5 py-3 bg-opacity-20">
@@ -31,24 +52,15 @@ function FooterBox({ title, description, url = "/", type = 0 }) {
         )}
         {type === 1 && (
           <div className="flex flex-col gap-2.5">
-            <button
-              onClick={() => navigation(url)}
-              className="h-8 w-full font-medium rounded-full text-sm hover:text-white hover:bg-ksGreen duration-200 bg-footerAgendaButtonBack text-myText"
-            >
-              {t("news")}
-            </button>
-            <button
-              onClick={() => navigation(url)}
-              className="h-8 w-full font-medium rounded-full text-sm hover:text-white hover:bg-ksGreen duration-200 bg-footerAgendaButtonBack text-myText"
-            >
-              {t("articles")}
-            </button>
-            <button
-              onClick={() => navigation(url)}
-              className="h-8 w-full font-medium rounded-full text-sm hover:text-white hover:bg-ksGreen duration-200 bg-footerAgendaButtonBack text-myText"
-            >
-              {t("announcements")}
-            </button>
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => navigation(category.urlName)}
+                className="h-8 w-full font-medium rounded-full text-sm hover:text-white hover:bg-ksGreen duration-200 bg-footerAgendaButtonBack text-myText"
+              >
+                {category.title}
+              </button>
+            ))}
           </div>
         )}
       </div>

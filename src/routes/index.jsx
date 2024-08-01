@@ -7,6 +7,8 @@ import ErrorPage from "../pages/ErrorPage";
 import { useTranslation } from "react-i18next";
 import WhatIsTheKs from "../pages/WhatIsTheKs";
 import InsuranceServicePage from "../pages/InsuranceServicePage";
+import AgendaLayout from "../AgendaLayout";
+import Agenda from "../pages/Agenda";
 
 export const useDynamicRoutes = () => {
   const { i18n } = useTranslation();
@@ -21,22 +23,29 @@ export const useDynamicRoutes = () => {
           element: <Home />,
         },
         {
-          path: i18n.language === "en" ? "about" : "hakkimizda",
+          path: "about",
           element: <About />,
         },
         {
-          path: i18n.language === "en" ? "contact" : "iletisim",
+          path: "contact",
           element: <Contact />,
         },
         {
-          path:
-            i18n.language === "en"
-              ? "what-is-participation-insurance"
-              : "katilim-sigortasi-nedir",
+          path: "what-is-participation-insurance",
           element: <WhatIsTheKs />,
         },
         {
-          path: i18n.language === "en" ? "admin" : "yonetici-paneli",
+          path: "agenda/:pathAgendaCategory",
+          element: <Agenda />,
+          children: [
+            {
+              path: "agenda/:pathAgendaCategory/:agendaTitle",
+              element: "gündem sayfası",
+            },
+          ],
+        },
+        {
+          path: "admin",
           element: <Admin />,
         },
         {
