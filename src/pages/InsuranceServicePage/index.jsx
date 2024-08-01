@@ -182,7 +182,9 @@ function InsuranceServicePage() {
                               turkishToEnglish(service.title.replace(/ /g, "-"))
                             ).toLowerCase() === pathServiceName &&
                             encodeURIComponent(
-                              turkishToEnglish(categories[activeCategoryIndex])
+                              turkishToEnglish(
+                                urlCategories[activeCategoryIndex]
+                              )
                             ).toLowerCase() === pathServiceCategory,
                         }
                       )}
@@ -202,7 +204,9 @@ function InsuranceServicePage() {
                               turkishToEnglish(service.title.replace(/ /g, "-"))
                             ).toLowerCase() === pathServiceName &&
                             encodeURIComponent(
-                              turkishToEnglish(categories[activeCategoryIndex])
+                              turkishToEnglish(
+                                urlCategories[activeCategoryIndex]
+                              )
                             ).toLowerCase() === pathServiceCategory,
                         }
                       )}

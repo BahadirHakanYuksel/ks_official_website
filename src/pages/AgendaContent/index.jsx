@@ -1,16 +1,22 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import RightSidebar from "./RightSidebar";
+import { motion } from "framer-motion";
 
 function AgendaContent() {
   const { pathAgendaInfo } = useParams();
 
   useEffect(() => {
     //id -> pathAgendaInfo.split("-")[pathAgendaInfo.split("-").length - 1]
+    document.scrollingElement.scrollTop = 0;
   }, [pathAgendaInfo]);
 
   return (
-    <div className="page flex gap-10">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="page flex gap-10"
+    >
       <div className="w-[75%] flex flex-col gap-2.5">
         <header className="text-3xl font-medium text-myText">
           HABER BAŞLIĞI BU ŞEKİLDE GÖRÜNÜYOR
@@ -73,7 +79,7 @@ function AgendaContent() {
         <div className="flex flex-col gap-5">content</div>
       </div>
       <RightSidebar />
-    </div>
+    </motion.div>
   );
 }
 

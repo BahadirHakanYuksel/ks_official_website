@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import AgendaContentSiderbarBox from "./AgendaContentSiderbarBox";
 
 function RightSidebar() {
   const { t } = useTranslation();
@@ -25,27 +26,58 @@ function RightSidebar() {
   ];
 
   return (
-    <div className="flex flex-col w-[25%] gap-2.5">
-      <header className="text-xl h-9 flex justify-center items-center font-medium text-white bg-ksGreen rounded-sm text-center">
-        {agendaTitles[0].title}
-      </header>
-      <button className="flex flex-col w-full bg-preKsBoxBack overflow-hidden p-2.5 gap-2 shadow-lg">
-        <div className="w-full aspect-video bg-ksGrayTp bg-opacity-10 rounded-sm">
-          resim
-        </div>
-        <p className="text-sm w-full h-10 line-clamp-2 flex justify-start">
-          Haber başlığı bu şekilde görünecek başlığı bu şekilde görünecek
-          başlığı bu şekilde görünecek
-        </p>
-      </button>
-      <button className="flex flex-col w-full bg-preKsBoxBack overflow-hidden p-2.5 gap-2 shadow-lg">
-        <div className="w-full aspect-video bg-ksGrayTp bg-opacity-10 rounded-sm">
-          resim
-        </div>
-        <header className="text-sm line-clamp-2 h-10 flex justify-start">
-          Haber başlığı bu şekilde görünecek
+    <div className="flex flex-col w-[25%] gap-10">
+      <div className="flex flex-col w-full gap-2.5">
+        <header className="text-xl h-9 flex justify-center items-center font-medium text-white bg-ksGreen rounded-sm text-center">
+          {agendaTitles[0].title}
         </header>
-      </button>
+        <AgendaContentSiderbarBox
+          category={agendaTitles[0].urlName}
+          title={"Bu bir deneme başlığı"}
+        />
+        <AgendaContentSiderbarBox
+          category={agendaTitles[0].urlName}
+          title={"Bu bir deneme başlığı"}
+        />
+        <AgendaContentSiderbarBox
+          category={agendaTitles[0].urlName}
+          title={"Bu bir deneme başlığı"}
+        />
+      </div>
+      <div className="flex flex-col w-full gap-2.5">
+        <header className="text-xl h-9 flex justify-center items-center font-medium text-white bg-ksGreen rounded-sm text-center">
+          {agendaTitles[1].title}
+        </header>
+        <AgendaContentSiderbarBox
+          category={agendaTitles[1].urlName}
+          title={"Bu bir deneme başlığı"}
+        />
+        <AgendaContentSiderbarBox
+          category={agendaTitles[1].urlName}
+          title={"Bu bir deneme başlığı"}
+        />
+        <AgendaContentSiderbarBox
+          category={agendaTitles[1].urlName}
+          title={"Bu bir deneme başlığı"}
+        />
+      </div>
+      <div className="flex flex-col w-full gap-2.5">
+        <header className="text-xl h-9 flex justify-center items-center font-medium text-white bg-ksGreen rounded-sm text-center">
+          {agendaTitles[2].title}
+        </header>
+        <AgendaContentSiderbarBox
+          category={agendaTitles[2].urlName}
+          title={"Bu bir deneme başlığı"}
+        />
+        <AgendaContentSiderbarBox
+          category={agendaTitles[2].urlName}
+          title={"Bu bir deneme başlığı"}
+        />
+        <AgendaContentSiderbarBox
+          category={agendaTitles[2].urlName}
+          title={"Bu bir deneme başlığı"}
+        />
+      </div>
     </div>
   );
 }
