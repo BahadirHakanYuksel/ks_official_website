@@ -142,6 +142,12 @@ textarea {
   bottom: 12px;
   width: calc(100% - 24px);
 }
+.agendaBoxHome:hover > .adminAgendaBoxButtonEdit {
+  bottom: 12px;
+}
+.agendaBoxHome:hover > .adminAgendaBoxButtonDel {
+  bottom: 12px;
+}
 .agendaBoxMarkName {
   width: calc(100% - 24px);
 }
@@ -161,4 +167,8 @@ textarea {
 
 .agendaContentSiderbarBox:hover > * {
   color: var(--ksGreen);
+}
+
+.adminSettingsGrid {
+  grid-template-columns: auto auto 300px;
 }

@@ -5,6 +5,8 @@ import ThemeButton from "../../../components/ThemeButton";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
+import LanguageButtons from "../../../components/LanguageButtons";
+import { AnimatePresence, motion } from "framer-motion";
 
 function AdminLayout() {
   const { ksAdmin } = useSelector((state) => state.admin);
@@ -48,38 +50,45 @@ function AdminLayout() {
 
   return (
     <div>
-      {ksAdmin ? (
-        <div className="flex flex-col w-full min-h-screen bg-backColor px-10">
-          <nav className="flex items-center justify-between h-14 bg-backColor sticky top-0 w-full left-0">
-            <button
-              onClick={() => navigate("/admin")}
-              className="text-3xl font-medium text-ksGreen active:scale-105 duration-200"
-            >
-              Katılım Sigortası Admin Paneli
-            </button>
-            <div className="flex gap-2.5">
-              {adminMenuData.map((btn) => (
-                <button
-                  onClick={() => navigate(btn.url)}
-                  key={btn.id}
-                  className={classNames(
-                    "text-base font-medium text-myText bg-serviceMenuBtnBack shadow-md px-2 flex items-center justify-center rounded-sm h-8 duration-200",
-                    {
-                      "!text-ksGreen": btn.id === activeNavMenuButtonId,
-                    }
-                  )}
-                >
-                  {btn.title}
-                </button>
-              ))}
-              <ThemeButton />
-            </div>
-          </nav>
-          <Outlet />
-        </div>
-      ) : (
-        <LoginPage />
-      )}
+      <AnimatePresence>
+        {ksAdmin ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex flex-col w-full min-h-screen bg-backColor px-10"
+          >
+            <nav className="flex items-center justify-between h-14 bg-backColor sticky top-0 w-full left-0">
+              <button
+                onClick={() => navigate("/admin")}
+                className="text-3xl font-medium text-ksGreen active:scale-105 duration-200"
+              >
+                Katılım Sigortası Admin Paneli
+              </button>
+              <div className="flex gap-2.5">
+                {adminMenuData.map((btn) => (
+                  <button
+                    onClick={() => navigate(btn.url)}
+                    key={btn.id}
+                    className={classNames(
+                      "text-base font-medium text-myText bg-serviceMenuBtnBack shadow-md px-2 flex items-center justify-center rounded-sm h-8 duration-200",
+                      {
+                        "!text-ksGreen": btn.id === activeNavMenuButtonId,
+                      }
+                    )}
+                  >
+                    {btn.title}
+                  </button>
+                ))}
+                <LanguageButtons />
+                <ThemeButton />
+              </div>
+            </nav>
+            <Outlet />
+          </motion.div>
+        ) : (
+          <LoginPage />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
