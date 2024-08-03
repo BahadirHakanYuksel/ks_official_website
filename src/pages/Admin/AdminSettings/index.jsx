@@ -12,7 +12,11 @@ function AdminSettings() {
   const [passwordChangeIsActive, setPasswordChangeIsActive] = useState(false);
 
   return (
-    <div className="flex flex-col">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flex flex-col"
+    >
       <header className="w-full h-16 text-2xl font-medium flex items-center justify-center rounded-sm bg-ksGreen text-white mb-10">
         Hesap Ayarları
       </header>
@@ -108,7 +112,7 @@ function AdminSettings() {
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

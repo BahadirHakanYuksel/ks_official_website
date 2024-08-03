@@ -6,6 +6,7 @@ import {
   updateService,
 } from "../stores/app";
 import { updateLng } from "../stores/lng";
+import { closeModalBox, openModalBox } from "../stores/modal";
 import { updateTheme } from "../stores/theme";
 
 export const updateLngHandle = (lng) => {
@@ -34,4 +35,12 @@ export const updateServiceHandle = (serviceInfos) => {
 
 export const updateMainContentHandle = (mainContent) => {
   stores.dispatch(updateMainContent(mainContent));
+};
+
+export const openModalBoxHandle = (infos) => {
+  stores.dispatch(openModalBox(infos));
+};
+
+export const closeModalBoxHandle = () => {
+  stores.dispatch(closeModalBox());
 };

@@ -2,6 +2,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import classNames from "classnames";
 import Slider from "react-slick";
+import { useTranslation } from "react-i18next";
 
 function SampleNextArrow(props) {
   const { onClick } = props;
@@ -28,20 +29,22 @@ function SamplePrevArrow(props) {
 }
 
 function PresentationSlider() {
+  const { i18n } = useTranslation();
+
   const sliderData = [
     {
       id: 0,
-      url: "slider1.png",
+      url: i18n.language === "en" ? "ks_1.png" : "sh_1.png",
       link: "page 1",
     },
     {
       id: 1,
-      url: "slider2.png",
+      url: i18n.language === "en" ? "ks_2.png" : "ks_2tr.png",
       link: "page 2",
     },
     {
       id: 2,
-      url: "slider3.png",
+      url: i18n.language === "en" ? "ks_3.png" : "ks_3tr.png",
       link: "page 3",
     },
   ];

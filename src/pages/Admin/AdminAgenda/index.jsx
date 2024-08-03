@@ -6,6 +6,10 @@ import AgendaBox from "../../../components/AgendaBox";
 import ErrorPage from "../../ErrorPage";
 import AdminErrorPage from "../AdminErrorPage";
 import AdminAgendaBox from "../AdminAgendaBox";
+import ModalBox from "../../../components/ModalBox";
+import { useSelector } from "react-redux";
+import { AnimatePresence, motion } from "framer-motion";
+import { openModalBoxHandle } from "../../../utils";
 
 function AdminAgenda() {
   const { pathAdminCategory } = useParams();
@@ -48,12 +52,21 @@ function AdminAgenda() {
       ? setIsAgenda(true)
       : setIsAgenda(false);
   }, [pathAdminCategory]);
+  const { modalInfos } = useSelector((state) => state.modal);
 
   return (
     <>
       {isAgenda ? (
-        <div>
-          <div className="flex gap-5 items-center h-12">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="relative"
+        >
+          <AnimatePresence>{modalInfos && <ModalBox />}</AnimatePresence>
+          <header className="w-full h-16 text-2xl font-medium flex items-center justify-center rounded-sm bg-gradient-to-r to-green-950 from-green-950 via-[#189245] text-white mb-5">
+            {categories[activeAgendaCategoryId].title}
+          </header>
+          <div className="flex gap-5 items-center h-12 mb-5">
             <header className="text-xl font-medium relative">
               {t("otherCategories")}{" "}
               <div className="absolute -right-2.5 top-0 h-full bg-ksGrayTp w-0.5 rounded-full flex"></div>
@@ -75,25 +88,29 @@ function AdminAgenda() {
               )}
             </div>
           </div>
-          <header className="w-full h-16 text-2xl font-medium flex items-center justify-center rounded-sm bg-gradient-to-r to-green-950 from-green-950 via-[#189245] text-white mb-10">
-            {categories[activeAgendaCategoryId].title}
-          </header>
           <div className="flex flex-wrap justify-start gap-10">
+            <button
+              onClick={() => {
+                openModalBoxHandle({
+                  operation: "add",
+                  data: "",
+                });
+              }}
+              className="agendaBoxHome h-[290.5px] w-80 bg-ksGreen rounded-lg shadow-xl p-3 flex flex-col gap-2.5 text-white text-2xl hover:bg-green-700 items-center justify-center font-medium transition-all hover:shadow-md relative overflow-hidden"
+            >
+              <i className="fa-solid fa-plus text-6xl"></i>
+              <span>
+                Yeni {categories[activeAgendaCategoryId].title.slice(0, -3)}{" "}
+                Yükle
+              </span>
+            </button>
             <AdminAgendaBox
               agendaTitle={"Hakan"}
               category={categories[activeAgendaCategoryId].urlName}
               id={"000000"}
             />
-            <AgendaBox
-              agendaTitle={"bahadır"}
-              category={categories[activeAgendaCategoryId].urlName}
-            />
-            <AgendaBox
-              agendaTitle={"bahadır"}
-              category={categories[activeAgendaCategoryId].urlName}
-            />
           </div>
-        </div>
+        </motion.div>
       ) : (
         <AdminErrorPage />
       )}

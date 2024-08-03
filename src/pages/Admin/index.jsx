@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +30,11 @@ function Admin() {
   ];
 
   return (
-    <div className="flex flex-col">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flex flex-col"
+    >
       <div className="w-full h-[400px] bg-gradient-to-t to-ksGreen from-ksGray text-white text-5xl font-medium flex items-center justify-center shadow-lg relative rounded-t-md">
         <div className="absolute left-2.5 top-2.5 text-sm text-backColor">
           HIZLI MENÜ
@@ -53,7 +58,7 @@ function Admin() {
       <div className="text-titleColor font-medium text-sm flex items-center justify-center h-10">
         2024-Katılım Sigortası Admin Paneli
       </div>
-    </div>
+    </motion.div>
   );
 }
 

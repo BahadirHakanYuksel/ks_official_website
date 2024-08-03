@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { openModalBoxHandle } from "../../../utils";
 
 function AdminAgendaBox({ agendaDate, agendaTitle, category, id }) {
   const { t } = useTranslation();
@@ -7,6 +8,25 @@ function AdminAgendaBox({ agendaDate, agendaTitle, category, id }) {
 
   const goAgendaModalPage = () => {
     navigate(`/admin/${category}/${agendaTitle}-${id}`);
+  };
+
+  const modalActions = (operation) => {
+    switch (operation) {
+      case "edit":
+        openModalBoxHandle({
+          operation,
+          agendaId: id,
+        });
+        break;
+      case "delete":
+        openModalBoxHandle({
+          operation,
+          agendaId: id,
+        });
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -20,10 +40,16 @@ function AdminAgendaBox({ agendaDate, agendaTitle, category, id }) {
       <header className="text-start text-base mb-2.5 h-12 font-medium line-clamp-2">
         {agendaTitle}
       </header>
-      <button className="adminAgendaBoxButtonEdit absolute -bottom-12 left-2.5 h-8 w-[140px] text-myText rounded-full bg-ksGrayTp font-medium text-sm duration-200 hover:text-white hover:bg-ksGreen">
+      <button
+        onClick={() => modalActions("edit")}
+        className="adminAgendaBoxButtonEdit absolute -bottom-12 left-2.5 h-10 w-[140px] text-myText rounded-full bg-ksGrayTp font-medium text-sm duration-200 hover:text-white hover:bg-ksGreen"
+      >
         Düzenle
       </button>
-      <button className="adminAgendaBoxButtonDel absolute -bottom-12 right-2.5 h-8 w-[140px] text-myText rounded-full bg-ksGrayTp font-medium text-sm duration-200 hover:bg-red-600">
+      <button
+        onClick={() => modalActions("delete")}
+        className="adminAgendaBoxButtonDel absolute -bottom-12 right-2.5 h-10 w-[140px] text-myText rounded-full bg-ksGrayTp font-medium text-sm duration-200 hover:bg-red-600 hover:text-white"
+      >
         Sil
       </button>
       <div className="absolute text-xs agendaBoxMarkName opacity-100 duration-200 bottom-3 left-1/2 -translate-x-1/2 w-full bg-ksGrayTp h-1.5 rounded-full "></div>
