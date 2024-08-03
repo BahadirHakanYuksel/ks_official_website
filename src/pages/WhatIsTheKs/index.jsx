@@ -11,10 +11,12 @@ function WhatIsTheKs() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="page flex flex-col gap-5"
+      className=" flex flex-col gap-5"
     >
       <PageTitle>{t("what-is-the-ks")} ?</PageTitle>
-      <IntroductionOfKs />
+      <div className="page">
+        <IntroductionOfKs />
+      </div>
     </motion.div>
   );
 }

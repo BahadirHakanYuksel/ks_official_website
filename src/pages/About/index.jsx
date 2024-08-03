@@ -8,9 +8,10 @@ function About() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="page flex flex-col gap-5"
+      className="flex flex-col gap-5"
     >
       <PageTitle>{t("about-us")}</PageTitle>
+      <div className="page">desc</div>
     </motion.div>
   );
 }
