@@ -1,8 +1,9 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { closeModalBoxHandle } from "../../utils";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
+import { format } from "date-fns";
 
 function ModalBox() {
   const { modalInfos } = useSelector((state) => state.modal);
@@ -34,6 +35,9 @@ function ModalBox() {
   const [history, setHistory] = useState([]);
   const [currentStep, setCurrentStep] = useState(-1);
   const [previewImg, setpreviewImg] = useState("");
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  const [uploadTime, setUploadTime] = useState(new Date());
+  const [AllInputIsOk, setAllInputIsOk] = useState(false);
 
   const insertMarkup = (
     startTag,
@@ -131,8 +135,42 @@ function ModalBox() {
     });
   };
 
+  const updateImg = (file) => {
+    setModalData({ ...modalData, ksImgUrl: file });
+    setpreviewImg(URL.createObjectURL(file));
+  };
+
+  const allInputControl = () => {
+    console.log(modalData);
+    console.log("resim : ", previewImg);
+
+    if (
+      modalData.ksCategory !== "" &&
+      modalData.ksContent !== "" &&
+      modalData.ksContent.length <= 10000 &&
+      modalData.ksImgUrl !== "" &&
+      modalData.ksLastUpdateDate !== "" &&
+      modalData.ksTitle !== "" &&
+      modalData.ksUploadDate !== "" &&
+      modalData.ksWriter !== ""
+    ) {
+      setAllInputIsOk(true);
+    } else setAllInputIsOk(false);
+  };
+
+  const SaveAndUpdateOperations = () => {
+    if (modalInfos.operation === "edit") {
+    } else if (modalInfos.operation === "add") {
+    }
+  };
+
+  const deleteOperation = () => {
+    // delete on db
+  };
+
   useEffect(() => {
     document.querySelector("html").style.overflowY = "hidden";
+
     if (modalInfos.operation === "edit") {
       setModalData({
         ksId: modalInfos.myData.ks_id,
@@ -161,8 +199,24 @@ function ModalBox() {
       setpreviewImg(
         `https://katilimsigortacisi.com/img/${modalInfos.myData.img_url}`
       );
+      setUploadTime(modalData.ksUploadDate);
+      const formattedDate = format(currentDateTime, "yyyy-MM-dd HH:mm:ss");
+      setCurrentDateTime(formattedDate);
+    } else if (modalInfos.operation === "add") {
+      const formattedDate = format(uploadTime, "yyyy-MM-dd HH:mm:ss");
+      setModalData({
+        ...modalData,
+        ksUploadDate: formattedDate,
+        ksLastUpdateDate: formattedDate,
+        ksCategory: modalInfos.data,
+      });
+      setpreviewImg("");
     }
   }, []);
+
+  useEffect(() => {
+    allInputControl();
+  }, [modalData, previewImg]);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -192,14 +246,40 @@ function ModalBox() {
                 Resim {modalInfos.operation === "edit" && "Düzenle"}
                 {modalInfos.operation === "add" && "Yükle"}
               </header>
-              <div className="aspect-video flex items-center justify-center w-[800px] border-2 border-solid rounded-md overflow-hidden border-ksGrayTp">
-                {modalInfos.operation === "edit" && (
-                  <img
-                    src={previewImg}
-                    alt=""
-                    className="w-full aspect-video"
-                  />
-                )}
+              <div className="aspect-video flex items-center justify-center w-[800px] border-2 border-solid rounded-md overflow-hidden border-ksGrayTp relative">
+                <AnimatePresence>
+                  {modalInfos.operation === "edit" && previewImg !== "" && (
+                    <motion.img
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      src={previewImg !== "" && previewImg}
+                      alt=""
+                      className="w-full aspect-video"
+                    />
+                  )}
+                  {modalInfos.operation === "add" && previewImg !== "" && (
+                    <motion.img
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      src={previewImg !== "" && previewImg}
+                      alt=""
+                      className="w-full aspect-video"
+                    />
+                  )}
+                  {previewImg === "" && (
+                    <motion.label
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      htmlFor="imgInput"
+                      className="absolute w-full text-4xl font-medium hover:bg-ksGreen hover:text-white duration-200 h-full flex items-center justify-center cursor-pointer select-none"
+                    >
+                      Resim Yüklemek İçin Tıklayın
+                    </motion.label>
+                  )}
+                </AnimatePresence>
               </div>
               <label
                 htmlFor="imgInput"
@@ -207,7 +287,15 @@ function ModalBox() {
               >
                 Resim Seç
               </label>
-              <input type="file" className="hidden" id="imgInput" />
+              <input
+                name="ksImgUrl"
+                type="file"
+                onChange={(e) => {
+                  updateImg(e.target.files[0]);
+                }}
+                className="hidden"
+                id="imgInput"
+              />
             </div>
             <div className="flex flex-col gap-2.5">
               <header className="text-2xl font-medium text-titleColor">
@@ -218,6 +306,8 @@ function ModalBox() {
                 placeholder="Başlık Giriniz"
                 className="border-2 border-solid border-gray-300 bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
                 value={modalData.ksTitle}
+                onChange={handleInputChange}
+                name="ksTitle"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -244,7 +334,7 @@ function ModalBox() {
                 <div className="flex gap-3 items-center">
                   {modalData.ksContent.length > 10000 && (
                     <header className="text-red-600 font-medium text-base">
-                      {myGrupName} Yazısı Çok Uzun
+                      Yazı Çok Uzun
                     </header>
                   )}
                   <span
@@ -316,29 +406,48 @@ function ModalBox() {
                 placeholder="Yazar Adını Giriniz"
                 className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
                 value={modalData.ksWriter}
+                onChange={handleInputChange}
+                name="ksWriter"
               />
             </div>
-            <div className="grid grid-cols-2 gap-5">
-              <div className="flex flex-col gap-2.5">
+            <div className="grid grid-cols-3 gap-5">
+              <div className="flex flex-col w-full gap-2.5">
                 <header className="text-2xl font-medium text-titleColor">
                   Yükleme Tarihi
                 </header>
                 <input
-                  type="date"
-                  className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                  value={modalData.ksUploadDate}
-                />
-              </div>
-              <div className="flex flex-col gap-2.5">
-                <header className="text-2xl font-medium text-titleColor">
-                  Son Güncelleme Tarihi
-                </header>
-                <input
                   type="text"
                   className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                  value={modalData.ksLastUpdateDate}
+                  value={modalData.ksUploadDate}
+                  disabled={true}
                 />
               </div>
+              {modalInfos.operation === "edit" && (
+                <>
+                  <div className="flex flex-col w-full gap-2.5">
+                    <header className="text-2xl font-medium text-titleColor">
+                      Son Güncelleme Tarihi
+                    </header>
+                    <input
+                      type="text"
+                      className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
+                      value={modalData.ksLastUpdateDate}
+                      disabled={true}
+                    />
+                  </div>
+                  <div className="flex flex-col w-full gap-2.5">
+                    <header className="text-2xl font-medium text-titleColor">
+                      Yeni Güncelleme Tarihi
+                    </header>
+                    <input
+                      type="text"
+                      className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
+                      value={currentDateTime}
+                      disabled={true}
+                    />
+                  </div>
+                </>
+              )}
             </div>
             <div className="flex flex-col gap-2.5">
               <header className="text-2xl font-medium text-titleColor">
@@ -349,9 +458,15 @@ function ModalBox() {
                 placeholder="YouTube Linki Giriniz"
                 className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
                 value={modalData.ksYoutubeLink}
+                onChange={handleInputChange}
+                name="ksYoutubeLink"
               />
             </div>
-            <button className="h-12 w-full flex items-center justify-center rounded-full bg-green-600 text-white hover:bg-green-700 duration-200 font-medium text-xl">
+            <button
+              disabled={!AllInputIsOk}
+              onClick={SaveAndUpdateOperations}
+              className="h-12 w-full flex items-center justify-center rounded-full bg-green-600 text-white hover:bg-green-700 duration-200 font-medium text-xl disabled:pointer-events-none disabled:opacity-80"
+            >
               {modalInfos.operation === "edit" && "Güncelle ve Kaydet"}
               {modalInfos.operation === "add" && "Yükle"}
             </button>
@@ -364,7 +479,10 @@ function ModalBox() {
               Silmek istediğine emin misin ?
             </p>
             <div className="grid grid-cols-2 gap-5 h-12 w-full">
-              <button className="h-full flex items-center justify-center text-lg font-medium bg-red-600 text-white hover:bg-red-700 duration-200">
+              <button
+                onClick={deleteOperation}
+                className="h-full flex items-center justify-center text-lg font-medium bg-red-600 text-white hover:bg-red-700 duration-200"
+              >
                 Sil
               </button>
               <button

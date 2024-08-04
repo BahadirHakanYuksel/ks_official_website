@@ -10,10 +10,11 @@ import ModalBox from "../../../components/ModalBox";
 import { useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { openModalBoxHandle } from "../../../utils";
+import { format } from "date-fns";
 
 function AdminAgenda() {
   const { pathAdminCategory } = useParams();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeAgendaCategoryId, setActiveAgendaCategoryId] = useState(0);
   const navigate = useNavigate();
   const [isAgenda, setIsAgenda] = useState(false);
@@ -23,19 +24,27 @@ function AdminAgenda() {
     {
       urlName: "news",
       title: t("news"),
-      dbKeyUrl: "",
+      btnName:
+        i18n.language === "en" ? "Publish New News" : "Yeni Haber Yayınla",
+      dbKeyUrl: "H",
       id: 0,
     },
     {
       urlName: "articles",
       title: t("articles"),
-      dbKeyUrl: "",
+      btnName:
+        i18n.language === "en" ? "Publish New Article" : "Yeni Makale Yayınla",
+      dbKeyUrl: "M",
       id: 1,
     },
     {
       urlName: "announcements",
       title: t("announcements"),
-      dbKeyUrl: "",
+      btnName:
+        i18n.language === "en"
+          ? "Publish New Announcement"
+          : "Yeni Duyuru Yayınla",
+      dbKeyUrl: "D",
       id: 2,
     },
   ];
@@ -114,16 +123,13 @@ function AdminAgenda() {
               onClick={() => {
                 openModalBoxHandle({
                   operation: "add",
-                  data: "",
+                  data: categories[activeAgendaCategoryId].dbKeyUrl,
                 });
               }}
               className="agendaBoxHome h-[290.5px] w-80 bg-ksGreen rounded-lg shadow-xl p-3 flex flex-col gap-2.5 text-white text-2xl hover:bg-green-700 items-center justify-center font-medium transition-all hover:shadow-md relative overflow-hidden"
             >
               <i className="fa-solid fa-plus text-6xl"></i>
-              <span>
-                Yeni {categories[activeAgendaCategoryId].title.slice(0, -3)}{" "}
-                Yükle
-              </span>
+              <span>{categories[activeAgendaCategoryId].btnName}</span>
             </button>
 
             {ksData.map((box) => (
