@@ -13,8 +13,26 @@ function Agenda() {
   const { pathAgendaCategory } = useParams();
   const [activeCategoryId, setactiveCategoryId] = useState(0);
   const [thisPageIsAgenda, setThisPageIsAgenda] = useState(true);
+  const [ksData, setKsData] = useState([]);
   const navigate = useNavigate();
 
+  const getDataOnDb = async () => {
+    const formData = new FormData();
+    formData.append("action", pathAgendaCategory);
+
+    try {
+      await fetch("https://katilimsigortacisi.com/php-admin/", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((db) => {
+          setKsData(db);
+        });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   useEffect(() => {
     document.scrollingElement.scrollTop = 0;
     let pageControlCounter = 0;
@@ -23,30 +41,32 @@ function Agenda() {
         ? setactiveCategoryId(category.id)
         : pageControlCounter++;
 
-      console.log(category);
+      // console.log(category);
     });
     pageControlCounter === 3
       ? setThisPageIsAgenda(false)
       : setThisPageIsAgenda(true);
+
+    getDataOnDb();
   }, [pathAgendaCategory]);
 
   const categories = [
     {
       urlName: "news",
       title: t("news"),
-      dbKeyUrl: "",
+      dbKeyUrl: "haber",
       id: 0,
     },
     {
       urlName: "articles",
       title: t("articles"),
-      dbKeyUrl: "",
+      dbKeyUrl: "makale",
       id: 1,
     },
     {
       urlName: "announcements",
       title: t("announcements"),
-      dbKeyUrl: "",
+      dbKeyUrl: "duyuru",
       id: 2,
     },
   ];
@@ -98,39 +118,17 @@ function Agenda() {
               </div> */}
             </div>
             <div className="flex gap-x-[76px] gap-y-8 flex-wrap">
-              <AgendaBox
-                agendaTitle={
-                  "Başlık deneme birden fazla kelime vs vsbunun bir sonu yokmu ulenn"
-                }
-                agendaDate={"01/08/2024"}
-                category={categories[activeCategoryId].urlName}
-              />
-              <AgendaBox
-                agendaTitle={
-                  "Başlık deneme birden fazla kelime vs vsbunun bir sonu yokmu ulenn"
-                }
-                agendaDate={"01/08/2024"}
-                category={categories[activeCategoryId].urlName}
-              />
-              <AgendaBox
-                agendaTitle={
-                  "Başlık deneme birden fazla kelime vs vsbunun bir sonu yokmu ulenn"
-                }
-                agendaDate={"01/08/2024"}
-                category={categories[activeCategoryId].urlName}
-              />
-              <AgendaBox
-                agendaTitle={"Deneme"}
-                agendaDate={"01/08/2024"}
-                category={categories[activeCategoryId].urlName}
-              />
-              <AgendaBox
-                agendaTitle={
-                  "Başlık deneme birden fazla kelime vs vsbunun bir sonu yokmu ulenn"
-                }
-                agendaDate={"01/08/2024"}
-                category={categories[activeCategoryId].urlName}
-              />
+              {ksData.map((box) => (
+                <AgendaBox
+                  key={box.id}
+                  agendaImgUrl={box.img_url}
+                  agendaTitle={box.title}
+                  agendaDate={box.dat}
+                  ksId={box.ks_id}
+                  category={categories[activeCategoryId].urlName}
+                  viewNum={box.number_of_views}
+                />
+              ))}
             </div>
           </div>
         </motion.div>

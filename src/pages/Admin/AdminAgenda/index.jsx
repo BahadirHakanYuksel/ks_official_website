@@ -17,6 +17,7 @@ function AdminAgenda() {
   const [activeAgendaCategoryId, setActiveAgendaCategoryId] = useState(0);
   const navigate = useNavigate();
   const [isAgenda, setIsAgenda] = useState(false);
+  const [ksData, setKsData] = useState([]);
 
   const categories = [
     {
@@ -39,6 +40,24 @@ function AdminAgenda() {
     },
   ];
 
+  const getDataOnDb = async () => {
+    const formData = new FormData();
+    formData.append("action", pathAdminCategory);
+
+    try {
+      await fetch("https://katilimsigortacisi.com/php-admin/", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((db) => {
+          setKsData(db);
+        });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   useEffect(() => {
     // db actions
     categories.forEach((category) => {
@@ -51,6 +70,8 @@ function AdminAgenda() {
     pathAdminCategory === "announcements"
       ? setIsAgenda(true)
       : setIsAgenda(false);
+
+    getDataOnDb();
   }, [pathAdminCategory]);
   const { modalInfos } = useSelector((state) => state.modal);
 
@@ -104,11 +125,16 @@ function AdminAgenda() {
                 Yükle
               </span>
             </button>
-            <AdminAgendaBox
-              agendaTitle={"Hakan"}
-              category={categories[activeAgendaCategoryId].urlName}
-              id={"000000"}
-            />
+
+            {ksData.map((box) => (
+              <AdminAgendaBox
+                agendaTitle={box.title}
+                key={box.id}
+                category={categories[activeAgendaCategoryId].urlName}
+                agendaDate={box.dat}
+                myData={box}
+              />
+            ))}
           </div>
         </motion.div>
       ) : (

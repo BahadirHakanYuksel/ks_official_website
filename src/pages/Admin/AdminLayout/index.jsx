@@ -57,7 +57,7 @@ function AdminLayout() {
             animate={{ opacity: 1 }}
             className="flex flex-col w-full min-h-screen bg-backColor px-10"
           >
-            <nav className="flex items-center justify-between h-14 bg-backColor sticky top-0 w-full left-0">
+            <nav className="flex z-10 items-center justify-between h-14 bg-backColor sticky top-0 w-full left-0">
               <button
                 onClick={() => navigate("/admin")}
                 className="text-3xl font-medium text-ksGreen active:scale-105 duration-200"

@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { openModalBoxHandle } from "../../../utils";
 
-function AdminAgendaBox({ agendaDate, agendaTitle, category, id }) {
+function AdminAgendaBox({ agendaDate, agendaTitle, category, id, myData }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -15,13 +15,13 @@ function AdminAgendaBox({ agendaDate, agendaTitle, category, id }) {
       case "edit":
         openModalBoxHandle({
           operation,
-          agendaId: id,
+          myData,
         });
         break;
       case "delete":
         openModalBoxHandle({
           operation,
-          agendaId: id,
+          myData,
         });
         break;
       default:
@@ -32,7 +32,13 @@ function AdminAgendaBox({ agendaDate, agendaTitle, category, id }) {
   return (
     <div className="agendaBoxHome h-[290.5px] w-80 bg-preKsBoxBack rounded-lg shadow-xl p-3 flex flex-col gap-2.5 hover:text-ksGreen transition-all hover:shadow-md relative overflow-hidden">
       <div className="w-full bg-ksGrayTp aspect-video rounded-lg flex items-center justify-center font-medium relative">
-        <span className="text-myText">resim</span>
+        <span className="text-myText aspect-video w-full rounded-md overflow-hidden">
+          <img
+            src={`https://katilimsigortacisi.com/img/${myData.img_url}`}
+            className="w-full aspect-video"
+            alt=""
+          />
+        </span>
         <p className="absolute right-1 top-1 text-xs font-medium bg-preKsBoxBack px-2 h-5 flex items-center justify-center rounded-full">
           {agendaDate}
         </p>

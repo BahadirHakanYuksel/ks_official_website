@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HomeTitle from "../../../components/HomeTitle";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
@@ -10,6 +10,8 @@ function AgendaHome() {
   const [activeAgendaTitleId, setActiveAgendaTitleId] = useState(0);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [ksData, setKsData] = useState([]);
+  const [buttonsDisable, setButtonsDisable] = useState(false);
 
   const agendaTitles = [
     {
@@ -31,38 +33,38 @@ function AgendaHome() {
       id: 2,
     },
   ];
-  const lastAgendas = [
-    {
-      title:
-        "Kaan Ayhan'ın joker kardeşi Mertcan Ayhan Beşiktaş'a transfer oluyormuş dediler",
-      id: 0,
-      imgUrl: "",
-      url: "",
-    },
-    {
-      title: "Haber 2",
-      id: 1,
-      imgUrl: "",
-      url: "",
-    },
-    {
-      title: "Haber 3",
-      id: 2,
-      imgUrl: "",
-      url: "",
-    },
-    {
-      title: "Haber 4",
-      id: 3,
-      imgUrl: "",
-      url: "",
-    },
-  ];
+
+  const getDataOnDb = async () => {
+    setButtonsDisable(true);
+    const formData = new FormData();
+    formData.append("action", agendaTitles[activeAgendaTitleId].urlName);
+
+    try {
+      await fetch("https://katilimsigortacisi.com/php-admin/", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((db) => {
+          setButtonsDisable(false);
+          console.log("kardeşiişiş : ", db);
+
+          setKsData([db[0], db[1], db[2]]);
+        });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const goAgendaMain = () => {
     const myUrl = `/agenda/${agendaTitles[activeAgendaTitleId].urlName}`;
     navigate(myUrl);
   };
+
+  useEffect(() => {
+    getDataOnDb();
+    console.log(ksData);
+  }, [activeAgendaTitleId]);
 
   return (
     <div className="flex flex-col gap-5">
@@ -73,10 +75,13 @@ function AgendaHome() {
         </div>
         {agendaTitles.map((agenda) => (
           <button
-            onClick={() => setActiveAgendaTitleId(agenda.id)}
+            disabled={buttonsDisable}
+            onClick={() => {
+              setActiveAgendaTitleId(agenda.id);
+            }}
             key={agenda.id}
             className={classNames(
-              "rounded-md bg-backColor text-myText border-2 border-solid border-transparent hover:border-ksGreen h-10 min-w-32 text-base font-medium opacity-70 hover:opacity-100 duration-200",
+              "rounded-md bg-backColor text-myText border-2 border-solid border-transparent hover:border-ksGreen h-10 min-w-32 text-base font-medium opacity-70 hover:opacity-100 duration-200 disabled:pointer-events-none disabled:opacity-80",
               {
                 "!bg-ksGreen !opacity-100 !text-white":
                   activeAgendaTitleId === agenda.id,
@@ -88,15 +93,17 @@ function AgendaHome() {
         ))}
       </div>
       <div className="flex flex-wrap justify-center gap-10">
-        {lastAgendas.map(
-          (agenda) =>
-            agenda.id < 3 && (
+        {ksData.map(
+          (agenda, index) =>
+            index < 3 && (
               <AgendaBox
-                agendaDate={"12/10/2024"}
-                agendaImgUrl={agenda.imgUrl}
+                agendaDate={agenda.lastDat}
+                agendaImgUrl={agenda.img_url}
                 agendaTitle={agenda.title}
                 key={agenda.id}
+                ksId={agenda.ks_id}
                 category={agendaTitles[activeAgendaTitleId].urlName}
+                viewNum={agenda.number_of_views}
               />
             )
         )}
