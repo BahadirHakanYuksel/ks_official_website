@@ -82,7 +82,6 @@ function AdminAgenda() {
 
     getDataOnDb();
   }, [pathAdminCategory]);
-  const { modalInfos } = useSelector((state) => state.modal);
 
   return (
     <>
@@ -92,7 +91,6 @@ function AdminAgenda() {
           animate={{ opacity: 1 }}
           className="relative"
         >
-          <AnimatePresence>{modalInfos && <ModalBox />}</AnimatePresence>
           <header className="w-full h-16 text-3xl font-medium flex items-center justify-center rounded-sm bg-gradient-to-r to-green-950 from-green-950 via-[#189245] text-white mb-5">
             {categories[activeAgendaCategoryId].title}
           </header>

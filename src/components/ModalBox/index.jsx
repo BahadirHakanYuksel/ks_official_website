@@ -1,9 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { closeModalBoxHandle } from "../../utils";
+import { closeModalBoxHandle, updateKsAdminHandle } from "../../utils";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 function ModalBox() {
   const { modalInfos } = useSelector((state) => state.modal);
@@ -40,6 +41,8 @@ function ModalBox() {
   const [uploadTime, setUploadTime] = useState(new Date());
   const [AllInputIsOk, setAllInputIsOk] = useState(false);
   const [Loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const insertMarkup = (
     startTag,
@@ -292,6 +295,13 @@ function ModalBox() {
     }
   };
 
+  const logOutOperations = () => {
+    updateKsAdminHandle(false);
+    localStorage.removeItem("ks_user");
+    closeModalBoxHandle();
+    navigate("/admin");
+  };
+
   useEffect(() => {
     document.querySelector("html").style.overflowY = "hidden";
 
@@ -381,6 +391,7 @@ function ModalBox() {
           {modalInfos.operation === "edit" && "Düzenleme Ekranı"}
           {modalInfos.operation === "add" && "Yükleme Ekranı"}
           {modalInfos.operation === "delete" && "Silme Ekranı"}
+          {modalInfos.operation === "logOut" && "Hesaptan Çıkıyorsun"}
         </header>
         <button
           onClick={() => {
@@ -391,7 +402,7 @@ function ModalBox() {
         >
           Kapat
         </button>
-        {modalInfos.operation !== "delete" && (
+        {modalInfos.operation === "add" && (
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2.5">
               <header className="text-2xl font-medium text-titleColor">
@@ -628,7 +639,7 @@ function ModalBox() {
         {modalInfos.operation === "delete" && (
           <div className="flex flex-col gap-2.5">
             <p className="text-xl font-medium text-myText mb-2.5">
-              Bu Gönderiyi Silmek istediğine emin misin ?
+              Bu Gönderiyi Silmek istediğinize emin misiniz ?
             </p>
             <header className="text-titleColor font-medium text-lg">
               {modalData.ksTitle}
@@ -656,6 +667,30 @@ function ModalBox() {
             </div>
           </div>
         )}
+
+        {modalInfos.operation === "logOut" &&
+          modalInfos.operation !== "delete" &&
+          modalInfos.operation !== "add" && (
+            <div className="flex flex-col gap-2.5">
+              <p className="text-xl font-medium text-myText mb-2.5">
+                Çıkış Yapmak İstediğinize Emin Misiniz ?
+              </p>
+              <div className="grid grid-cols-2 gap-5 h-12 w-full">
+                <button
+                  onClick={logOutOperations}
+                  className="h-full flex items-center justify-center text-lg font-medium bg-red-600 text-white hover:bg-red-700 duration-200"
+                >
+                  Çıkış Yap
+                </button>
+                <button
+                  onClick={closeModalBoxHandle}
+                  className="h-full flex items-center justify-center text-lg font-medium bg-blue-600 text-white hover:bg-blue-700 duration-200"
+                >
+                  İptal
+                </button>
+              </div>
+            </div>
+          )}
       </div>
     </motion.div>
   );

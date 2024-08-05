@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateKsAdminHandle } from "../../../utils";
+import { useSelector } from "react-redux";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -9,6 +10,8 @@ function LoginPage() {
     email: "",
     password: "",
   });
+
+  const { ksAdmin } = useSelector((state) => state.admin);
   const validateEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
@@ -29,6 +32,8 @@ function LoginPage() {
 
   const loginAdminPanel = (e) => {
     e.preventDefault();
+    getUsers();
+    // document.location.reload();
   };
 
   const getUsers = async () => {
@@ -48,8 +53,6 @@ function LoginPage() {
             ) {
               updateKsAdminHandle(user);
               localStorage.setItem("ks_user", user.id);
-            } else {
-              setUserAction(false);
             }
           });
         });
@@ -59,7 +62,7 @@ function LoginPage() {
   };
 
   useEffect(() => {
-    getUsers();
+    // getUsers();
   }, []);
 
   return (
@@ -68,7 +71,7 @@ function LoginPage() {
         onSubmit={loginAdminPanel}
         className="w-[450px] h-auto rounded-md bg-preKsBoxBack shadow-lg flex flex-col p-3 gap-2.5 relative"
       >
-        <header className="text-3xl font-medium flex items-center justify-center text-ksGray mb-2.5">
+        <header className="text-3xl font-medium flex items-center justify-center text-titleColor mb-2.5">
           Admin Paneli Girişi
         </header>
         <div className="flex flex-col gap-1">
@@ -78,7 +81,7 @@ function LoginPage() {
           <input
             type="email"
             maxLength={120}
-            className="w-full h-10 border-2 border-solid border-ksGrayTp focus:border-ksGreen text-sm font-medium px-2 rounded-md shadow-lg duration-200"
+            className="w-full bg-preKsBoxBack h-10 border-2 border-solid border-ksGrayTp focus:border-ksGreen text-sm font-medium px-2 rounded-md shadow-lg duration-200"
             value={loginData.email}
             onChange={(e) =>
               setLoginData({ ...loginData, email: e.target.value })
@@ -92,8 +95,8 @@ function LoginPage() {
           <input
             type="password"
             maxLength={32}
-            className="w-full h-10 border-2 border-solid border-ksGrayTp focus:border-ksGreen text-sm font-medium px-2 rounded-md shadow-lg duration-200"
-            value={loginData.email}
+            className="w-full bg-preKsBoxBack h-10 border-2 border-solid border-ksGrayTp focus:border-ksGreen text-sm font-medium px-2 rounded-md shadow-lg duration-200"
+            value={loginData.password}
             onChange={(e) =>
               setLoginData({ ...loginData, password: e.target.value })
             }

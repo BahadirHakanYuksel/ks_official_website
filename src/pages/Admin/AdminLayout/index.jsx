@@ -7,12 +7,15 @@ import { useEffect, useState } from "react";
 import classNames from "classnames";
 import LanguageButtons from "../../../components/LanguageButtons";
 import { AnimatePresence, motion } from "framer-motion";
+import { openModalBoxHandle, updateKsAdminHandle } from "../../../utils";
+import ModalBox from "../../../components/ModalBox";
 
 function AdminLayout() {
   const { ksAdmin } = useSelector((state) => state.admin);
   const { t } = useTranslation();
   const path = useLocation().pathname;
   const navigate = useNavigate();
+  const { modalInfos } = useSelector((state) => state.modal);
   const [activeNavMenuButtonId, setActiveNavMenuButtonId] = useState(0);
 
   const adminMenuData = [
@@ -36,6 +39,36 @@ function AdminLayout() {
     },
   ];
 
+  const loadingAgainOperations = async () => {
+    if (localStorage.getItem("ks_user") !== null) {
+      const localUserId = localStorage.getItem("ks_user");
+      const formData = new FormData();
+      formData.append("action", "auth");
+      try {
+        await fetch("https://katilimsigortacisi.com/php-admin/", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            data.forEach((user) => {
+              console.log(user);
+
+              if (user.id === localUserId) {
+                updateKsAdminHandle(user);
+              }
+            });
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    loadingAgainOperations();
+  }, []);
+
   useEffect(() => {
     adminMenuData.forEach((menuBtn) => {
       menuBtn.url === path && setActiveNavMenuButtonId(menuBtn.id);
@@ -55,7 +88,7 @@ function AdminLayout() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col w-full min-h-screen bg-backColor px-10"
+            className="flex flex-col w-full min-h-screen bg-backColor px-10 relative"
           >
             <nav className="flex z-10 items-center justify-between h-14 bg-backColor sticky top-0 w-full left-0">
               <button
@@ -79,10 +112,23 @@ function AdminLayout() {
                     {btn.title}
                   </button>
                 ))}
+                <button
+                  onClick={() =>
+                    openModalBoxHandle({
+                      operation: "logOut",
+                      myData: false,
+                    })
+                  }
+                  className="text-base font-medium text-myText bg-serviceMenuBtnBack shadow-md px-2 flex items-center justify-center rounded-sm h-8 duration-200 hover:bg-red-700 hover:text-white"
+                >
+                  Çıkış Yap
+                </button>
                 <LanguageButtons />
                 <ThemeButton />
               </div>
             </nav>
+            <AnimatePresence>{modalInfos && <ModalBox />}</AnimatePresence>
+
             <Outlet />
           </motion.div>
         ) : (
