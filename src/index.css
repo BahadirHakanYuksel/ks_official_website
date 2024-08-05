@@ -175,3 +175,14 @@ textarea {
 .adminSettingsGrid {
   grid-template-columns: auto auto 300px;
 }
+
+@media screen and (max-width: 1025px) {
+  .page {
+    padding: 0 50px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+}
+@media screen and (max-width: 426px) {
+}

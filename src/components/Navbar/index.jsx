@@ -5,6 +5,7 @@ import { convertFromTextToUrl, turkishToEnglish } from "../../consts";
 import ThemeButton from "../ThemeButton";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useResponsiveData } from "../../Context";
 
 function Navbar() {
   const { t, i18n } = useTranslation();
@@ -12,6 +13,8 @@ function Navbar() {
   const [activeNavTitleId, setActiveNavTitleId] = useState(0);
   const navigate = useNavigate();
   const [navMenuIsActive, setNavMenuIsActive] = useState(false);
+
+  const { isLaptop, isTablet, isMobile } = useResponsiveData();
 
   const navigation = (url, id) => {
     setActiveNavTitleId(id);
@@ -53,17 +56,17 @@ function Navbar() {
       subCategories: [
         {
           subUrl: "news",
-          title: "Haberler",
+          title: t("news"),
           id: 0,
         },
         {
           subUrl: "articles",
-          title: "Makaleler",
+          title: t("articles"),
           id: 1,
         },
         {
           subUrl: "announcements",
-          title: "Duyurular",
+          title: t("announcements"),
           id: 2,
         },
       ],
@@ -71,7 +74,14 @@ function Navbar() {
   ];
 
   return (
-    <div className="w-full h-12 sticky top-0 left-0 bg-backColor flex items-center justify-between px-[200px] z-20 mb-5">
+    <div
+      className={classNames(
+        "w-full h-12 sticky top-0 left-0 bg-backColor flex items-center justify-between px-[200px] z-20 mb-5",
+        {
+          "px-[50px]": isLaptop,
+        }
+      )}
+    >
       <AnimatePresence>
         {navMenuIsActive && (
           <motion.div
@@ -102,7 +112,7 @@ function Navbar() {
         }}
         className="flex gap-2.5 items-center active:scale-105 duration-200"
       >
-        <div className="bg-ksGray rounded-sm">
+        <div className="bg-ksgray rounded-sm">
           <img src="images/logo.png" className="p-1 w-9" alt="" />
         </div>
         <header className="text-3xl font-semibold text-ksGreen">

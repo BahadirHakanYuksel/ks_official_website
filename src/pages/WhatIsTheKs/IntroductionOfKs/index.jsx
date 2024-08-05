@@ -1,7 +1,10 @@
 import { useTranslation } from "react-i18next";
+import { useResponsiveData } from "../../../Context";
+import classNames from "classnames";
 
 function IntroductionOfKs() {
   const { t } = useTranslation();
+  const { isLaptop, isTablet, isMobile } = useResponsiveData();
 
   const introductionData = [
     {
@@ -48,7 +51,12 @@ function IntroductionOfKs() {
           <div
             id={box.id}
             key={box.idNo}
-            className="bg-preKsBoxBack rounded-md w-full flex flex-col items-center justify-center shadow-md p-3 hover:shadow-ksGreen duration-200 h-[280px] text-myText relative"
+            className={classNames(
+              "bg-preKsBoxBack rounded-md w-full flex flex-col items-center justify-center shadow-md p-3 hover:shadow-ksGreen duration-200 h-[280px] text-myText relative",
+              {
+                "h-[240px]": isLaptop,
+              }
+            )}
           >
             {box.idNo === 0 ? (
               <div className="relative flex mb-2.5 items-center justify-center w-full">
@@ -68,8 +76,20 @@ function IntroductionOfKs() {
               </div>
             )}
             <div className="flex flex-col items-center gap-0.5">
-              <header className="text-3xl font-medium">{box.title}</header>
-              <p className="text-sm font-medium text-green-500">{box.text}</p>
+              <header
+                className={classNames("text-3xl font-medium", {
+                  "!text-2xl": isLaptop,
+                })}
+              >
+                {box.title}
+              </header>
+              <p
+                className={classNames("text-sm font-medium text-green-500", {
+                  "text-[11.5px]": isLaptop,
+                })}
+              >
+                {box.text}
+              </p>
             </div>
           </div>
         ))}

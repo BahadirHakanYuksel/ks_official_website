@@ -37,11 +37,9 @@ function Admin() {
     >
       <div className="w-full h-[400px] bg-gradient-to-t to-ksGreen from-ksGray text-white text-5xl font-medium flex items-center justify-center shadow-lg relative rounded-t-md">
         <div className="absolute left-2.5 top-2.5 text-sm text-backColor">
-          HIZLI MENÜ
+          {t("fastMenu")}
         </div>
-        <header className="mb-5">
-          Katılım Sigortası Admin Paneline Hoşgeldiniz
-        </header>
+        <header className="mb-5">{t("adminWelcomeMessage")}</header>
         <div className="flex items-center justify-center gap-8 absolute h-40 left-1/2 -translate-x-1/2 -bottom-12">
           {fastMenuData.map((menu) => (
             <button
@@ -56,7 +54,7 @@ function Admin() {
       </div>
       <div className="h-[150px] bg-gradient-to-t to-ksGray from-ksGreen rounded-b-md"></div>
       <div className="text-titleColor font-medium text-sm flex items-center justify-center h-10">
-        2024-Katılım Sigortası Admin Paneli
+        2024-{t("piap")}
       </div>
     </motion.div>
   );

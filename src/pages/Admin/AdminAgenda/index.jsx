@@ -2,15 +2,10 @@ import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import AgendaBox from "../../../components/AgendaBox";
-import ErrorPage from "../../ErrorPage";
 import AdminErrorPage from "../AdminErrorPage";
 import AdminAgendaBox from "../AdminAgendaBox";
-import ModalBox from "../../../components/ModalBox";
-import { useSelector } from "react-redux";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { openModalBoxHandle } from "../../../utils";
-import { format } from "date-fns";
 
 function AdminAgenda() {
   const { pathAdminCategory } = useParams();
@@ -116,7 +111,7 @@ function AdminAgenda() {
               )}
             </div>
           </div>
-          <div className="flex flex-wrap justify-start gap-10">
+          <div className="flex flex-wrap justify-start gap-10 mb-10">
             <button
               onClick={() => {
                 openModalBoxHandle({

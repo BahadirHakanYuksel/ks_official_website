@@ -22,7 +22,7 @@ function AdminLayout() {
     {
       dbUrlKey: false,
       url: "/admin",
-      title: "Anasayfa",
+      title: t("homepage"),
       id: 0,
     },
     {
@@ -34,7 +34,7 @@ function AdminLayout() {
     {
       dbUrlKey: "accountInfos",
       url: "/admin/account-settings",
-      title: "Hesap Ayarları",
+      title: t("accountSettings"),
       id: 2,
     },
   ];
@@ -52,8 +52,6 @@ function AdminLayout() {
           .then((res) => res.json())
           .then((data) => {
             data.forEach((user) => {
-              console.log(user);
-
               if (user.id === localUserId) {
                 updateKsAdminHandle(user);
               }
@@ -95,7 +93,7 @@ function AdminLayout() {
                 onClick={() => navigate("/admin")}
                 className="text-3xl font-medium text-ksGreen active:scale-105 duration-200"
               >
-                Katılım Sigortası Admin Paneli
+                {t("piap")}
               </button>
               <div className="flex gap-2.5">
                 {adminMenuData.map((btn) => (
@@ -121,7 +119,7 @@ function AdminLayout() {
                   }
                   className="text-base font-medium text-myText bg-serviceMenuBtnBack shadow-md px-2 flex items-center justify-center rounded-sm h-8 duration-200 hover:bg-red-700 hover:text-white"
                 >
-                  Çıkış Yap
+                  {t("logOut")}
                 </button>
                 <LanguageButtons />
                 <ThemeButton />

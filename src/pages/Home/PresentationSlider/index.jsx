@@ -3,6 +3,7 @@ import "slick-carousel/slick/slick-theme.css";
 import classNames from "classnames";
 import Slider from "react-slick";
 import { useTranslation } from "react-i18next";
+import { useResponsiveData } from "../../../Context";
 
 function SampleNextArrow(props) {
   const { onClick } = props;
@@ -62,14 +63,20 @@ function PresentationSlider() {
     prevArrow: <SamplePrevArrow />,
   };
 
+  const { isLaptop, isTablet, isMobile } = useResponsiveData();
+
   return (
-    <div className="rounded-md overflow-hidden h-[700px]">
-      <Slider {...settings} className="flex gap-2.5 relative sliderBox">
+    <div
+      className={classNames("rounded-md overflow-hidden h-[700px]", {
+        "h-[550px]": isLaptop,
+      })}
+    >
+      <Slider {...settings} className="flex gap-2.5 relative sliderBox h-full">
         {sliderData.map((sliderSection) => (
           <div
             key={sliderSection.id}
             className={classNames(
-              " aspect-video text-white bg-gray-700 duration-300 rounded-lg min-h-[600px]"
+              " aspect-video text-white bg-gray-700 duration-300 rounded-lg "
             )}
           >
             {/* <img src="" className="aspect-video" alt="" /> */}

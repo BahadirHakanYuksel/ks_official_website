@@ -54,7 +54,7 @@ function AdminAgendaBox({
           }.${agendaDate.split(" ")[1].split(":")[1]}`}
         </p>
         <span className="absolute right-1 bottom-1 text-xs font-medium bg-preKsBoxBack px-2 h-5 flex gap-1 items-center justify-center rounded-sm">
-          <span>Görüntülenme :</span>
+          <span>{t("views")} :</span>
           <span>{myData.number_of_views}</span>
         </span>
       </div>
@@ -65,13 +65,13 @@ function AdminAgendaBox({
         onClick={() => modalActions("edit")}
         className="adminAgendaBoxButtonEdit absolute -bottom-12 left-2.5 h-10 w-[140px] text-myText rounded-full bg-ksGrayTp font-medium text-sm duration-200 hover:text-white hover:bg-ksGreen"
       >
-        Düzenle
+        {t("edit")}
       </button>
       <button
         onClick={() => modalActions("delete")}
         className="adminAgendaBoxButtonDel absolute -bottom-12 right-2.5 h-10 w-[140px] text-myText rounded-full bg-ksGrayTp font-medium text-sm duration-200 hover:bg-red-600 hover:text-white"
       >
-        Sil
+        {t("delete")}
       </button>
       <div className="absolute text-xs agendaBoxMarkName opacity-100 duration-200 bottom-3 left-1/2 -translate-x-1/2 w-full bg-ksGrayTp h-1.5 rounded-full "></div>
     </div>

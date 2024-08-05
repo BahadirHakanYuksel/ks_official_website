@@ -402,239 +402,240 @@ function ModalBox() {
         >
           Kapat
         </button>
-        {modalInfos.operation === "add" && (
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-2.5">
-              <header className="text-2xl font-medium text-titleColor">
-                Resim {modalInfos.operation === "edit" && "Düzenle"}
-                {modalInfos.operation === "add" && "Yükle"}
-              </header>
-              <div className="aspect-video flex items-center justify-center w-[800px] border-2 border-solid rounded-md overflow-hidden border-ksGrayTp relative">
-                <AnimatePresence>
-                  {modalInfos.operation === "edit" && previewImg !== "" && (
-                    <motion.img
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      src={previewImg !== "" && previewImg}
-                      alt=""
-                      className="w-full aspect-video"
-                    />
-                  )}
-                  {modalInfos.operation === "add" && previewImg !== "" && (
-                    <motion.img
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      src={previewImg !== "" && previewImg}
-                      alt=""
-                      className="w-full aspect-video"
-                    />
-                  )}
-                  {previewImg === "" && (
-                    <motion.label
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      htmlFor="imgInput"
-                      className="absolute w-full text-4xl font-medium hover:bg-ksGreen hover:text-white duration-200 h-full flex items-center justify-center cursor-pointer select-none"
-                    >
-                      Resim Yüklemek İçin Tıklayın
-                    </motion.label>
-                  )}
-                </AnimatePresence>
-              </div>
-              <label
-                htmlFor="imgInput"
-                className="flex items-center justify-center cursor-pointer select-none w-32 h-12 rounded-md bg-green-600 text-white text-base font-medium"
-              >
-                Resim Seç
-              </label>
-              <input
-                name="ksImgUrl"
-                type="file"
-                onChange={(e) => {
-                  updateImg(e.target.files[0]);
-                }}
-                className="hidden"
-                id="imgInput"
-              />
-            </div>
-            <div className="flex flex-col gap-2.5">
-              <header className="text-2xl font-medium text-titleColor">
-                Başlık
-              </header>
-              <input
-                type="text"
-                placeholder="Başlık Giriniz"
-                className="border-2 border-solid border-gray-300 bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                value={modalData.ksTitle}
-                onChange={handleInputChange}
-                name="ksTitle"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <div className="flex items-center justify-between">
-                <div className={classNames("flex items-center gap-3", {})}>
-                  <header className="text-2xl text-titleColor font-medium">
-                    Yazı/Açıklama
-                  </header>
-                  <button
-                    onClick={() => {
-                      setModalData({
-                        ...modalData,
-                        ksContent: FirstData.ksContent,
-                      });
-                    }}
-                    className={classNames(
-                      "bg-ksGrayTp text-myText font-medium h-8 text-center rounded-md px-4",
-                      {}
+        {modalInfos.operation === "add" ||
+          (modalInfos.operation === "edit" && (
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-2.5">
+                <header className="text-2xl font-medium text-titleColor">
+                  Resim {modalInfos.operation === "edit" && "Düzenle"}
+                  {modalInfos.operation === "add" && "Yükle"}
+                </header>
+                <div className="aspect-video flex items-center justify-center w-[800px] border-2 border-solid rounded-md overflow-hidden border-ksGrayTp relative">
+                  <AnimatePresence>
+                    {modalInfos.operation === "edit" && previewImg !== "" && (
+                      <motion.img
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        src={previewImg !== "" && previewImg}
+                        alt=""
+                        className="w-full aspect-video"
+                      />
                     )}
-                  >
-                    Sıfırla
-                  </button>
+                    {modalInfos.operation === "add" && previewImg !== "" && (
+                      <motion.img
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        src={previewImg !== "" && previewImg}
+                        alt=""
+                        className="w-full aspect-video"
+                      />
+                    )}
+                    {previewImg === "" && (
+                      <motion.label
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        htmlFor="imgInput"
+                        className="absolute w-full text-4xl font-medium hover:bg-ksGreen hover:text-white duration-200 h-full flex items-center justify-center cursor-pointer select-none"
+                      >
+                        Resim Yüklemek İçin Tıklayın
+                      </motion.label>
+                    )}
+                  </AnimatePresence>
                 </div>
-                <div className="flex gap-3 items-center">
-                  {modalData.ksContent.length > 10000 && (
-                    <header className="text-red-600 font-medium text-base">
-                      Yazı Çok Uzun
+                <label
+                  htmlFor="imgInput"
+                  className="flex items-center justify-center cursor-pointer select-none w-32 h-12 rounded-md bg-green-600 text-white text-base font-medium"
+                >
+                  Resim Seç
+                </label>
+                <input
+                  name="ksImgUrl"
+                  type="file"
+                  onChange={(e) => {
+                    updateImg(e.target.files[0]);
+                  }}
+                  className="hidden"
+                  id="imgInput"
+                />
+              </div>
+              <div className="flex flex-col gap-2.5">
+                <header className="text-2xl font-medium text-titleColor">
+                  Başlık
+                </header>
+                <input
+                  type="text"
+                  placeholder="Başlık Giriniz"
+                  className="border-2 border-solid border-gray-300 bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
+                  value={modalData.ksTitle}
+                  onChange={handleInputChange}
+                  name="ksTitle"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center justify-between">
+                  <div className={classNames("flex items-center gap-3", {})}>
+                    <header className="text-2xl text-titleColor font-medium">
+                      Yazı/Açıklama
                     </header>
-                  )}
-                  <span
-                    className={classNames(
-                      "flex gap-1 text-gray-500 font-medium"
+                    <button
+                      onClick={() => {
+                        setModalData({
+                          ...modalData,
+                          ksContent: FirstData.ksContent,
+                        });
+                      }}
+                      className={classNames(
+                        "bg-ksGrayTp text-myText font-medium h-8 text-center rounded-md px-4",
+                        {}
+                      )}
+                    >
+                      Sıfırla
+                    </button>
+                  </div>
+                  <div className="flex gap-3 items-center">
+                    {modalData.ksContent.length > 10000 && (
+                      <header className="text-red-600 font-medium text-base">
+                        Yazı Çok Uzun
+                      </header>
                     )}
-                  >
-                    {modalData.ksContent.length}
-                    <span>/</span> <span>10.000</span>
-                  </span>
+                    <span
+                      className={classNames(
+                        "flex gap-1 text-gray-500 font-medium"
+                      )}
+                    >
+                      {modalData.ksContent.length}
+                      <span>/</span> <span>10.000</span>
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-wrap justify-center gap-2.5 py-2">
-                {myMarkupButtons.map((btn) => (
+                <div className="flex flex-wrap justify-center gap-2.5 py-2">
+                  {myMarkupButtons.map((btn) => (
+                    <button
+                      className={classNames(
+                        "text-base font-medium border-2 border-solid border-gray-400 rounded-md w-24 flex items-center justify-center h-8 hover:border-green-600 hover:text-green-600 duration-200",
+                        {}
+                      )}
+                      onClick={() => insertMarkup(btn.works)}
+                    >
+                      {btn.text}
+                    </button>
+                  ))}
+
                   <button
                     className={classNames(
                       "text-base font-medium border-2 border-solid border-gray-400 rounded-md w-24 flex items-center justify-center h-8 hover:border-green-600 hover:text-green-600 duration-200",
                       {}
                     )}
-                    onClick={() => insertMarkup(btn.works)}
+                    onClick={() => insertMarkup("* ", "\n", false, true)}
                   >
-                    {btn.text}
+                    Liste
                   </button>
-                ))}
-
-                <button
-                  className={classNames(
-                    "text-base font-medium border-2 border-solid border-gray-400 rounded-md w-24 flex items-center justify-center h-8 hover:border-green-600 hover:text-green-600 duration-200",
-                    {}
-                  )}
-                  onClick={() => insertMarkup("* ", "\n", false, true)}
-                >
-                  Liste
-                </button>
-                <button
-                  className={classNames(
-                    "text-base font-medium border-2 border-solid border-gray-400 rounded-md w-24 flex items-center justify-center h-8 hover:border-green-600 hover:text-green-600 duration-200",
-                    {}
-                  )}
-                  onClick={() => insertMarkup("[", "]", true)}
-                >
-                  Link
-                </button>
-                <button
-                  className={classNames(
-                    "text-base font-medium border-2 border-solid border-blue-500 text-white bg-blue-500 rounded-md w-24 flex items-center justify-center h-8 hover:bg-blue-600 hover:border-blue-600  duration-200",
-                    {}
-                  )}
-                  onClick={undo}
-                >
-                  Geri Al
-                </button>
+                  <button
+                    className={classNames(
+                      "text-base font-medium border-2 border-solid border-gray-400 rounded-md w-24 flex items-center justify-center h-8 hover:border-green-600 hover:text-green-600 duration-200",
+                      {}
+                    )}
+                    onClick={() => insertMarkup("[", "]", true)}
+                  >
+                    Link
+                  </button>
+                  <button
+                    className={classNames(
+                      "text-base font-medium border-2 border-solid border-blue-500 text-white bg-blue-500 rounded-md w-24 flex items-center justify-center h-8 hover:bg-blue-600 hover:border-blue-600  duration-200",
+                      {}
+                    )}
+                    onClick={undo}
+                  >
+                    Geri Al
+                  </button>
+                </div>
+                <textarea
+                  id="editor-textarea"
+                  name="ksContent"
+                  value={modalData.ksContent}
+                  onChange={handleInputChange}
+                  type="text"
+                  className="border-2 border-solid bg-preKsBoxBack text-myText border-gray-200 rounded-md focus-within:border-green-500 text-base p-2 overflow-hidden h-[520px] resize-none outline-none overflow-y-auto"
+                ></textarea>
               </div>
-              <textarea
-                id="editor-textarea"
-                name="ksContent"
-                value={modalData.ksContent}
-                onChange={handleInputChange}
-                type="text"
-                className="border-2 border-solid bg-preKsBoxBack text-myText border-gray-200 rounded-md focus-within:border-green-500 text-base p-2 overflow-hidden h-[520px] resize-none outline-none overflow-y-auto"
-              ></textarea>
-            </div>
-            <div className="flex flex-col gap-2.5">
-              <header className="text-2xl font-medium text-titleColor">
-                Yazar
-              </header>
-              <input
-                type="text"
-                placeholder="Yazar Adını Giriniz"
-                className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                value={modalData.ksWriter}
-                onChange={handleInputChange}
-                name="ksWriter"
-              />
-            </div>
-            <div className="grid grid-cols-3 gap-5">
-              <div className="flex flex-col w-full gap-2.5">
+              <div className="flex flex-col gap-2.5">
                 <header className="text-2xl font-medium text-titleColor">
-                  Yükleme Tarihi
+                  Yazar
                 </header>
                 <input
                   type="text"
+                  placeholder="Yazar Adını Giriniz"
                   className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                  value={modalData.ksUploadDate}
-                  disabled={true}
+                  value={modalData.ksWriter}
+                  onChange={handleInputChange}
+                  name="ksWriter"
                 />
               </div>
-              {modalInfos.operation === "edit" && (
-                <>
-                  <div className="flex flex-col w-full gap-2.5">
-                    <header className="text-2xl font-medium text-titleColor">
-                      Son Güncelleme Tarihi
-                    </header>
-                    <input
-                      type="text"
-                      className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                      value={modalData.ksLastUpdateDate}
-                      disabled={true}
-                    />
-                  </div>
-                  <div className="flex flex-col w-full gap-2.5">
-                    <header className="text-2xl font-medium text-titleColor">
-                      Yeni Güncelleme Tarihi
-                    </header>
-                    <input
-                      type="text"
-                      className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                      value={currentDateTime}
-                      disabled={true}
-                    />
-                  </div>
-                </>
-              )}
+              <div className="grid grid-cols-3 gap-5">
+                <div className="flex flex-col w-full gap-2.5">
+                  <header className="text-2xl font-medium text-titleColor">
+                    Yükleme Tarihi
+                  </header>
+                  <input
+                    type="text"
+                    className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
+                    value={modalData.ksUploadDate}
+                    disabled={true}
+                  />
+                </div>
+                {modalInfos.operation === "edit" && (
+                  <>
+                    <div className="flex flex-col w-full gap-2.5">
+                      <header className="text-2xl font-medium text-titleColor">
+                        Son Güncelleme Tarihi
+                      </header>
+                      <input
+                        type="text"
+                        className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
+                        value={modalData.ksLastUpdateDate}
+                        disabled={true}
+                      />
+                    </div>
+                    <div className="flex flex-col w-full gap-2.5">
+                      <header className="text-2xl font-medium text-titleColor">
+                        Yeni Güncelleme Tarihi
+                      </header>
+                      <input
+                        type="text"
+                        className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
+                        value={currentDateTime}
+                        disabled={true}
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className="flex flex-col gap-2.5">
+                <header className="text-2xl font-medium text-titleColor">
+                  YouTube Linki
+                </header>
+                <input
+                  type="text"
+                  placeholder="YouTube Linki Giriniz"
+                  className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
+                  value={modalData.ksYoutubeLink}
+                  onChange={handleInputChange}
+                  name="ksYoutubeLink"
+                />
+              </div>
+              <button
+                disabled={!AllInputIsOk}
+                onClick={SaveAndUpdateOperations}
+                className="h-12 w-full flex items-center justify-center rounded-full bg-green-600 text-white hover:bg-green-700 duration-200 font-medium text-xl disabled:pointer-events-none disabled:opacity-80"
+              >
+                {modalInfos.operation === "edit" && "Güncelle ve Kaydet"}
+                {modalInfos.operation === "add" && "Yükle"}
+              </button>
             </div>
-            <div className="flex flex-col gap-2.5">
-              <header className="text-2xl font-medium text-titleColor">
-                YouTube Linki
-              </header>
-              <input
-                type="text"
-                placeholder="YouTube Linki Giriniz"
-                className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                value={modalData.ksYoutubeLink}
-                onChange={handleInputChange}
-                name="ksYoutubeLink"
-              />
-            </div>
-            <button
-              disabled={!AllInputIsOk}
-              onClick={SaveAndUpdateOperations}
-              className="h-12 w-full flex items-center justify-center rounded-full bg-green-600 text-white hover:bg-green-700 duration-200 font-medium text-xl disabled:pointer-events-none disabled:opacity-80"
-            >
-              {modalInfos.operation === "edit" && "Güncelle ve Kaydet"}
-              {modalInfos.operation === "add" && "Yükle"}
-            </button>
-          </div>
-        )}
+          ))}
 
         {modalInfos.operation === "delete" && (
           <div className="flex flex-col gap-2.5">
@@ -660,7 +661,7 @@ function ModalBox() {
               </button>
               <button
                 onClick={closeModalBoxHandle}
-                className="h-full flex items-center justify-center text-lg font-medium bg-blue-600 text-white hover:bg-blue-700 duration-200"
+                className="h-full flex items-center justify-center text-lg font-medium bg-[#24282a] text-white hover:bg-[#141718] duration-200"
               >
                 İptal
               </button>
@@ -684,7 +685,7 @@ function ModalBox() {
                 </button>
                 <button
                   onClick={closeModalBoxHandle}
-                  className="h-full flex items-center justify-center text-lg font-medium bg-blue-600 text-white hover:bg-blue-700 duration-200"
+                  className="h-full flex items-center justify-center text-lg font-medium bg-[#24282a] text-white hover:bg-[#141718] duration-200"
                 >
                   İptal
                 </button>

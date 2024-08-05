@@ -61,10 +61,6 @@ function LoginPage() {
     }
   };
 
-  useEffect(() => {
-    // getUsers();
-  }, []);
-
   return (
     <div className="flex items-center justify-center w-full h-screen bg-backColor">
       <form

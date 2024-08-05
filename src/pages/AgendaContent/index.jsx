@@ -4,6 +4,7 @@ import RightSidebar from "./RightSidebar";
 import { motion } from "framer-motion";
 import classNames from "classnames";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 function AgendaContent() {
   const parseContent = (content) => {
@@ -92,6 +93,8 @@ function AgendaContent() {
   const { pathAgendaInfo } = useParams();
   const path = useLocation().pathname;
 
+  const { t } = useTranslation();
+
   const [ksContentData, setKsContentData] = useState([]);
   const [paragraph, setParagraph] = useState([]);
 
@@ -162,20 +165,20 @@ function AgendaContent() {
           <div className="flex flex-col gap-0.5 text-sm">
             <p className="flex gap-1.5">
               <header className=" font-medium text-titleColor">
-                Yayınlanma Tarihi
+                {t("publicationDate")}
               </header>
               : {dates.loadDate}
             </p>
             <p className="flex gap-1.5">
               <header className="font-medium text-titleColor">
-                Son Güncelleme Tarihi
+                {t("lastUpdateDate")}
               </header>
               : {dates.uploadDate}
             </p>
           </div>
           <div className="flex flex-col justify-center items-center gap-0.5 text-sm">
             <header className="font-medium bg-ksGrayTp w-20 flex items-center justify-center rounded-sm text-myText">
-              Yazar
+              {t("author")}
             </header>
             {ksContentData.writer}
           </div>
@@ -198,13 +201,17 @@ function AgendaContent() {
               className="flex gap-1.5 items-center justify-center text-sm font-medium bg-preKsBoxBack text-preKsBoxIcon h-full w-20 rounded-sm hover:text-ksGreen duration-200 border-2 border-solid border-ksGrayTp hover:border-ksGreen"
             >
               <i className="fa-solid fa-share-nodes"></i>
-              <span>Paylaş</span>
+              <span>{t("share")}</span>
             </button>
             {ksContentData.link !== "" && (
-              <button className="flex gap-1.5 items-center justify-center text-sm font-medium bg-preKsBoxBack text-preKsBoxIcon h-full w-20 rounded-sm hover:text-ksGreen duration-200 border-2 border-solid border-ksGrayTp hover:border-ksGreen">
+              <a
+                href={ksContentData.link}
+                target="_blank"
+                className="flex gap-1.5 items-center justify-center text-sm font-medium bg-preKsBoxBack text-preKsBoxIcon h-full w-20 rounded-sm hover:text-ksGreen duration-200 border-2 border-solid border-ksGrayTp hover:border-ksGreen"
+              >
                 <i className="fa-solid fa-play"></i>
-                <span>İzle</span>
-              </button>
+                <span>{t("watch")}</span>
+              </a>
             )}
           </div>
           <div className="flex gap-2 h-full items-center">
