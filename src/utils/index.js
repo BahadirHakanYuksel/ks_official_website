@@ -1,4 +1,5 @@
 import stores from "../stores";
+import { updateKsAdmin } from "../stores/admin";
 import {
   leftSlider,
   rigtSlider,
@@ -43,4 +44,8 @@ export const openModalBoxHandle = (infos) => {
 
 export const closeModalBoxHandle = () => {
   stores.dispatch(closeModalBox());
+};
+
+export const updateKsAdminHandle = (adminInfos) => {
+  stores.dispatch(updateKsAdmin(adminInfos));
 };

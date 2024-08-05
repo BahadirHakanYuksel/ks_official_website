@@ -120,9 +120,11 @@ function AgendaContent() {
         .then((contentData) => {
           setKsContentData(contentData[0]);
           setDates({
-            loadDate: `${contentData[0].dat.split("-")[2]}.${
-              contentData[0].dat.split("-")[1]
-            }.${contentData[0].dat.split("-")[0]}`,
+            loadDate: `${contentData[0].lastDat.split(" ")[0].split("-")[2]}.${
+              contentData[0].lastDat.split(" ")[0].split("-")[1]
+            }.${contentData[0].lastDat.split(" ")[0].split("-")[0]} - ${
+              contentData[0].lastDat.split(" ")[1].split(":")[0]
+            }.${contentData[0].lastDat.split(" ")[1].split(":")[1]}`,
             uploadDate: `${
               contentData[0].lastDat.split(" ")[0].split("-")[2]
             }.${contentData[0].lastDat.split(" ")[0].split("-")[1]}.${

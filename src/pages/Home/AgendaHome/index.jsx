@@ -97,7 +97,7 @@ function AgendaHome() {
           (agenda, index) =>
             index < 3 && (
               <AgendaBox
-                agendaDate={agenda.lastDat}
+                agendaDate={agenda.dat}
                 agendaImgUrl={agenda.img_url}
                 agendaTitle={agenda.title}
                 key={agenda.id}

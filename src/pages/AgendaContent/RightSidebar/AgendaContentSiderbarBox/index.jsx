@@ -62,7 +62,7 @@ function AgendaContentSiderbarBox({
       <span className="absolute right-3 bottom-[60px] w-20 bg-backColor text-xs text-titleColor duration-200 rounded-sm py-0.5 font-medium">
         {FormatedDate}
       </span>
-      <span className="absolute left-3 bottom-[60px] w-12 bg-backColor text-xs text-titleColor duration-200 rounded-sm py-0.5 font-medium flex items-center justify-center gap-1">
+      <div className="absolute left-3 bottom-[60px] w-12 bg-backColor text-xs text-titleColor duration-200 rounded-sm py-0.5 font-medium flex items-center justify-center gap-1">
         <i className="fa-solid fa-eye"></i>
         <span>
           {numberOfView.toString().length >= 4 &&
@@ -72,7 +72,7 @@ function AgendaContentSiderbarBox({
             numberOfView.toString().slice(0, -6) + " M"}
           {numberOfView.toString().length < 4 && numberOfView}
         </span>
-      </span>
+      </div>
     </button>
   );
 }

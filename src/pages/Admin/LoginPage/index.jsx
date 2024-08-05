@@ -1,11 +1,66 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { updateKsAdminHandle } from "../../../utils";
 
 function LoginPage() {
   const navigate = useNavigate();
+  const [loginButtonDisabled, setLoginButtonDisabled] = useState(true);
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+  const inputsControl = () => {
+    if (
+      validateEmail(loginData.email.trim()) &&
+      loginData.password.trim().length >= 6 &&
+      loginData.password.trim().length < 30
+    )
+      setLoginButtonDisabled(false);
+    else setLoginButtonDisabled(true);
+  };
+
+  useEffect(() => {
+    inputsControl();
+  }, [loginData]);
 
   const loginAdminPanel = (e) => {
     e.preventDefault();
   };
+
+  const getUsers = async () => {
+    const formData = new FormData();
+    formData.append("action", "auth");
+    try {
+      await fetch("https://katilimsigortacisi.com/php-admin/", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          data.forEach((user) => {
+            if (
+              loginData.email.trim() === user.email &&
+              loginData.password.trim() === user.password
+            ) {
+              updateKsAdminHandle(user);
+              localStorage.setItem("ks_user", user.id);
+            } else {
+              setUserAction(false);
+            }
+          });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <div className="flex items-center justify-center w-full h-screen bg-backColor">
@@ -24,6 +79,10 @@ function LoginPage() {
             type="email"
             maxLength={120}
             className="w-full h-10 border-2 border-solid border-ksGrayTp focus:border-ksGreen text-sm font-medium px-2 rounded-md shadow-lg duration-200"
+            value={loginData.email}
+            onChange={(e) =>
+              setLoginData({ ...loginData, email: e.target.value })
+            }
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -34,11 +93,16 @@ function LoginPage() {
             type="password"
             maxLength={32}
             className="w-full h-10 border-2 border-solid border-ksGrayTp focus:border-ksGreen text-sm font-medium px-2 rounded-md shadow-lg duration-200"
+            value={loginData.email}
+            onChange={(e) =>
+              setLoginData({ ...loginData, password: e.target.value })
+            }
           />
         </div>
         <button
+          disabled={loginButtonDisabled}
           type="submit"
-          className="text-lg font-medium bg-ksGray hover:bg-ksGreen active:bg-preKsBoxIcon duration-200 text-white h-12 rounded-md mt-2"
+          className="text-lg font-medium bg-ksGray hover:bg-ksGreen active:bg-preKsBoxIcon duration-200 text-white h-12 rounded-md mt-2 disabled:pointer-events-none disabled:opacity-80"
         >
           Giriş Yap
         </button>

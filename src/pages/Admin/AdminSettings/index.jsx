@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function AdminSettings() {
   const [inputData, setInputData] = useState({
@@ -10,6 +10,13 @@ function AdminSettings() {
   });
 
   const [passwordChangeIsActive, setPasswordChangeIsActive] = useState(false);
+  const [adminInfos, setadminInfos] = useState([]);
+
+  const firstLoadingOperations = () => {};
+
+  useEffect(() => {
+    firstLoadingOperations();
+  }, []);
 
   return (
     <motion.div

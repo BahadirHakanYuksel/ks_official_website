@@ -93,7 +93,7 @@ function AdminAgenda() {
           className="relative"
         >
           <AnimatePresence>{modalInfos && <ModalBox />}</AnimatePresence>
-          <header className="w-full h-16 text-2xl font-medium flex items-center justify-center rounded-sm bg-gradient-to-r to-green-950 from-green-950 via-[#189245] text-white mb-5">
+          <header className="w-full h-16 text-3xl font-medium flex items-center justify-center rounded-sm bg-gradient-to-r to-green-950 from-green-950 via-[#189245] text-white mb-5">
             {categories[activeAgendaCategoryId].title}
           </header>
           <div className="flex gap-5 items-center h-12 mb-5">
@@ -139,6 +139,8 @@ function AdminAgenda() {
                 category={categories[activeAgendaCategoryId].urlName}
                 agendaDate={box.dat}
                 myData={box}
+                id={box.ks_id}
+                imgUrl={box.img_url}
               />
             ))}
           </div>

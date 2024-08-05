@@ -2,7 +2,14 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { openModalBoxHandle } from "../../../utils";
 
-function AdminAgendaBox({ agendaDate, agendaTitle, category, id, myData }) {
+function AdminAgendaBox({
+  agendaDate,
+  agendaTitle,
+  category,
+  id,
+  myData,
+  img_url,
+}) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -39,9 +46,17 @@ function AdminAgendaBox({ agendaDate, agendaTitle, category, id, myData }) {
             alt=""
           />
         </span>
-        <p className="absolute right-1 top-1 text-xs font-medium bg-preKsBoxBack px-2 h-5 flex items-center justify-center rounded-full">
-          {agendaDate}
+        <p className="absolute right-1 top-1 text-xs font-medium bg-preKsBoxBack px-2 h-5 flex flex-col items-center justify-center rounded-sm">
+          {`${agendaDate.split(" ")[0].split("-")[2]}.${
+            agendaDate.split(" ")[0].split("-")[1]
+          }.${agendaDate.split(" ")[0].split("-")[0]} - ${
+            agendaDate.split(" ")[1].split(":")[0]
+          }.${agendaDate.split(" ")[1].split(":")[1]}`}
         </p>
+        <span className="absolute right-1 bottom-1 text-xs font-medium bg-preKsBoxBack px-2 h-5 flex gap-1 items-center justify-center rounded-sm">
+          <span>Görüntülenme :</span>
+          <span>{myData.number_of_views}</span>
+        </span>
       </div>
       <header className="text-start text-base mb-2.5 h-12 font-medium line-clamp-2">
         {agendaTitle}

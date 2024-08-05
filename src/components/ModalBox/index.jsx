@@ -31,6 +31,7 @@ function ModalBox() {
     ksImgUrl: "",
     id: "",
   });
+  const [dataToControl, setDataToControl] = useState([]);
 
   const [history, setHistory] = useState([]);
   const [currentStep, setCurrentStep] = useState(-1);
@@ -38,6 +39,7 @@ function ModalBox() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const [uploadTime, setUploadTime] = useState(new Date());
   const [AllInputIsOk, setAllInputIsOk] = useState(false);
+  const [Loading, setLoading] = useState(false);
 
   const insertMarkup = (
     startTag,
@@ -65,10 +67,11 @@ function ModalBox() {
           newText += "\n";
         }
       });
+
       newText += `${textarea.value.substring(end)}`;
     } else {
       newText = `${textarea.value.substring(0, start)}${startTag}${
-        selectedText ? selectedText : " Buraya_metni_giriniz "
+        selectedText ? ` ${selectedText} ` : " Buraya_metni_giriniz "
       }${endTag}${textarea.value.substring(end)}`;
     }
 
@@ -141,9 +144,6 @@ function ModalBox() {
   };
 
   const allInputControl = () => {
-    console.log(modalData);
-    console.log("resim : ", previewImg);
-
     if (
       modalData.ksCategory !== "" &&
       modalData.ksContent !== "" &&
@@ -158,14 +158,138 @@ function ModalBox() {
     } else setAllInputIsOk(false);
   };
 
-  const SaveAndUpdateOperations = () => {
+  const SaveAndUpdateOperations = async () => {
     if (modalInfos.operation === "edit") {
+      setLoading(true);
+
+      const myForm = new FormData();
+      myForm.append("action", "edit-list");
+      myForm.append("title", modalData.ksTitle);
+      myForm.append("dsc", modalData.ksContent);
+      myForm.append("writer", modalData.ksWriter);
+      myForm.append("dat", modalData.ksUploadDate);
+      myForm.append("lastDat", currentDateTime);
+      myForm.append("ks_id", modalData.ksId);
+      myForm.append("link", modalData.ksYoutubeLink);
+      myForm.append("img_url", modalData.ksImgUrl);
+      myForm.append("grup", modalData.ksCategory);
+      try {
+        await fetch("https://katilimsigortacisi.com/php-admin/", {
+          method: "POST",
+          body: myForm,
+        })
+          .then((res) => res.json())
+          .then(() => {
+            setTimeout(() => {
+              setLoading(false);
+              document.location.reload();
+            }, 500);
+          });
+      } catch (error) {
+        setTimeout(() => {
+          setLoading(false);
+          document.location.reload();
+        }, 500);
+      }
     } else if (modalInfos.operation === "add") {
+      const myForm = new FormData();
+      myForm.append("action", "add-todo");
+      myForm.append("title", modalData.ksTitle);
+      myForm.append("dsc", modalData.ksContent);
+      myForm.append("writer", modalData.ksWriter);
+      myForm.append("dat", modalData.ksUploadDate);
+      myForm.append("lastDat", modalData.ksLastUpdateDate);
+      myForm.append("ks_id", modalData.ksId);
+      myForm.append("link", modalData.ksYoutubeLink);
+      myForm.append("img_url", modalData.ksImgUrl);
+      myForm.append("grup", modalData.ksCategory);
+      try {
+        await fetch("https://katilimsigortacisi.com/php-admin/", {
+          method: "POST",
+          body: myForm,
+        })
+          .then((res) => res.json())
+          .then(() => {
+            setTimeout(() => {
+              setLoading(false);
+              document.location.reload();
+            }, 500);
+          });
+      } catch (error) {
+        setTimeout(() => {
+          setLoading(false);
+          document.location.reload();
+        }, 500);
+      }
     }
   };
 
-  const deleteOperation = () => {
+  const deleteOperation = async () => {
     // delete on db
+    const myForm = new FormData();
+    myForm.append("action", "delete-list");
+    myForm.append("ks_id", modalData.ksId);
+
+    try {
+      await fetch("https://katilimsigortacisi.com/php-admin/", {
+        method: "POST",
+        body: myForm,
+      })
+        .then((res) => res.json())
+        .then(() => {
+          setTimeout(() => {
+            setLoading(false);
+            document.location.reload();
+          }, 500);
+        });
+    } catch (error) {
+      setTimeout(() => {
+        setLoading(false);
+        document.location.reload();
+      }, 500);
+    }
+  };
+
+  const createKS_ID = () => {
+    const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+    let randomPassword = "";
+    let isUnique = false;
+    let controlNumber = 0;
+
+    dataToControl.forEach((myData) => {
+      if (myData.ks_id !== "ks1bhy") controlNumber++;
+      else controlNumber = 0;
+    });
+
+    while (!isUnique) {
+      randomPassword = "";
+      for (let i = 0; i < 6; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        randomPassword += characters[randomIndex];
+      }
+      if (controlNumber === dataToControl.length) {
+        isUnique = true;
+      }
+    }
+
+    return randomPassword;
+  };
+
+  const getControlDataOnDb = async () => {
+    const myForm = new FormData();
+    myForm.append("action", "list");
+    try {
+      await fetch("https://katilimsigortacisi.com/php-admin/", {
+        method: "POST",
+        body: myForm,
+      })
+        .then((res) => res.json())
+        .then((db) => {
+          setDataToControl(db);
+        });
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   useEffect(() => {
@@ -203,14 +327,30 @@ function ModalBox() {
       const formattedDate = format(currentDateTime, "yyyy-MM-dd HH:mm:ss");
       setCurrentDateTime(formattedDate);
     } else if (modalInfos.operation === "add") {
+      getControlDataOnDb();
+      const newKsId = createKS_ID();
       const formattedDate = format(uploadTime, "yyyy-MM-dd HH:mm:ss");
       setModalData({
         ...modalData,
         ksUploadDate: formattedDate,
         ksLastUpdateDate: formattedDate,
         ksCategory: modalInfos.data,
+        ksId: newKsId,
       });
       setpreviewImg("");
+    } else if (modalInfos.operation === "delete") {
+      setModalData({
+        ksId: modalInfos.myData.ks_id,
+        ksTitle: modalInfos.myData.title,
+        ksContent: modalInfos.myData.dsc,
+        ksWriter: modalInfos.myData.writer,
+        ksUploadDate: modalInfos.myData.dat,
+        ksLastUpdateDate: modalInfos.myData.lastDat,
+        ksYoutubeLink: modalInfos.myData.link,
+        ksCategory: modalInfos.myData.grup,
+        ksImgUrl: modalInfos.myData.img_url,
+        id: modalInfos.myData.id,
+      });
     }
   }, []);
 
@@ -224,6 +364,18 @@ function ModalBox() {
       exit={{ opacity: 0 }}
       className="flex flex-col gap-5 w-full bg-backColor z-20 fixed left-0 top-0 overflow-y-scroll h-screen"
     >
+      <AnimatePresence>
+        {Loading && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="z-40 w-full h-screen fixed left-0 top-0 bg-gradient-to-b to-ksGray text-white text-5xl font-medium from-ksGreen flex items-center justify-center"
+          >
+            Yükleniyor...
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="flex flex-col gap-8 relative p-5 ">
         <header className="text-4xl">
           {modalInfos.operation === "edit" && "Düzenleme Ekranı"}
@@ -475,9 +627,19 @@ function ModalBox() {
 
         {modalInfos.operation === "delete" && (
           <div className="flex flex-col gap-2.5">
-            <p className="text-xl font-medium text-myText">
-              Silmek istediğine emin misin ?
+            <p className="text-xl font-medium text-myText mb-2.5">
+              Bu Gönderiyi Silmek istediğine emin misin ?
             </p>
+            <header className="text-titleColor font-medium text-lg">
+              {modalData.ksTitle}
+            </header>
+            <div className="w-[500px] h-auto aspect-video">
+              <img
+                src={`https://katilimsigortacisi.com/img/${modalData.ksImgUrl}`}
+                className="w-full aspect-video rounded-md"
+                alt=""
+              />
+            </div>
             <div className="grid grid-cols-2 gap-5 h-12 w-full">
               <button
                 onClick={deleteOperation}

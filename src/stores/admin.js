@@ -12,8 +12,12 @@ const initialState = {
 const admin = createSlice({
   name: "admin",
   initialState,
-  reducers: {},
+  reducers: {
+    updateKsAdmin: (state, action) => {
+      state.ksAdmin = action.payload;
+    },
+  },
 });
 
 export default admin.reducer;
-export const {} = admin.actions;
+export const { updateKsAdmin } = admin.actions;

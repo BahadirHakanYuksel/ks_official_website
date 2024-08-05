@@ -44,12 +44,6 @@ function AgendaBox({
     );
   };
 
-  useEffect(() => {
-    const editDate = agendaDate.split("-");
-    console.log(editDate);
-    setmyDate(`${editDate[2]}.${editDate[1]}.${editDate[0]}`);
-  }, []);
-
   return (
     <button
       onClick={goAgendaContentPage}
@@ -61,9 +55,22 @@ function AgendaBox({
           src={`https://katilimsigortacisi.com/img/${agendaImgUrl}`}
           alt=""
         />
-        <p className="absolute right-1 top-1 text-xs font-medium bg-preKsBoxBack px-2 h-5 flex items-center justify-center rounded-full">
-          {myDate}
+        <p className="absolute right-1 top-1 text-xs font-medium bg-preKsBoxBack text-titleColor px-2 h-5 flex items-center justify-center rounded-full">
+          {`${myDate.split(" ")[0].split("-")[2]}.${
+            myDate.split(" ")[0].split("-")[1]
+          }.${myDate.split(" ")[0].split("-")[0]} `}
         </p>
+        <div className="agendaBoxHomeViews absolute right-1 bottom-1 w-12 bg-preKsBoxBack text-xs text-myText duration-200 rounded-full py-0.5 font-medium flex items-center justify-center gap-1 border-2 border-solid border-ksGrayTp shadow-md">
+          <i className="fa-solid fa-eye"></i>
+          <span>
+            {viewNum.toString().length >= 4 &&
+              viewNum.toString().length < 7 &&
+              viewNum.toString().slice(0, -3) + " B"}
+            {viewNum.toString().length >= 7 &&
+              viewNum.toString().slice(0, -6) + " M"}
+            {viewNum.toString().length < 4 && viewNum}
+          </span>
+        </div>
       </div>
       <header className="text-start text-base mb-2.5 h-12 font-medium line-clamp-2">
         {agendaTitle}
