@@ -67,11 +67,12 @@ function PresentationSlider() {
 
   return (
     <div
-      className={classNames("rounded-md overflow-hidden h-[700px]", {
-        "h-[550px]": isLaptop,
+      className={classNames("rounded-md overflow-hidden h-auto", {
+        "!h-[550px]": isLaptop,
+        "!h-[480px]": isTablet,
       })}
     >
-      <Slider {...settings} className="flex gap-2.5 relative sliderBox h-full">
+      <Slider {...settings} className="flex gap-2.5 relative sliderBox">
         {sliderData.map((sliderSection) => (
           <div
             key={sliderSection.id}

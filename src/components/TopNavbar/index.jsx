@@ -21,7 +21,13 @@ function TopNavbar() {
       className={classNames(
         "w-full h-5 flex items-center justify-end px-[200px]",
         {
-          "px-[50px]": isLaptop,
+          "!px-[50px]": isLaptop,
+        },
+        {
+          "!px-[19px]": isTablet,
+        },
+        {
+          "!px-[10px] !justify-center": isMobile,
         }
       )}
     >

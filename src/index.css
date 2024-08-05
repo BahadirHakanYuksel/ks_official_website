@@ -180,9 +180,50 @@ textarea {
   .page {
     padding: 0 50px;
   }
+  .homeServiceBox {
+    width: 215px;
+    height: 215px;
+  }
+  .homeServiceBox > img {
+    width: 112px;
+  }
+  .homeServiceBox > header {
+    font-size: 18px;
+  }
 }
 
 @media screen and (max-width: 769px) {
+  .page {
+    padding: 0 20px;
+  }
+  .homeServiceBox {
+    width: 160px;
+    height: 160px;
+  }
+  .homeServiceBox > img {
+    width: 80px;
+  }
+  .homeServiceBox > header {
+    font-size: 13px;
+  }
 }
 @media screen and (max-width: 426px) {
+  .page {
+    padding: 0 10px;
+  }
+  .presenteKs {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .homeServiceBox {
+    width: 100%;
+    height: 180px;
+  }
+  .homeServiceBox > img {
+    width: 100px;
+  }
+  .homeServiceBox > header {
+    font-size: 16px;
+  }
 }

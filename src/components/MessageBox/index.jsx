@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useResponsiveData } from "../../Context";
+import classNames from "classnames";
 
 function MessageBox() {
   const { t } = useTranslation();
+  const { isLaptop, isTablet, isMobile } = useResponsiveData();
 
   const [formKs, setFormKs] = useState({
     name: "",
@@ -42,14 +45,33 @@ function MessageBox() {
   return (
     <form
       onSubmit={sendForm}
-      className="flex flex-col gap-5 bg-messageBoxBack p-5"
+      className={classNames("flex flex-col gap-5 bg-messageBoxBack p-5", {
+        "!gap-4": isLaptop,
+      })}
     >
-      <header className="text-2xl font-medium flex items-center justify-center rounded-sm h-12 bg-ksGreen text-white">
+      <header
+        className={classNames(
+          "text-2xl font-medium flex items-center justify-center rounded-sm h-12 bg-ksGreen text-white",
+          {
+            "!text-xl !h-10": isLaptop,
+          }
+        )}
+      >
         {t("getInTouchWithUs")}
       </header>
-      <div className="grid grid-cols-2 gap-2.5">
+      <div
+        className={classNames("grid grid-cols-2 gap-2.5", {
+          "!grid-cols-1": isMobile,
+        })}
+      >
         <div className="flex flex-col gap-0.5">
-          <header className="text-lg font-medium">{t("yourName")}</header>
+          <header
+            className={classNames("text-lg font-medium", {
+              "!text-base": isLaptop,
+            })}
+          >
+            {t("yourName")}
+          </header>
           <input
             maxLength={100}
             name="name"
@@ -57,11 +79,22 @@ function MessageBox() {
             value={formKs.name}
             type="text"
             placeholder={t("enterTheName")}
-            className="h-12 rounded-md px-3 text-base font-medium text-messageBoxInputBack bg-backColor border-2 border-solid border-gray-400 focus:border-ksGreen duration-200"
+            className={classNames(
+              "h-12 rounded-md px-3 text-base font-medium text-messageBoxInputBack bg-backColor border-2 border-solid border-gray-400 focus:border-ksGreen duration-200",
+              {
+                "!h-11 !text-sm": isLaptop,
+              }
+            )}
           />
         </div>
         <div className="flex flex-col gap-0.5">
-          <header className="text-lg font-medium">{t("yourSurname")}</header>
+          <header
+            className={classNames("text-lg font-medium", {
+              "!text-base": isLaptop,
+            })}
+          >
+            {t("yourSurname")}
+          </header>
           <input
             maxLength={100}
             name="surname"
@@ -69,12 +102,23 @@ function MessageBox() {
             value={formKs.surname}
             type="text"
             placeholder={t("enterTheSurname")}
-            className="h-12 rounded-md px-3 text-base font-medium text-messageBoxInputBack bg-backColor border-2 border-solid border-gray-400 focus:border-ksGreen duration-200"
+            className={classNames(
+              "h-12 rounded-md px-3 text-base font-medium text-messageBoxInputBack bg-backColor border-2 border-solid border-gray-400 focus:border-ksGreen duration-200",
+              {
+                "!h-11 !text-sm": isLaptop,
+              }
+            )}
           />
         </div>
       </div>
       <div className="flex flex-col gap-0.5">
-        <header className="text-lg font-medium">{t("yourEmail")}</header>
+        <header
+          className={classNames("text-lg font-medium", {
+            "!text-base": isLaptop,
+          })}
+        >
+          {t("yourEmail")}
+        </header>
         <input
           maxLength={60}
           name="email"
@@ -82,13 +126,28 @@ function MessageBox() {
           value={formKs.email}
           type="email"
           placeholder={t("enterTheEmail")}
-          className="h-12 rounded-md px-3 text-base font-medium text-messageBoxInputBack bg-backColor border-2 border-solid border-gray-400 focus:border-ksGreen duration-200"
+          className={classNames(
+            "h-12 rounded-md px-3 text-base font-medium text-messageBoxInputBack bg-backColor border-2 border-solid border-gray-400 focus:border-ksGreen duration-200",
+            {
+              "!h-11 !text-sm": isLaptop,
+            }
+          )}
         />
       </div>
       <div className="flex flex-col gap-0.5">
         <div className="flex items-center justify-between">
-          <header className="text-lg font-medium">{t("yourMessage")}</header>
-          <span className="text-gray-300 font-medium text-sm">
+          <header
+            className={classNames("text-lg font-medium", {
+              "!text-base": isLaptop,
+            })}
+          >
+            {t("yourMessage")}
+          </header>
+          <span
+            className={classNames("text-gray-300 font-medium text-sm", {
+              "!text-xs": isLaptop,
+            })}
+          >
             {formKs.message.length}/2000
           </span>
         </div>
@@ -99,7 +158,15 @@ function MessageBox() {
           value={formKs.message}
           type="text"
           placeholder={t("enterTheMessage")}
-          className="h-40 rounded-md p-3 text-base font-medium text-messageBoxInputBack bg-backColor border-2 border-solid border-gray-400 focus:border-ksGreen duration-200 resize-none"
+          className={classNames(
+            "h-40 rounded-md p-3 text-base font-medium text-messageBoxInputBack bg-backColor border-2 border-solid border-gray-400 focus:border-ksGreen duration-200 resize-none",
+            {
+              "!h-36 !text-sm": isLaptop,
+            },
+            {
+              "!h-40 !text-sm": isTablet,
+            }
+          )}
         />
       </div>
       <button

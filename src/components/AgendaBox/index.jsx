@@ -2,6 +2,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { convertFromTextToUrl } from "../../consts";
 import { useEffect, useState } from "react";
+import classNames from "classnames";
+import { useResponsiveData } from "../../Context";
 
 function AgendaBox({
   agendaDate,
@@ -11,6 +13,7 @@ function AgendaBox({
   ksId,
   viewNum,
 }) {
+  const { isLaptop, isTablet, isMobile } = useResponsiveData();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [myDate, setmyDate] = useState(agendaDate);
@@ -47,7 +50,15 @@ function AgendaBox({
   return (
     <button
       onClick={goAgendaContentPage}
-      className="agendaBoxHome h-[290.5px] w-80 bg-preKsBoxBack rounded-lg shadow-xl p-3 flex flex-col gap-2.5 hover:text-ksGreen transition-all hover:shadow-md relative overflow-hidden"
+      className={classNames(
+        "agendaBoxHome h-[290.5px] w-80 bg-preKsBoxBack rounded-lg shadow-xl p-3 flex flex-col gap-2.5 hover:text-ksGreen transition-all hover:shadow-md relative overflow-hidden",
+        {
+          "!w-[280px] !h-[265.5px]": isLaptop,
+        },
+        {
+          "!w-[220px] !h-[235.5px]": isTablet,
+        }
+      )}
     >
       <div className="w-full bg-ksGrayTp overflow-hidden aspect-video rounded-lg flex items-center justify-center font-medium relative">
         <img
@@ -55,14 +66,44 @@ function AgendaBox({
           src={`https://katilimsigortacisi.com/img/${agendaImgUrl}`}
           alt=""
         />
-        <p className="absolute right-1 top-1 text-xs font-medium bg-preKsBoxBack text-titleColor px-2 h-5 flex items-center justify-center rounded-full">
+        <p
+          className={classNames(
+            "absolute right-1 top-1 text-xs font-medium bg-preKsBoxBack text-titleColor px-2 h-5 flex items-center justify-center rounded-full",
+            {
+              "!text-[10px]": isLaptop,
+            },
+            {
+              "!text-[9px]": isTablet,
+            }
+          )}
+        >
           {`${myDate.split(" ")[0].split("-")[2]}.${
             myDate.split(" ")[0].split("-")[1]
           }.${myDate.split(" ")[0].split("-")[0]} `}
         </p>
-        <div className="agendaBoxHomeViews absolute right-1 bottom-1 w-12 bg-preKsBoxBack text-xs text-myText duration-200 rounded-full py-0.5 font-medium flex items-center justify-center gap-1 border-2 border-solid border-ksGrayTp shadow-md">
-          <i className="fa-solid fa-eye"></i>
-          <span>
+        <div
+          className={classNames(
+            "agendaBoxHomeViews absolute right-1 bottom-1 w-12 bg-preKsBoxBack text-xs text-myText duration-200 rounded-full h-6 font-medium flex items-center justify-center gap-1 border-2 border-solid border-ksGrayTp shadow-md",
+            {
+              "!text-[10px] ": isLaptop,
+            },
+            {
+              "!text-[9px] ": isTablet,
+            }
+          )}
+        >
+          <i
+            className={classNames(
+              "fa-solid fa-eye",
+              {
+                "!text-[8px]": isLaptop,
+              },
+              {
+                "!text-[7px]": isTablet,
+              }
+            )}
+          ></i>
+          <span className="flex items-center h-full">
             {viewNum.toString().length >= 4 &&
               viewNum.toString().length < 7 &&
               viewNum.toString().slice(0, -3) + " B"}
@@ -72,10 +113,24 @@ function AgendaBox({
           </span>
         </div>
       </div>
-      <header className="text-start text-base mb-2.5 h-12 font-medium line-clamp-2">
+      <header
+        className={classNames(
+          "text-start text-base mb-2.5 h-12 font-medium line-clamp-2",
+          {
+            "!text-sm": isTablet,
+          }
+        )}
+      >
         {agendaTitle}
       </header>
-      <button className="agendaBoxButton absolute -bottom-12 left-1/2 -translate-x-1/2 h-8 w-full text-myText rounded-full bg-ksGrayTp font-medium text-sm duration-200">
+      <button
+        className={classNames(
+          "agendaBoxButton absolute -bottom-12 left-1/2 -translate-x-1/2 h-8 w-full text-myText rounded-full bg-ksGrayTp font-medium text-sm duration-200",
+          {
+            "!text-[13px] !h-7": isLaptop,
+          }
+        )}
+      >
         {t("read")}
       </button>
       <div className="absolute text-xs agendaBoxMarkName opacity-100 duration-200 bottom-3 left-1/2 -translate-x-1/2 w-full bg-ksGrayTp h-1.5 rounded-full"></div>

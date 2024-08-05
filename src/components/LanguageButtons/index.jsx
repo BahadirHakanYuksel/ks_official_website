@@ -2,9 +2,11 @@ import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { updateLngHandle } from "../../utils";
 import { useDispatch } from "react-redux";
+import { useResponsiveData } from "../../Context";
 
 function LanguageButtons() {
   const myLanguages = ["tr", "en"];
+  const { isLaptop, isTablet, isMobile } = useResponsiveData();
   const { i18n } = useTranslation();
 
   const changeLng = (lng) => {
@@ -21,6 +23,9 @@ function LanguageButtons() {
             "w-14 h-7 rounded-sm text-sm font-medium bg-lngBtnBack duration-500 opacity-70 hover:opacity-90",
             {
               "!bg-ksGreen text-white !opacity-100": lng === i18n.language,
+            },
+            {
+              "!w-10 !text-xs !h-6": isLaptop,
             }
           )}
         >

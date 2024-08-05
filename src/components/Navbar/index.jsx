@@ -78,7 +78,13 @@ function Navbar() {
       className={classNames(
         "w-full h-12 sticky top-0 left-0 bg-backColor flex items-center justify-between px-[200px] z-20 mb-5",
         {
-          "px-[50px]": isLaptop,
+          "!px-[50px]": isLaptop,
+        },
+        {
+          "!px-[19px]": isTablet,
+        },
+        {
+          "!px-[10px]": isMobile,
         }
       )}
     >
@@ -88,7 +94,13 @@ function Navbar() {
             initial={{ opacity: 0, top: 40 }}
             animate={{ opacity: 1, top: 64 }}
             exit={{ opacity: 0, top: 40 }}
-            className="absolute top-16 w-[150px] right-52 rounded-md overflow-hidden bg-preKsBoxBack shadow-lg flex flex-col gap-1 p-1.5"
+            className={classNames(
+              "absolute top-12 w-[150px] right-52 rounded-md overflow-hidden bg-preKsBoxBack shadow-lg flex flex-col gap-1 p-1.5",
+              {
+                "!right-16 !top-12": isLaptop,
+                "!right-10 !top-12 !w-[120px]": isTablet,
+              }
+            )}
           >
             {navMenu[3].subCategories?.map((btn) => (
               <button
@@ -97,7 +109,12 @@ function Navbar() {
                   setNavMenuIsActive(false);
                   navigate(`/agenda/${btn.subUrl}`);
                 }}
-                className="h-9 hover:bg-ksGreen hover:text-white duration-150 rounded-md text-sm font-medium w-full bg-footerAgendaButtonBack text-nowrap"
+                className={classNames(
+                  "h-9 hover:bg-ksGreen hover:text-white duration-150 rounded-md text-sm font-medium w-full bg-footerAgendaButtonBack text-nowrap",
+                  {
+                    "!h-8 !text-xs": isTablet,
+                  }
+                )}
               >
                 {btn.title}
               </button>
@@ -112,41 +129,67 @@ function Navbar() {
         }}
         className="flex gap-2.5 items-center active:scale-105 duration-200"
       >
-        <div className="bg-ksgray rounded-sm">
-          <img src="images/logo.png" className="p-1 w-9" alt="" />
+        <div className="!bg-ksgray rounded-sm">
+          <img
+            src="images/logo.png"
+            className={classNames("p-1 w-9", {
+              "!w-7": isTablet,
+            })}
+            alt=""
+          />
         </div>
-        <header className="text-3xl font-semibold text-ksGreen">
+        <header
+          className={classNames(
+            "text-3xl font-semibold text-ksGreen",
+            {
+              "!text-2xl": isTablet,
+            },
+            {
+              "!text-lg": isMobile,
+            }
+          )}
+        >
           Katılım Sigortası
         </header>
       </button>
-      <div className="flex items-center gap-5">
-        {navMenu.map((menu) => (
-          <button
-            onClick={() => {
-              navigation(menu.url, menu.id);
-              menu.id === 3 && setNavMenuIsActive(!navMenuIsActive);
-            }}
-            className={classNames(
-              "text-base text-titleColor font-medium border-b-2 border-solid border-transparent duration-200 hover:text-titleColorHover relative",
-              {
-                "!text-activeTitleColor": menu.id === activeNavTitleId,
-              }
-            )}
-            key={menu.id}
-          >
-            {menu.title}
-            <div
+      {!isMobile && (
+        <div className="flex items-center gap-5">
+          {navMenu.map((menu) => (
+            <button
+              onClick={() => {
+                navigation(menu.url, menu.id);
+                menu.id === 3 && setNavMenuIsActive(!navMenuIsActive);
+              }}
               className={classNames(
-                "absolute -bottom-1 w-0 left-1/2 -translate-x-1/2 bg-ksGray rounded-full h-[3px] duration-200",
+                "text-base text-titleColor font-medium border-b-2 border-solid border-transparent duration-200 hover:text-titleColorHover relative",
                 {
-                  "!w-full !bg-ksGreen": menu.id === activeNavTitleId,
+                  "!text-activeTitleColor": menu.id === activeNavTitleId,
+                },
+                {
+                  "!text-sm": isTablet,
                 }
               )}
-            ></div>
-          </button>
-        ))}
-        <ThemeButton />
-      </div>
+              key={menu.id}
+            >
+              {menu.title}
+              <div
+                className={classNames(
+                  "absolute -bottom-1 w-0 left-1/2 -translate-x-1/2 bg-ksGray rounded-full h-[3px] duration-200",
+                  {
+                    "!w-full !bg-ksGreen": menu.id === activeNavTitleId,
+                  }
+                )}
+              ></div>
+            </button>
+          ))}
+          <ThemeButton />
+        </div>
+      )}
+      {isMobile && (
+        <button className="flex items-center justify-center text-xs bg-preKsBoxBack text-myText hover:text-ksGreen duration-200 w-6 h-6 rounded-sm">
+          <i className="fa-solid fa-bars"></i>
+        </button>
+      )}
     </div>
   );
 }

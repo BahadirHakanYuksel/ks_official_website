@@ -5,9 +5,11 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { convertFromTextToUrl } from "../../../consts";
 import AgendaBox from "../../../components/AgendaBox";
+import { useResponsiveData } from "../../../Context";
 
 function AgendaHome() {
   const [activeAgendaTitleId, setActiveAgendaTitleId] = useState(0);
+  const { isLaptop, isTablet, isMobile } = useResponsiveData();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [ksData, setKsData] = useState([]);
@@ -47,7 +49,6 @@ function AgendaHome() {
         .then((res) => res.json())
         .then((db) => {
           setButtonsDisable(false);
-          console.log("kardeşiişiş : ", db);
 
           setKsData([db[0], db[1], db[2]]);
         });
@@ -63,36 +64,68 @@ function AgendaHome() {
 
   useEffect(() => {
     getDataOnDb();
-    console.log(ksData);
   }, [activeAgendaTitleId]);
 
   return (
-    <div className="flex flex-col gap-5">
+    <div
+      className={classNames("flex flex-col gap-5", {
+        "!gap-2.5": isMobile,
+      })}
+    >
       <HomeTitle>{t("EverythingOnTheAgenda")}</HomeTitle>
-      <div className="flex justify-center h-10 items-center gap-5">
-        <div className="h-7 flex items-center justify-center font-medium text-lg border-r-2 border-solid border-r-ksGreen px-2.5">
+      <div
+        className={classNames("flex justify-center h-10 items-center gap-5", {
+          "!gap-2 !flex-col !h-auto": isMobile,
+        })}
+      >
+        <header
+          className={classNames(
+            "h-7 flex items-center justify-center font-medium text-lg border-r-2 border-solid border-r-ksGreen px-2.5",
+            {
+              "!text-base": isTablet,
+            },
+
+            {
+              "!text-sm !h-8 !px-0 !pr-1 !border-0 !border-b-2 !border-b-ksGreen":
+                isMobile,
+            }
+          )}
+        >
           {t("lastShared")}
+        </header>
+        <div className="flex gap-2.5">
+          {agendaTitles.map((agenda) => (
+            <button
+              disabled={buttonsDisable}
+              onClick={() => {
+                setActiveAgendaTitleId(agenda.id);
+              }}
+              key={agenda.id}
+              className={classNames(
+                "rounded-md bg-backColor text-myText border-2 border-solid border-transparent hover:border-ksGreen h-10 min-w-32 text-base font-medium opacity-70 hover:opacity-100 duration-200 disabled:pointer-events-none disabled:opacity-80",
+                {
+                  "!bg-ksGreen !opacity-100 !text-white":
+                    activeAgendaTitleId === agenda.id,
+                },
+                {
+                  "!min-w-28 !h-9 !text-[15px]": isTablet,
+                },
+                {
+                  "!min-w-[85px] !h-[35px] !text-[11px]": isMobile,
+                }
+              )}
+            >
+              {agenda.title}
+            </button>
+          ))}
         </div>
-        {agendaTitles.map((agenda) => (
-          <button
-            disabled={buttonsDisable}
-            onClick={() => {
-              setActiveAgendaTitleId(agenda.id);
-            }}
-            key={agenda.id}
-            className={classNames(
-              "rounded-md bg-backColor text-myText border-2 border-solid border-transparent hover:border-ksGreen h-10 min-w-32 text-base font-medium opacity-70 hover:opacity-100 duration-200 disabled:pointer-events-none disabled:opacity-80",
-              {
-                "!bg-ksGreen !opacity-100 !text-white":
-                  activeAgendaTitleId === agenda.id,
-              }
-            )}
-          >
-            {agenda.title}
-          </button>
-        ))}
       </div>
-      <div className="flex flex-wrap justify-center gap-10">
+      <div
+        className={classNames("flex flex-wrap justify-center gap-10", {
+          "!gap-7": isLaptop,
+          "!flex !justify-center !items-center": isTablet,
+        })}
+      >
         {ksData.map(
           (agenda, index) =>
             index < 3 && (
@@ -111,7 +144,12 @@ function AgendaHome() {
       <div className="flex items-center justify-center mt-5">
         <button
           onClick={goAgendaMain}
-          className="bg-preKsBoxBack w-[200px] border-2 border-solid border-ksGray duration-200 hover:text-ksGreen hover:border-ksGreen h-10 rounded-full hover:bg-ksGray font-semibold"
+          className={classNames(
+            "bg-preKsBoxBack w-[200px] border-2 border-solid border-ksGray duration-200 hover:text-ksGreen hover:border-ksGreen h-10 rounded-full hover:bg-ksGray font-semibold",
+            {
+              "!w-[150px] !text-base !h-9": isTablet,
+            }
+          )}
         >
           {t("all")} {agendaTitles[activeAgendaTitleId].title}
         </button>

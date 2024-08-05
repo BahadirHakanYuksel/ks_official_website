@@ -7,9 +7,11 @@ import ErrorPage from "../ErrorPage";
 import AgendaBox from "../../components/AgendaBox";
 import classNames from "classnames";
 import { motion } from "framer-motion";
+import { useResponsiveData } from "../../Context";
 
 function Agenda() {
   const { t } = useTranslation();
+  const { isLaptop, isTablet, isMobile } = useResponsiveData();
   const { pathAgendaCategory } = useParams();
   const [activeCategoryId, setactiveCategoryId] = useState(0);
   const [thisPageIsAgenda, setThisPageIsAgenda] = useState(true);
@@ -82,11 +84,34 @@ function Agenda() {
         >
           <PageTitle>{categories[activeCategoryId].title}</PageTitle>
           <div className="page flex flex-col gap-5">
-            <div className="flex justify-between items-center">
-              <div className="flex gap-5 items-center">
-                <header className="text-ksGreen font-medium text-xl relative">
+            <div
+              className={classNames("flex justify-between items-center", {
+                "!justify-center": isTablet,
+              })}
+            >
+              <div
+                className={classNames("flex gap-5 items-center", {
+                  "!flex-col": isMobile,
+                })}
+              >
+                <header
+                  className={classNames(
+                    "text-ksGreen font-medium text-xl relative",
+                    {
+                      "!text-base": isMobile,
+                    }
+                  )}
+                >
                   {t("otherCategories")}
-                  <span className="absolute h-full w-0.5 rounded-full bg-ksGrayTp -right-2.5"></span>
+                  <span
+                    className={classNames(
+                      "absolute h-full w-0.5 rounded-full bg-ksGrayTp -right-2.5",
+                      {
+                        "!w-full !h-0.5 -bottom-1 bg-transparent left-0":
+                          isMobile,
+                      }
+                    )}
+                  ></span>
                 </header>
                 <div className="flex gap-2.5">
                   {categories.map(
@@ -98,7 +123,10 @@ function Agenda() {
                           }
                           key={category.id}
                           className={classNames(
-                            "rounded-md bg-backColor text-myText border-2 border-solid border-ksGrayTp hover:border-ksGreen h-10 min-w-32 text-base font-medium duration-200"
+                            "rounded-md bg-backColor text-myText border-2 border-solid border-ksGrayTp hover:border-ksGreen h-10 min-w-32 text-base font-medium duration-200",
+                            {
+                              "!min-w-24 !text-sm": isMobile,
+                            }
                           )}
                         >
                           {category.title}
@@ -117,7 +145,17 @@ function Agenda() {
                 </button>
               </div> */}
             </div>
-            <div className="flex gap-x-[76px] gap-y-8 flex-wrap">
+            <div
+              className={classNames(
+                "flex gap-x-[76px] gap-y-8 flex-wrap",
+                {
+                  "!gap-x-10": isLaptop,
+                },
+                {
+                  "!gap-x-10 justify-center": isTablet,
+                }
+              )}
+            >
               {ksData.map((box) => (
                 <AgendaBox
                   key={box.id}

@@ -4,10 +4,12 @@ import classNames from "classnames";
 import ServiceBox from "./ServiceBox";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { useResponsiveData } from "../../../Context";
 
 function InsuranceServices() {
   const [ActiveServiceId, setActiveServiceId] = useState(0);
   const { t } = useTranslation();
+  const { isTablet, isMobile } = useResponsiveData();
   const { individual, corporate } = useSelector((state) => state.app);
   const controlButtons = [
     {
@@ -33,6 +35,9 @@ function InsuranceServices() {
                 "bg-ksGray text-white w-32 h-10 rounded-full border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-base shadow-md opacity-70 hover:opacity-100",
                 {
                   "!bg-ksGreen !opacity-100": ActiveServiceId === btn.id,
+                },
+                {
+                  "!text-sm font-medium !w-28 !h-9": isTablet,
                 }
               )}
             >
@@ -41,7 +46,11 @@ function InsuranceServices() {
           ))}
         </div>
       </div>
-      <div className="flex flex-wrap justify-center gap-5">
+      <div
+        className={classNames("flex flex-wrap justify-center gap-5", {
+          "!gap-2.5": isMobile,
+        })}
+      >
         {ActiveServiceId === 0 &&
           individual.map((service, i) => (
             <ServiceBox
