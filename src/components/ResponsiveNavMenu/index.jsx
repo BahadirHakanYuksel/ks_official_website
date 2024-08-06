@@ -49,12 +49,12 @@ function ResponsiveNavMenu() {
 
   return (
     <motion.div
-      initial={{ bottom: 600, opacity: 0 }}
-      animate={{ bottom: 0, opacity: 1 }}
-      exit={{ bottom: 600, opacity: 0 }}
-      className="fixed responsiveNavMenu left-0 bottom-0 flex flex-col bg-responsiveNavMenuBack pt-2.5 w-full px-[10px] overflow-hidden text-sm"
+      initial={{ right: "-600px", opacity: 0 }}
+      animate={{ right: 0, opacity: 1 }}
+      exit={{ right: "-600px", opacity: 0 }}
+      className="fixed responsiveNavMenu right-0 bottom-0 flex flex-col bg-responsiveNavMenuBack pt-12 w-full px-[10px] overflow-hidden text-sm"
     >
-      <header className="text-3xl border-b-2 border-solid border-b-ksGrayTp font-medium text-titleColor mb-2.5 text-nowrap">
+      <header className="text-3xl border-b-2 border-solid border-b-ksGrayTp font-medium text-titleColor text-end mb-2.5 text-nowrap">
         Menu
       </header>
       <div className="flex flex-col gap-3.5">
@@ -66,12 +66,12 @@ function ResponsiveNavMenu() {
             }}
             key={btn.id}
             className={classNames(
-              "flex justify-start w-full items-center text-4xl active::bg-preKsBoxIcon rounded-md active::text-white text-start",
+              "flex justify-end w-full items-center text-4xl active::bg-preKsBoxIcon rounded-md active::text-white text-end",
               {
                 "mt-5": btn.id === 4,
               },
               {
-                "mb-5": btn.id === 6,
+                "mb-2.5": btn.id === 6,
               }
             )}
           >

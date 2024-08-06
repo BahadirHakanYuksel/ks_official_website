@@ -52,7 +52,7 @@ function AgendaContent() {
               key={index}
             >
               {part.slice(1, -1)}
-              <div className="absolute h-1 -bottom-2 w-full rounded-full bg-green-600"></div>
+              {/* <div className="absolute h-1 -bottom-2 w-full rounded-full bg-green-600"></div> */}
             </header>
           </div>
         );
@@ -190,8 +190,14 @@ function AgendaContent() {
               </header>
               : {dates.uploadDate}
             </p>
+            <p className="flex gap-1.5">
+              <header className=" font-medium text-titleColor">
+                {t("author")}
+              </header>
+              : {ksContentData.writer}
+            </p>
           </div>
-          <div
+          {/* <div
             className={classNames(
               "flex flex-col justify-center items-center gap-0.5 text-sm",
               {
@@ -207,10 +213,10 @@ function AgendaContent() {
                 }
               )}
             >
-              {t("author")}
+              {}
             </header>
-            {ksContentData.writer}
-          </div>
+            
+          </div> */}
         </div>
         <div className="w-full aspect-video border-2 border-solid border-ksGrayTp rounded-md overflow-hidden">
           <img
@@ -279,7 +285,14 @@ function AgendaContent() {
         </div>
         <div className="flex flex-col gap-2.5 mt-5">
           {paragraph.map((row, i) => (
-            <div key={i}>{parseContent(row)}</div>
+            <div
+              className={classNames("text-base", {
+                "!text-sm": isMobile,
+              })}
+              key={i}
+            >
+              {parseContent(row)}
+            </div>
           ))}
         </div>
       </div>

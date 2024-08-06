@@ -30,25 +30,25 @@ const initialState = {
     {
       id: 4,
       title: "İhtiyari Mali Masuliyet (İMM) Sigortası",
-      iconUrl: "/konutt.png",
+      iconUrl: "/limm_2.png",
       url: "",
     },
     {
       id: 5,
       title: "Zorunlu Trafik Sigortası",
-      iconUrl: "/konutt.png",
+      iconUrl: "/ztf.png",
       url: "",
     },
     {
       id: 6,
       title: "Tamamlayıcı Sağlık Sigortası",
-      iconUrl: "/konutt.png",
+      iconUrl: "/tsg.png",
       url: "",
     },
     {
       id: 7,
       title: "Seyehat Sağlık Sigortası",
-      iconUrl: "/konutt.png",
+      iconUrl: "/seyehat_sağlık.png",
       url: "",
     },
   ],
@@ -62,7 +62,7 @@ const initialState = {
     {
       id: 1,
       title: "Zorunlu Trafik Sigortası",
-      iconUrl: "/konutt.png",
+      iconUrl: "/ztf.png",
       url: "",
     },
     {
@@ -80,25 +80,25 @@ const initialState = {
     {
       id: 4,
       title: "Limitsiz (İMM) Sigortası",
-      iconUrl: "/konutt.png",
+      iconUrl: "/limm_2.png",
       url: "",
     },
     {
       id: 5,
       title: "TARSİM",
-      iconUrl: "/e_arac.png",
+      iconUrl: "/tarsim.png",
       url: "",
     },
     {
       id: 6,
       title: "İşyeri Sigortaları",
-      iconUrl: "/konutt.png",
+      iconUrl: "/işyeri_sigortası.png",
       url: "",
     },
     {
       id: 7,
       title: "Nakliyat Sigortaları",
-      iconUrl: "/konutt.png",
+      iconUrl: "/nakliyat_sigortası.png",
       url: "",
     },
   ],
