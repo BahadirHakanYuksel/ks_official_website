@@ -119,14 +119,25 @@ function Navbar() {
           setActiveNavTitleId(0);
           navigate("/");
         }}
-        className="flex gap-2.5 items-center active:scale-105 duration-200"
+        className={classNames(
+          "flex gap-2.5 items-center active:scale-105 duration-200",
+          {
+            "!gap-1.5": isMobile,
+          }
+        )}
       >
-        <div className="!bg-ksgray rounded-sm">
+        <div className="bg-ksGray rounded-sm">
           <img
             src="images/logo.png"
-            className={classNames("p-1 w-9", {
-              "!w-7": isTablet,
-            })}
+            className={classNames(
+              "p-1 w-9",
+              {
+                "!w-7": isTablet,
+              },
+              {
+                "!w-5": isMobile,
+              }
+            )}
             alt=""
           />
         </div>
