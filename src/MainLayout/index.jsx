@@ -6,9 +6,16 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import TopNavbar from "../components/TopNavbar";
 import { useSelector } from "react-redux";
+import ResponsiveNavMenu from "../components/ResponsiveNavMenu";
+import { AnimatePresence } from "framer-motion";
+import { useResponsiveData } from "../Context";
 
 function MainLayout() {
   const { i18n } = useTranslation();
+
+  const { responsiveNavMenuIsActive } = useSelector((state) => state.app);
+
+  const { isMobile } = useResponsiveData();
 
   useEffect(() => {
     updateLngHandle(i18n.language);
@@ -20,6 +27,9 @@ function MainLayout() {
       <Navbar />
       <Outlet />
       <Footer />
+      <AnimatePresence>
+        {responsiveNavMenuIsActive && isMobile && <ResponsiveNavMenu />}
+      </AnimatePresence>
     </div>
   );
 }

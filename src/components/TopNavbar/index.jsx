@@ -17,32 +17,35 @@ function TopNavbar() {
   ];
 
   return (
-    <div
-      className={classNames(
-        "w-full h-5 flex items-center justify-end px-[200px]",
-        {
-          "!px-[50px]": isLaptop,
-        },
-        {
-          "!px-[19px]": isTablet,
-        },
-        {
-          "!px-[10px] !justify-center": isMobile,
-        }
+    <>
+      {!isMobile && (
+        <div
+          className={classNames(
+            "w-full h-5 flex items-center justify-end page"
+          )}
+        >
+          <div className="flex items-center gap-5">
+            {myUrls.map((url) => (
+              <button
+                className={classNames(
+                  "text-gray-400 text-xs hover:text-myText font-medium",
+                  {
+                    "!text-[11px]": isLaptop,
+                  },
+                  {
+                    "!text-[9px]": isTablet,
+                  }
+                )}
+                onClick={() => navigate(url.url)}
+                key={url.id}
+              >
+                {url.title}
+              </button>
+            ))}
+          </div>
+        </div>
       )}
-    >
-      <div className="flex items-center gap-5">
-        {myUrls.map((url) => (
-          <button
-            className="text-gray-400 text-xs hover:text-gray-600 font-medium"
-            onClick={() => navigate(url.url)}
-            key={url.id}
-          >
-            {url.title}
-          </button>
-        ))}
-      </div>
-    </div>
+    </>
   );
 }
 

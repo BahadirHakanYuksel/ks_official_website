@@ -12,6 +12,9 @@ function ContactBox() {
         "flex flex-col gap-5 bg-contactBoxBack p-5 opacity-100 hover:opacity-100 duration-300",
         {
           "!gap-4": isLaptop,
+        },
+        {
+          "!rounded-lg ": isTablet,
         }
       )}
     >

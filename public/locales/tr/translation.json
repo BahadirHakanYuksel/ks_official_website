@@ -74,5 +74,7 @@
   "adminWelcomeMessage": "Katılım Sigortası Admin Paneline Hoşgeldiniz",
   "piap": "Katılım Sigortası Admin Paneli",
   "fastMenu": "HIZLI MENÜ",
-  "homepage": "Anasayfa"
+  "homepage": "Anasayfa",
+  "darkMode": "Koyu Mod",
+  "lightMode": "Açık Mod"
 }

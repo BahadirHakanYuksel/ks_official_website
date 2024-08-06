@@ -45,9 +45,15 @@ function MessageBox() {
   return (
     <form
       onSubmit={sendForm}
-      className={classNames("flex flex-col gap-5 bg-messageBoxBack p-5", {
-        "!gap-4": isLaptop,
-      })}
+      className={classNames(
+        "flex flex-col gap-5 bg-messageBoxBack p-5",
+        {
+          "!gap-4": isLaptop,
+        },
+        {
+          "!rounded-lg ": isTablet,
+        }
+      )}
     >
       <header
         className={classNames(

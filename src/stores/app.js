@@ -105,6 +105,7 @@ const initialState = {
   activeService: false,
   activeMainContent: false,
   activeSubContent: false,
+  responsiveNavMenuIsActive: false,
 };
 
 const app = createSlice({
@@ -127,9 +128,21 @@ const app = createSlice({
     updateMainContent: (state, action) => {
       state.activeMainContent = action.payload;
     },
+    updateResNavMenu: (state) => {
+      state.responsiveNavMenuIsActive = !state.responsiveNavMenuIsActive;
+    },
+    closeResNavMenu: (state) => {
+      state.responsiveNavMenuIsActive = false;
+    },
   },
 });
 
 export default app.reducer;
-export const { rigtSlider, leftSlider, updateService, updateMainContent } =
-  app.actions;
+export const {
+  rigtSlider,
+  leftSlider,
+  updateService,
+  updateMainContent,
+  updateResNavMenu,
+  closeResNavMenu,
+} = app.actions;

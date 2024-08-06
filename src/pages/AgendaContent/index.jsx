@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import classNames from "classnames";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
+import { useResponsiveData } from "../../Context";
 
 function AgendaContent() {
   const parseContent = (content) => {
@@ -92,7 +93,7 @@ function AgendaContent() {
   };
   const { pathAgendaInfo } = useParams();
   const path = useLocation().pathname;
-
+  const { isMobile } = useResponsiveData();
   const { t } = useTranslation();
 
   const [ksContentData, setKsContentData] = useState([]);
@@ -155,14 +156,28 @@ function AgendaContent() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="page flex gap-10"
+      className={classNames("page flex gap-10", {
+        "!flex-col": isMobile,
+      })}
     >
-      <div className="w-[75%] flex flex-col gap-2.5">
-        <header className="text-3xl font-medium text-myText">
+      <div
+        className={classNames("w-[75%] flex flex-col gap-2.5", {
+          "!w-full": isMobile,
+        })}
+      >
+        <header
+          className={classNames("text-3xl font-medium text-myText", {
+            "!text-2xl": isMobile,
+          })}
+        >
           {ksContentData.title}
         </header>
         <div className="flex items-center justify-between">
-          <div className="flex flex-col gap-0.5 text-sm">
+          <div
+            className={classNames("flex flex-col gap-0.5 text-sm", {
+              "!text-xs": isMobile,
+            })}
+          >
             <p className="flex gap-1.5">
               <header className=" font-medium text-titleColor">
                 {t("publicationDate")}
@@ -176,8 +191,22 @@ function AgendaContent() {
               : {dates.uploadDate}
             </p>
           </div>
-          <div className="flex flex-col justify-center items-center gap-0.5 text-sm">
-            <header className="font-medium bg-ksGrayTp w-20 flex items-center justify-center rounded-sm text-myText">
+          <div
+            className={classNames(
+              "flex flex-col justify-center items-center gap-0.5 text-sm",
+              {
+                "!text-xs": isMobile,
+              }
+            )}
+          >
+            <header
+              className={classNames(
+                "font-medium bg-ksGrayTp w-20 flex items-center justify-center rounded-sm text-myText",
+                {
+                  "!w-14": isMobile,
+                }
+              )}
+            >
               {t("author")}
             </header>
             {ksContentData.writer}
@@ -198,7 +227,12 @@ function AgendaContent() {
                   `https://katilimsigortacisi.com${path}`
                 )
               }
-              className="flex gap-1.5 items-center justify-center text-sm font-medium bg-preKsBoxBack text-preKsBoxIcon h-full w-20 rounded-sm hover:text-ksGreen duration-200 border-2 border-solid border-ksGrayTp hover:border-ksGreen"
+              className={classNames(
+                "flex gap-1.5 items-center justify-center text-sm font-medium bg-preKsBoxBack text-preKsBoxIcon h-full w-20 rounded-sm hover:text-ksGreen duration-200 border-2 border-solid border-ksGrayTp hover:border-ksGreen",
+                {
+                  "!text-xs !w-[70px]": isMobile,
+                }
+              )}
             >
               <i className="fa-solid fa-share-nodes"></i>
               <span>{t("share")}</span>
@@ -207,7 +241,12 @@ function AgendaContent() {
               <a
                 href={ksContentData.link}
                 target="_blank"
-                className="flex gap-1.5 items-center justify-center text-sm font-medium bg-preKsBoxBack text-preKsBoxIcon h-full w-20 rounded-sm hover:text-ksGreen duration-200 border-2 border-solid border-ksGrayTp hover:border-ksGreen"
+                className={classNames(
+                  "flex gap-1.5 items-center justify-center text-sm font-medium bg-preKsBoxBack text-preKsBoxIcon h-full w-20 rounded-sm hover:text-ksGreen duration-200 border-2 border-solid border-ksGrayTp hover:border-ksGreen",
+                  {
+                    "!text-xs !w-[70px]": isMobile,
+                  }
+                )}
               >
                 <i className="fa-solid fa-play"></i>
                 <span>{t("watch")}</span>
@@ -226,7 +265,12 @@ function AgendaContent() {
             </label> */}
             <div
               title="Görüntülenme Sayısı"
-              className="flex gap-1.5 items-center justify-center text-sm font-medium bg-preKsBoxBack text-preKsBoxIcon h-full w-20 rounded-full duration-200 border-2 border-solid border-ksGrayTp select-none"
+              className={classNames(
+                "flex gap-1.5 items-center justify-center text-sm font-medium bg-preKsBoxBack text-preKsBoxIcon h-full w-20 rounded-full duration-200 border-2 border-solid border-ksGrayTp select-none",
+                {
+                  "!w-16 !text-xs": isMobile,
+                }
+              )}
             >
               <i className="fa-solid fa-eye"></i>
               <span>{ksContentData.number_of_views}</span>

@@ -3,9 +3,14 @@ import HomeTitle from "../../components/HomeTitle";
 import IntroductionOfKs from "./IntroductionOfKs";
 import PageTitle from "../../components/PageTitle";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 function WhatIsTheKs() {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    document.scrollingElement.scrollTop = 0;
+  }, []);
 
   return (
     <motion.div

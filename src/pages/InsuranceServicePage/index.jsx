@@ -9,12 +9,13 @@ import { useTranslation } from "react-i18next";
 import ErrorPage from "../ErrorPage";
 import classNames from "classnames";
 import InsuranceServiceContent from "./InsuranceServiceContent";
+import { useResponsiveData } from "../../Context";
 
 function InsuranceServicePage() {
   const { individual, corporate, activeService } = useSelector(
     (state) => state.app
   );
-
+  const { isLaptop, isTablet, isMobile } = useResponsiveData();
   const { pathServiceCategory, pathServiceName } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -124,8 +125,6 @@ function InsuranceServicePage() {
       setActiveServiceButtonIndex(0);
       updateMainContentHandle(thisMyMainContent[0].text.split("\n"));
     }
-
-    console.log(activeService);
   };
 
   useEffect(() => {
@@ -164,9 +163,20 @@ function InsuranceServicePage() {
           <div className="servicePageGrid grid gap-5">
             <div className="bg-serviceMenuBack shadow-md rounded-md p-3 flex flex-col gap-5">
               <div className=" flex justify-center items-center">
-                <header className="text-xl h-8 font-medium relative">
+                <header
+                  className={classNames("text-xl h-8 font-medium relative", {
+                    "!text-lg": isLaptop,
+                  })}
+                >
                   {categories[activeCategoryIndex]}
-                  <div className="absolute -bottom-[2px] left-1/2 -translate-x-1/2 w-1/2 bg-ksGreen h-[3px] rounded-full"></div>
+                  <div
+                    className={classNames(
+                      "absolute -bottom-[2px] left-1/2 -translate-x-1/2 w-1/2 bg-ksGreen h-[3px] rounded-full",
+                      {
+                        "!h-[2px]": isLaptop,
+                      }
+                    )}
+                  ></div>
                 </header>
               </div>
               <div className="flex flex-col w-full gap-1.5">
@@ -186,6 +196,9 @@ function InsuranceServicePage() {
                                 urlCategories[activeCategoryIndex]
                               )
                             ).toLowerCase() === pathServiceCategory,
+                        },
+                        {
+                          "text-xs": isLaptop,
                         }
                       )}
                     >
@@ -208,6 +221,9 @@ function InsuranceServicePage() {
                                 urlCategories[activeCategoryIndex]
                               )
                             ).toLowerCase() === pathServiceCategory,
+                        },
+                        {
+                          "text-xs": isLaptop,
                         }
                       )}
                     >
@@ -220,7 +236,12 @@ function InsuranceServicePage() {
               </div>
               <button
                 onClick={changeCategory}
-                className="h-8 text-base rounded-full hover:bg-green-700 duration-200 text-white flex items-center justify-center font-medium bg-ksGreen"
+                className={classNames(
+                  "h-8 text-base rounded-full hover:bg-green-700 duration-200 text-white flex items-center justify-center font-medium bg-ksGreen",
+                  {
+                    "text-sm": isLaptop,
+                  }
+                )}
               >
                 {categories[activeServiceButtonIndex]} Hizmetlere Git
               </button>

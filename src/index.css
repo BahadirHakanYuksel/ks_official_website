@@ -32,6 +32,7 @@
   --contactBoxBack: #f1f1f1;
   --contactBoxTitleBack: white;
   --footerAgendaButtonBack: #e1e9e6;
+  --responsiveNavMenuBack: rgb(237, 237, 237);
 }
 
 [data-theme="dark"] {
@@ -55,6 +56,7 @@
   --contactBoxBack: #33373a;
   --contactBoxTitleBack: var(--preKsBoxBack);
   --footerAgendaButtonBack: var(--ksGray);
+  --responsiveNavMenuBack: #24282a;
 }
 /** old  */
 /* 
@@ -190,6 +192,16 @@ textarea {
   .homeServiceBox > header {
     font-size: 18px;
   }
+  .introductionOfKs {
+    height: 240px;
+  }
+  .presenteSlider {
+    height: 550px;
+  }
+  .servicePageGrid {
+    grid-template-columns: 280px auto;
+    padding: 0 50px;
+  }
 }
 
 @media screen and (max-width: 769px) {
@@ -200,14 +212,30 @@ textarea {
     width: 160px;
     height: 160px;
   }
+  .homeServiceBox:hover {
+    transform: scale(1.05);
+  }
   .homeServiceBox > img {
     width: 80px;
   }
   .homeServiceBox > header {
     font-size: 13px;
   }
+  .introductionOfKs {
+    height: 200px;
+  }
+  .presenteSlider {
+    height: 460px;
+  }
+  .servicePageGrid {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0 20px;
+  }
 }
 @media screen and (max-width: 426px) {
+  .responsiveNavMenu {
+    height: calc(100vh - 48px);
+  }
   .page {
     padding: 0 10px;
   }
@@ -218,12 +246,57 @@ textarea {
   }
   .homeServiceBox {
     width: 100%;
-    height: 180px;
+    height: 170px;
   }
   .homeServiceBox > img {
-    width: 100px;
+    width: 92px;
   }
   .homeServiceBox > header {
-    font-size: 16px;
+    font-size: 15px;
+  }
+  .homeServiceBox:hover {
+    transform: scale(1) !important;
+  }
+  .homeInsuranceServices {
+    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+  }
+  .introductionOfKs {
+    height: 160px;
+  }
+  .presenteSlider {
+    height: 260px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .presenteSlider {
+    height: 230px;
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .homeServiceBox {
+    width: 100%;
+    height: 140px;
+    gap: 0;
+  }
+  .homeServiceBox > img {
+    width: 85px;
+  }
+  .homeServiceBox > header {
+    font-size: 15px;
+  }
+  .homeServiceBox {
+    transform: scale(1.025);
+  }
+  .homeInsuranceServices {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 12px;
+  }
+  .presenteSlider {
+    height: 200px;
   }
 }

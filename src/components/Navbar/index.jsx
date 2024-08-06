@@ -6,6 +6,7 @@ import ThemeButton from "../ThemeButton";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useResponsiveData } from "../../Context";
+import { updateResNavMenuHandle } from "../../utils";
 
 function Navbar() {
   const { t, i18n } = useTranslation();
@@ -76,16 +77,7 @@ function Navbar() {
   return (
     <div
       className={classNames(
-        "w-full h-12 sticky top-0 left-0 bg-backColor flex items-center justify-between px-[200px] z-20 mb-5",
-        {
-          "!px-[50px]": isLaptop,
-        },
-        {
-          "!px-[19px]": isTablet,
-        },
-        {
-          "!px-[10px]": isMobile,
-        }
+        "page w-full h-12 sticky top-0 left-0 bg-backColor flex items-center justify-between px-[200px] z-20 mb-5"
       )}
     >
       <AnimatePresence>
@@ -186,7 +178,10 @@ function Navbar() {
         </div>
       )}
       {isMobile && (
-        <button className="flex items-center justify-center text-xs bg-preKsBoxBack text-myText hover:text-ksGreen duration-200 w-6 h-6 rounded-sm">
+        <button
+          onClick={updateResNavMenuHandle}
+          className="flex items-center justify-center text-xs bg-preKsBoxBack text-myText hover:text-ksGreen duration-200 w-6 h-6 rounded-sm"
+        >
           <i className="fa-solid fa-bars"></i>
         </button>
       )}

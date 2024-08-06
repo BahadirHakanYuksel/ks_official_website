@@ -22,6 +22,7 @@ export default {
         contactBoxBack: "var(--contactBoxBack)",
         contactBoxTitleBack: "var(--contactBoxTitleBack)",
         footerAgendaButtonBack: "var(--footerAgendaButtonBack)",
+        responsiveNavMenuBack: "var(--responsiveNavMenuBack)",
       },
     },
   },

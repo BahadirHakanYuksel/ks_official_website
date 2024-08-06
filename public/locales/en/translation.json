@@ -74,5 +74,7 @@
   "adminWelcomeMessage": "Welcome to Participation Insurance Admin Panel",
   "piap": "Participation Insurance Admin Panel",
   "fastMenu": "FAST MENU",
-  "homepage": "Homepage"
+  "homepage": "Homepage",
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode"
 }

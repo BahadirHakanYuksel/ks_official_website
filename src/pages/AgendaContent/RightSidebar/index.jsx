@@ -1,13 +1,15 @@
 import { useTranslation } from "react-i18next";
 import AgendaContentSiderbarBox from "./AgendaContentSiderbarBox";
 import { useEffect, useState } from "react";
+import { useResponsiveData } from "../../../Context";
+import classNames from "classnames";
 
 function RightSidebar() {
   const { t } = useTranslation();
   const [news, setNews] = useState([]);
   const [articles, setArticles] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
-
+  const { isMobile } = useResponsiveData();
   const agendaTitles = [
     {
       urlName: "news",
@@ -80,7 +82,11 @@ function RightSidebar() {
   }, []);
 
   return (
-    <div className="flex flex-col w-[25%] gap-10">
+    <div
+      className={classNames("flex flex-col w-[25%] gap-10", {
+        "!w-full": isMobile,
+      })}
+    >
       <div className="flex flex-col w-full gap-2.5">
         <header className="text-xl h-9 flex justify-center items-center font-medium text-white bg-ksGreen rounded-sm text-center">
           {agendaTitles[0].title}

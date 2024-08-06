@@ -1,9 +1,11 @@
 import stores from "../stores";
 import { updateKsAdmin } from "../stores/admin";
 import {
+  closeResNavMenu,
   leftSlider,
   rigtSlider,
   updateMainContent,
+  updateResNavMenu,
   updateService,
 } from "../stores/app";
 import { updateLng } from "../stores/lng";
@@ -48,4 +50,12 @@ export const closeModalBoxHandle = () => {
 
 export const updateKsAdminHandle = (adminInfos) => {
   stores.dispatch(updateKsAdmin(adminInfos));
+};
+
+export const updateResNavMenuHandle = () => {
+  stores.dispatch(updateResNavMenu());
+};
+
+export const closeResNavMenuHandle = () => {
+  stores.dispatch(closeResNavMenu());
 };

@@ -114,7 +114,7 @@ function Footer() {
                 "!text-base": isLaptop,
               },
               {
-                "!text-base !border-0 !border-b !border-b-ksGrayTp": isLaptop,
+                "!text-base !border-0 !border-b !border-b-ksGrayTp": isMobile,
               }
             )}
           >

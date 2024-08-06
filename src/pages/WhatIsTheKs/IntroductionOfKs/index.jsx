@@ -45,23 +45,14 @@ function IntroductionOfKs() {
   ];
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className={classNames("flex flex-col gap-5")}>
       <div className="presenteKs">
         {introductionData.map((box) => (
           <div
             id={box.id}
             key={box.idNo}
             className={classNames(
-              "bg-preKsBoxBack rounded-md w-full flex flex-col items-center justify-center shadow-md p-3 hover:shadow-ksGreen duration-200 h-[280px] text-myText relative",
-              {
-                "!h-[240px]": isLaptop,
-              },
-              {
-                "!h-[200px]": isTablet,
-              },
-              {
-                "!h-[150px]": isMobile,
-              }
+              "bg-preKsBoxBack introductionOfKs rounded-md w-full flex flex-col items-center justify-center shadow-md p-3 hover:shadow-ksGreen duration-200 h-[280px] text-myText relative"
             )}
           >
             {box.idNo === 0 ? (

@@ -19,7 +19,7 @@ function ContactHome() {
             "!h-[500px]": isLaptop,
           },
           {
-            "!grid-cols-1 !h-auto ": isTablet,
+            "!grid-cols-1 !h-auto !shadow-none !gap-24 !rounded-lg": isTablet,
           }
         )}
       >

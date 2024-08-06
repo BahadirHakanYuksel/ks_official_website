@@ -16,19 +16,18 @@ function Contact() {
       className="flex flex-col gap-5"
     >
       <PageTitle>{t("contact")}</PageTitle>
-      <div className="page">
+      <div className="">
         <div
           className={classNames(
-            "w-full h-[562px] grid grid-cols-2 overflow-hidden rounded-lg shadow-lg",
+            "w-full h-[562px] grid grid-cols-2 overflow-hidden rounded-lg shadow-lg px-[100px]",
             {
-              "!h-[500px]": isLaptop,
+              "!h-[500px] !px-[20px]": isLaptop,
             },
             {
-              "!grid-cols-1 !h-auto gap-20 !w-[70%] ml-[50%] -translate-x-1/2":
-                isTablet,
+              "!grid-cols-1 !gap-24 !h-auto !px-[10px] !shadow-none": isTablet,
             },
             {
-              "!grid-cols-1 !h-auto gap-20 !w-[100%]": isMobile,
+              "!w-[100%]": isMobile,
             }
           )}
         >

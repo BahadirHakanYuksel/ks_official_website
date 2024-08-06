@@ -15,6 +15,9 @@ function PageTitle({ children }) {
         "bg-gradient-to-r to-green-950 from-green-950 via-[#189245] text-white w-full text-4xl font-medium flex justify-center items-center mb-5 overflow-hidden",
         {
           "!text-3xl": isTablet,
+        },
+        {
+          "!text-xl": isMobile,
         }
       )}
     >

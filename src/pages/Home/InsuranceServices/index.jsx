@@ -9,7 +9,7 @@ import { useResponsiveData } from "../../../Context";
 function InsuranceServices() {
   const [ActiveServiceId, setActiveServiceId] = useState(0);
   const { t } = useTranslation();
-  const { isTablet, isMobile } = useResponsiveData();
+  const { isTablet, isMobile, isSmallMobile } = useResponsiveData();
   const { individual, corporate } = useSelector((state) => state.app);
   const controlButtons = [
     {
@@ -47,9 +47,9 @@ function InsuranceServices() {
         </div>
       </div>
       <div
-        className={classNames("flex flex-wrap justify-center gap-5", {
-          "!gap-2.5": isMobile,
-        })}
+        className={classNames(
+          "flex flex-wrap justify-center gap-5 homeInsuranceServices"
+        )}
       >
         {ActiveServiceId === 0 &&
           individual.map((service, i) => (
