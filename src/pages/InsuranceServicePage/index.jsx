@@ -153,8 +153,6 @@ function InsuranceServicePage() {
     setResponsiveServiceMenuIsOpen(false);
     setTimeout(() => {
       document.scrollingElement.scrollTop = 0;
-    }, 600);
-    setTimeout(() => {
       navigate(
         `/${encodeURIComponent(
           turkishToEnglish(
@@ -164,7 +162,7 @@ function InsuranceServicePage() {
           turkishToEnglish(title.replace(/ /g, "-"))
         ).toLowerCase()}`
       );
-    }, 700);
+    }, 600);
   };
 
   return (
