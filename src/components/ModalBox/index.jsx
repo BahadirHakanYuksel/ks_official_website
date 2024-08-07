@@ -44,6 +44,11 @@ function ModalBox() {
   const [uploadTime, setUploadTime] = useState(new Date());
   const [AllInputIsOk, setAllInputIsOk] = useState(false);
   const [Loading, setLoading] = useState(false);
+  const [datesPreview, setdatesPreview] = useState({
+    loadDate: "",
+    uploadDate: "",
+    newUploadDate: "",
+  });
 
   const adminUrl = import.meta.env.VITE_ADMIN_URL;
 
@@ -341,6 +346,24 @@ function ModalBox() {
       setUploadTime(modalData.ksUploadDate);
       const formattedDate = format(currentDateTime, "yyyy-MM-dd HH:mm:ss");
       setCurrentDateTime(formattedDate);
+
+      setdatesPreview({
+        loadDate: `${modalInfos.myData.dat.split(" ")[0].split("-")[2]}.${
+          modalInfos.myData.dat.split(" ")[0].split("-")[1]
+        }.${modalInfos.myData.dat.split(" ")[0].split("-")[0]} - ${
+          modalInfos.myData.dat.split(" ")[1].split(":")[0]
+        }.${modalInfos.myData.dat.split(" ")[1].split(":")[1]}`,
+        uploadDate: `${modalInfos.myData.lastDat.split(" ")[0].split("-")[2]}.${
+          modalInfos.myData.lastDat.split(" ")[0].split("-")[1]
+        }.${modalInfos.myData.lastDat.split(" ")[0].split("-")[0]} - ${
+          modalInfos.myData.lastDat.split(" ")[1].split(":")[0]
+        }.${modalInfos.myData.lastDat.split(" ")[1].split(":")[1]}`,
+        newUploadDate: `${formattedDate.split(" ")[0].split("-")[2]}.${
+          formattedDate.split(" ")[0].split("-")[1]
+        }.${formattedDate.split(" ")[0].split("-")[0]} - ${
+          formattedDate.split(" ")[1].split(":")[0]
+        }.${formattedDate.split(" ")[1].split(":")[1]}`,
+      });
     } else if (modalInfos.operation === "add") {
       getControlDataOnDb();
       const newKsId = createKS_ID();
@@ -353,6 +376,15 @@ function ModalBox() {
         ksId: newKsId,
       });
       setpreviewImg("");
+
+      setdatesPreview({
+        ...datesPreview,
+        loadDate: `${formattedDate.split(" ")[0].split("-")[2]}.${
+          formattedDate.split(" ")[0].split("-")[1]
+        }.${formattedDate.split(" ")[0].split("-")[0]} - ${
+          formattedDate.split(" ")[1].split(":")[0]
+        }.${formattedDate.split(" ")[1].split(":")[1]}`,
+      });
     } else if (modalInfos.operation === "delete") {
       setModalData({
         ksId: modalInfos.myData.ks_id,
@@ -610,13 +642,7 @@ function ModalBox() {
                   <input
                     type="text"
                     className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                    value={`${
-                      modalData.ksUploadDate.split(" ")[0].split("-")[2]
-                    }.${modalData.ksUploadDate.split(" ")[0].split("-")[1]}.${
-                      modalData.ksUploadDate.split(" ")[0].split("-")[0]
-                    } - ${modalData.ksUploadDate.split(" ")[1].split(":")[0]}.${
-                      modalData.ksUploadDate.split(" ")[1].split(":")[1]
-                    }`}
+                    value={datesPreview.loadDate}
                     disabled={true}
                   />
                 </div>
@@ -627,17 +653,7 @@ function ModalBox() {
                       <input
                         type="text"
                         className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                        value={`${
-                          modalData.ksLastUpdateDate.split(" ")[0].split("-")[2]
-                        }.${
-                          modalData.ksLastUpdateDate.split(" ")[0].split("-")[1]
-                        }.${
-                          modalData.ksLastUpdateDate.split(" ")[0].split("-")[0]
-                        } - ${
-                          modalData.ksLastUpdateDate.split(" ")[1].split(":")[0]
-                        }.${
-                          modalData.ksLastUpdateDate.split(" ")[1].split(":")[1]
-                        }`}
+                        value={datesPreview.uploadDate}
                         disabled={true}
                       />
                     </div>
@@ -646,13 +662,7 @@ function ModalBox() {
                       <input
                         type="text"
                         className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                        value={`${
-                          currentDateTime.split(" ")[0].split("-")[2]
-                        }.${currentDateTime.split(" ")[0].split("-")[1]}.${
-                          currentDateTime.split(" ")[0].split("-")[0]
-                        } - ${currentDateTime.split(" ")[1].split(":")[0]}.${
-                          currentDateTime.split(" ")[1].split(":")[1]
-                        }`}
+                        value={datesPreview.newUploadDate}
                         disabled={true}
                       />
                     </div>
