@@ -77,5 +77,6 @@
   "homepage": "Anasayfa",
   "darkMode": "Koyu Mod",
   "lightMode": "Açık Mod",
-  "category": "Kategori"
+  "category": "Kategori",
+  "otherServices": "Diğer Hizmetler"
 }

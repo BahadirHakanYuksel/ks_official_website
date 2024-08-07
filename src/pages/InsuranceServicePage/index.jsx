@@ -18,7 +18,7 @@ function InsuranceServicePage() {
   const { isLaptop, isTablet, isMobile } = useResponsiveData();
   const { pathServiceCategory, pathServiceName } = useParams();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
   const [activeServiceButtonIndex, setActiveServiceButtonIndex] = useState(1);
   const [responsiveServiceMenuIsOpen, setResponsiveServiceMenuIsOpen] =
@@ -198,7 +198,7 @@ function InsuranceServicePage() {
                     }
                   )}
                 >
-                  Diğer Hizmetler
+                  {t("otherServices")}
                 </button>
                 <AnimatePresence>
                   {responsiveServiceMenuIsOpen && (
@@ -214,7 +214,7 @@ function InsuranceServicePage() {
                         }
                       )}
                     >
-                      Kapat
+                      {i18n.language === "en" ? "Close" : "Kapat"}
                     </motion.button>
                   )}
                 </AnimatePresence>

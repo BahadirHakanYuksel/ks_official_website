@@ -77,5 +77,6 @@
   "homepage": "Homepage",
   "darkMode": "Dark Mode",
   "lightMode": "Light Mode",
-  "category": "Category"
+  "category": "Category",
+  "otherServices": "Other Services"
 }
