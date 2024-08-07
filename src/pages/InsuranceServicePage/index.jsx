@@ -183,9 +183,12 @@ function InsuranceServicePage() {
                     setResponsiveServiceMenuIsOpen(!responsiveServiceMenuIsOpen)
                   }
                   className={classNames(
-                    " bg-serviceMenuBack text-myText w-36 h-8 rounded-sm active:bg-ksGreen active:text-white font-medium duration-200 rounded-t-lg",
+                    " bg-serviceMenuBack text-myText w-36 h-8 rounded-sm active:bg-ksGreen active:text-white font-medium duration-200",
                     {
                       "!text-xs !w-auto !px-2.5": isMobile,
+                    },
+                    {
+                      "!rounded-t-lg": responsiveServiceMenuIsOpen,
                     }
                   )}
                 >
