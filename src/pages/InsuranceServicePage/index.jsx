@@ -131,8 +131,12 @@ function InsuranceServicePage() {
 
   useEffect(() => {
     serviceControl();
-    document.scrollingElement.scrollTop = 0;
-    if (isTablet) setResponsiveServiceMenuIsOpen(false);
+    if (isTablet) {
+      setResponsiveServiceMenuIsOpen(false);
+      setTimeout(() => {
+        setResponsiveServiceMenuIsOpen(false);
+      }, 500);
+    } else document.scrollingElement.scrollTop = 0;
   }, [pathServiceName, pathServiceCategory]);
 
   const changeCategory = () => {
