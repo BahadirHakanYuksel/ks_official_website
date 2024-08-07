@@ -150,13 +150,21 @@ function InsuranceServicePage() {
   };
 
   const changeService = (title) => {
-    navigate(
-      `/${encodeURIComponent(
-        turkishToEnglish(urlCategories[activeCategoryIndex].replace(/ /g, "-"))
-      ).toLowerCase()}/${encodeURIComponent(
-        turkishToEnglish(title.replace(/ /g, "-"))
-      ).toLowerCase()}`
-    );
+    setResponsiveServiceMenuIsOpen(false);
+    setTimeout(() => {
+      document.scrollingElement.scrollTop = 0;
+    }, 600);
+    setTimeout(() => {
+      navigate(
+        `/${encodeURIComponent(
+          turkishToEnglish(
+            urlCategories[activeCategoryIndex].replace(/ /g, "-")
+          )
+        ).toLowerCase()}/${encodeURIComponent(
+          turkishToEnglish(title.replace(/ /g, "-"))
+        ).toLowerCase()}`
+      );
+    }, 700);
   };
 
   return (
