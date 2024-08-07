@@ -6,7 +6,7 @@ function ModalBoxHeader({ children }) {
   return (
     <header
       className={classNames("text-2xl font-medium text-titleColor", {
-        "!lg": isMobile,
+        "!text-lg": isMobile,
       })}
     >
       {children}

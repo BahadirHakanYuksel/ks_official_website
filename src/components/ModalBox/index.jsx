@@ -385,7 +385,12 @@ function ModalBox() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="z-40 w-full h-screen fixed left-0 top-0 bg-gradient-to-b to-ksGray text-white text-5xl font-medium from-ksGreen flex items-center justify-center"
+            className={classNames(
+              "z-40 w-full h-screen fixed left-0 top-0 bg-gradient-to-b to-ksGray text-white text-5xl font-medium from-ksGreen flex items-center justify-center",
+              {
+                "!text-2xl": isMobile,
+              }
+            )}
           >
             Yükleniyor...
           </motion.div>
@@ -394,7 +399,7 @@ function ModalBox() {
       <div className="flex flex-col gap-8 relative p-5 ">
         <header
           className={classNames("text-4xl", {
-            "!text-3xl": isMobile,
+            "!text-2xl": isMobile,
           })}
         >
           {modalInfos.operation === "edit" && "Düzenleme Ekranı"}
