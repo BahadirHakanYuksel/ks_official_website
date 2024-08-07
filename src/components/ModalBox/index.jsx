@@ -44,6 +44,8 @@ function ModalBox() {
   const [AllInputIsOk, setAllInputIsOk] = useState(false);
   const [Loading, setLoading] = useState(false);
 
+  const adminUrl = import.meta.env.VITE_ADMIN_URL;
+
   const navigate = useNavigate();
 
   const insertMarkup = (
@@ -301,7 +303,7 @@ function ModalBox() {
     updateKsAdminHandle(false);
     localStorage.removeItem("ks_user");
     closeModalBoxHandle();
-    navigate("/admin");
+    navigate(`/admin-${adminUrl}`);
   };
 
   useEffect(() => {
