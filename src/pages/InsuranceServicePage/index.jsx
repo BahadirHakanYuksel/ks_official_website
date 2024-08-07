@@ -326,7 +326,9 @@ function InsuranceServicePage() {
                       }
                     )}
                   >
-                    {categories[activeServiceButtonIndex]} Hizmetlere Git
+                    {i18n.language === "tr"
+                      ? `${categories[activeServiceButtonIndex]} Hizmetlere Git`
+                      : `Go to ${categories[activeCategoryIndex]} Services`}
                   </button>
                 </motion.div>
               )}
@@ -428,7 +430,9 @@ function InsuranceServicePage() {
                       }
                     )}
                   >
-                    {categories[activeServiceButtonIndex]} Hizmetlere Git
+                    {i18n.language === "tr"
+                      ? `${categories[activeServiceButtonIndex]} Hizmetlere Git`
+                      : `Go to ${categories[activeCategoryIndex]} Services`}
                   </button>
                 </div>
               )}
