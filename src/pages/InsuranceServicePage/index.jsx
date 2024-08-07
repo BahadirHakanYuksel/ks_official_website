@@ -134,7 +134,7 @@ function InsuranceServicePage() {
     if (isTablet) {
       setResponsiveServiceMenuIsOpen(false);
       setTimeout(() => {
-        setResponsiveServiceMenuIsOpen(false);
+        document.scrollingElement.scrollTop = 0;
       }, 500);
     } else document.scrollingElement.scrollTop = 0;
   }, [pathServiceName, pathServiceCategory]);
