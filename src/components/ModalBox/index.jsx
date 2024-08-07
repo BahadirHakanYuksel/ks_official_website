@@ -684,7 +684,10 @@ function ModalBox() {
                 Sil
               </button>
               <button
-                onClick={closeModalBoxHandle}
+                onClick={() => {
+                  document.querySelector("html").style.overflowY = "auto";
+                  closeModalBoxHandle();
+                }}
                 className="h-full flex items-center justify-center text-lg font-medium bg-[#24282a] text-white hover:bg-[#141718] duration-200"
               >
                 İptal
@@ -708,7 +711,10 @@ function ModalBox() {
                   Çıkış Yap
                 </button>
                 <button
-                  onClick={closeModalBoxHandle}
+                  onClick={() => {
+                    document.querySelector("html").style.overflowY = "auto";
+                    closeModalBoxHandle();
+                  }}
                   className="h-full flex items-center justify-center text-lg font-medium bg-[#24282a] text-white hover:bg-[#141718] duration-200"
                 >
                   İptal
