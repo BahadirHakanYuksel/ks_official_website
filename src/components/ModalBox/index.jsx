@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { useResponsiveData } from "../../Context";
+import ModalBoxHeader from "./ModalBoxHeader";
 
 function ModalBox() {
   const { modalInfos } = useSelector((state) => state.modal);
@@ -391,7 +392,11 @@ function ModalBox() {
         )}
       </AnimatePresence>
       <div className="flex flex-col gap-8 relative p-5 ">
-        <header className="text-4xl">
+        <header
+          className={classNames("text-4xl", {
+            "!text-3xl": isMobile,
+          })}
+        >
           {modalInfos.operation === "edit" && "Düzenleme Ekranı"}
           {modalInfos.operation === "add" && "Yükleme Ekranı"}
           {modalInfos.operation === "delete" && "Silme Ekranı"}
@@ -416,10 +421,10 @@ function ModalBox() {
           modalInfos.operation !== "logOut" && (
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-2.5">
-                <header className="text-2xl font-medium text-titleColor">
+                <ModalBoxHeader>
                   Resim {modalInfos.operation === "edit" && "Düzenle"}
                   {modalInfos.operation === "add" && "Yükle"}
-                </header>
+                </ModalBoxHeader>
                 <div
                   className={classNames(
                     "aspect-video flex items-center justify-center w-[800px] border-2 border-solid rounded-md overflow-hidden border-ksGrayTp relative",
@@ -484,9 +489,7 @@ function ModalBox() {
                 />
               </div>
               <div className="flex flex-col gap-2.5">
-                <header className="text-2xl font-medium text-titleColor">
-                  Başlık
-                </header>
+                <ModalBoxHeader>Başlık</ModalBoxHeader>
                 <input
                   type="text"
                   placeholder="Başlık Giriniz"
@@ -499,9 +502,7 @@ function ModalBox() {
               <div className="flex flex-col gap-1">
                 <div className="flex items-center justify-between">
                   <div className={classNames("flex items-center gap-3", {})}>
-                    <header className="text-2xl text-titleColor font-medium">
-                      Yazı/Açıklama
-                    </header>
+                    <ModalBoxHeader>Yazı/Açıklama</ModalBoxHeader>
                     <button
                       onClick={() => {
                         setModalData({
@@ -584,9 +585,7 @@ function ModalBox() {
                 ></textarea>
               </div>
               <div className="flex flex-col gap-2.5">
-                <header className="text-2xl font-medium text-titleColor">
-                  Yazar
-                </header>
+                <ModalBoxHeader>Yazar</ModalBoxHeader>
                 <input
                   type="text"
                   placeholder="Yazar Adını Giriniz"
@@ -598,41 +597,57 @@ function ModalBox() {
               </div>
               <div
                 className={classNames("grid grid-cols-3 gap-5", {
-                  "!grid-cols-1 !gap-2.5": isMobile,
+                  "!grid-cols-1": isMobile,
                 })}
               >
                 <div className="flex flex-col w-full gap-2.5">
-                  <header className="text-2xl font-medium text-titleColor">
-                    Yükleme Tarihi
-                  </header>
+                  <ModalBoxHeader>Yükleme Tarihi</ModalBoxHeader>
                   <input
                     type="text"
                     className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                    value={modalData.ksUploadDate}
+                    value={`${
+                      modalData.ksUploadDate.split(" ")[0].split("-")[2]
+                    }.${modalData.ksUploadDate.split(" ")[0].split("-")[1]}.${
+                      modalData.ksUploadDate.split(" ")[0].split("-")[0]
+                    } - ${modalData.ksUploadDate.split(" ")[1].split(":")[0]}.${
+                      modalData.ksUploadDate.split(" ")[1].split(":")[1]
+                    }`}
                     disabled={true}
                   />
                 </div>
                 {modalInfos.operation === "edit" && (
                   <>
                     <div className="flex flex-col w-full gap-2.5">
-                      <header className="text-2xl font-medium text-titleColor">
-                        Son Güncelleme Tarihi
-                      </header>
+                      <ModalBoxHeader>Son Güncelleme Tarihi</ModalBoxHeader>
                       <input
                         type="text"
                         className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                        value={modalData.ksLastUpdateDate}
+                        value={`${
+                          modalData.ksLastUpdateDate.split(" ")[0].split("-")[2]
+                        }.${
+                          modalData.ksLastUpdateDate.split(" ")[0].split("-")[1]
+                        }.${
+                          modalData.ksLastUpdateDate.split(" ")[0].split("-")[0]
+                        } - ${
+                          modalData.ksLastUpdateDate.split(" ")[1].split(":")[0]
+                        }.${
+                          modalData.ksLastUpdateDate.split(" ")[1].split(":")[1]
+                        }`}
                         disabled={true}
                       />
                     </div>
                     <div className="flex flex-col w-full gap-2.5">
-                      <header className="text-2xl font-medium text-titleColor">
-                        Yeni Güncelleme Tarihi
-                      </header>
+                      <ModalBoxHeader>Yeni Güncelleme Tarihi</ModalBoxHeader>
                       <input
                         type="text"
                         className="border-2 border-solid border-gray-300  bg-preKsBoxBack text-myText rounded-md h-12 focus:border-ksGreen duration-200 px-2.5"
-                        value={currentDateTime}
+                        value={`${
+                          currentDateTime.split(" ")[0].split("-")[2]
+                        }.${currentDateTime.split(" ")[0].split("-")[1]}.${
+                          currentDateTime.split(" ")[0].split("-")[0]
+                        } - ${currentDateTime.split(" ")[1].split(":")[0]}.${
+                          currentDateTime.split(" ")[1].split(":")[1]
+                        }`}
                         disabled={true}
                       />
                     </div>
@@ -640,9 +655,7 @@ function ModalBox() {
                 )}
               </div>
               <div className="flex flex-col gap-2.5">
-                <header className="text-2xl font-medium text-titleColor">
-                  YouTube Linki
-                </header>
+                <ModalBoxHeader>YouTube Linki</ModalBoxHeader>
                 <input
                   type="text"
                   placeholder="YouTube Linki Giriniz"
