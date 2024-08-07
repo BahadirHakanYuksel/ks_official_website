@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import RightSidebar from "./RightSidebar";
 import { motion } from "framer-motion";
 import classNames from "classnames";
-import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { useResponsiveData } from "../../Context";
 
@@ -91,10 +90,12 @@ function AgendaContent() {
       return part;
     });
   };
-  const { pathAgendaInfo } = useParams();
+  const { pathAgendaInfo, pathAgendaCategory } = useParams();
   const path = useLocation().pathname;
   const { isMobile } = useResponsiveData();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [ksContentData, setKsContentData] = useState([]);
   const [paragraph, setParagraph] = useState([]);
@@ -105,8 +106,9 @@ function AgendaContent() {
   });
 
   const getContentOnDb = async () => {
-    const formData = new FormData();
+    setLoading(true);
 
+    const formData = new FormData();
     const myID = `${
       pathAgendaInfo.split("-")[pathAgendaInfo.split("-").length - 1]
     }`;
@@ -138,6 +140,7 @@ function AgendaContent() {
             }`,
           });
           setParagraph(contentData[0].dsc.split("\n"));
+          setLoading(false);
         });
     } catch (error) {
       console.error("Error:", error);
@@ -147,9 +150,6 @@ function AgendaContent() {
   useEffect(() => {
     document.scrollingElement.scrollTop = 0;
     getContentOnDb();
-    // const date = new Date();
-    // const formattedDate = format(date, "yyyy-MM-dd HH:mm:ss");
-    // console.log(formattedDate);
   }, [pathAgendaInfo]);
 
   return (
@@ -168,29 +168,44 @@ function AgendaContent() {
         <header
           className={classNames("text-3xl font-medium text-myText", {
             "!text-2xl": isMobile,
+            "!h-9 !bg-ksGrayTp !rounded-md": loading,
           })}
         >
           {ksContentData.title}
         </header>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col">
           <div
             className={classNames("flex flex-col gap-0.5 text-sm", {
               "!text-xs": isMobile,
             })}
           >
-            <p className="flex gap-1.5">
+            <p className={classNames("flex gap-1.5")}>
+              <header className=" font-medium text-titleColor">
+                {t("category")}
+              </header>
+              :{" "}
+              <button
+                className="hover:text-ksGreen"
+                onClick={() => navigate(`/agenda/${pathAgendaCategory}`)}
+              >
+                {ksContentData.grup === "H" && t("news")}
+                {ksContentData.grup === "M" && t("articles")}
+                {ksContentData.grup === "D" && t("announcements")}
+              </button>
+            </p>
+            <p className={classNames("flex gap-1.5")}>
               <header className=" font-medium text-titleColor">
                 {t("publicationDate")}
               </header>
               : {dates.loadDate}
             </p>
-            <p className="flex gap-1.5">
+            <p className={classNames("flex gap-1.5")}>
               <header className="font-medium text-titleColor">
                 {t("lastUpdateDate")}
               </header>
               : {dates.uploadDate}
             </p>
-            <p className="flex gap-1.5">
+            <p className={classNames("flex gap-1.5")}>
               <header className=" font-medium text-titleColor">
                 {t("author")}
               </header>

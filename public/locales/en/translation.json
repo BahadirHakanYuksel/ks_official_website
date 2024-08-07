@@ -76,5 +76,6 @@
   "fastMenu": "FAST MENU",
   "homepage": "Homepage",
   "darkMode": "Dark Mode",
-  "lightMode": "Light Mode"
+  "lightMode": "Light Mode",
+  "category": "Category"
 }

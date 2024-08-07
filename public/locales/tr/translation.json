@@ -76,5 +76,6 @@
   "fastMenu": "HIZLI MENÜ",
   "homepage": "Anasayfa",
   "darkMode": "Koyu Mod",
-  "lightMode": "Açık Mod"
+  "lightMode": "Açık Mod",
+  "category": "Kategori"
 }

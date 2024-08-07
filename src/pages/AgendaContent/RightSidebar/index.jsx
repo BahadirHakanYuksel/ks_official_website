@@ -30,8 +30,9 @@ function RightSidebar() {
       id: 2,
     },
   ];
-
+  const [loading, setLoading] = useState(false);
   const getDataOnDb = async () => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("action", "news");
 
@@ -77,8 +78,13 @@ function RightSidebar() {
     }
   };
 
+  const firstLoadingPage = async () => {
+    await getDataOnDb();
+    setLoading(false);
+  };
+
   useEffect(() => {
-    getDataOnDb();
+    firstLoadingPage();
   }, []);
 
   return (
@@ -91,6 +97,25 @@ function RightSidebar() {
         <header className="text-xl h-9 flex justify-center items-center font-medium text-white bg-ksGreen rounded-sm text-center">
           {agendaTitles[0].title}
         </header>
+        {loading && (
+          <>
+            <AgendaContentSiderbarBox
+              title={"..."}
+              viewNum={0}
+              date={"00.00.0000"}
+            />
+            <AgendaContentSiderbarBox
+              title={"..."}
+              viewNum={0}
+              date={"00.00.0000"}
+            />
+            <AgendaContentSiderbarBox
+              title={"..."}
+              viewNum={0}
+              date={"00.00.0000"}
+            />
+          </>
+        )}
         {news.map(
           (agenda, i) =>
             i <= 2 && (
@@ -110,6 +135,25 @@ function RightSidebar() {
         <header className="text-xl h-9 flex justify-center items-center font-medium text-white bg-ksGreen rounded-sm text-center">
           {agendaTitles[1].title}
         </header>
+        {loading && (
+          <>
+            <AgendaContentSiderbarBox
+              title={"..."}
+              viewNum={0}
+              date={"00.00.0000"}
+            />
+            <AgendaContentSiderbarBox
+              title={"..."}
+              viewNum={0}
+              date={"00.00.0000"}
+            />
+            <AgendaContentSiderbarBox
+              title={"..."}
+              viewNum={0}
+              date={"00.00.0000"}
+            />
+          </>
+        )}
         {articles.map(
           (agenda, i) =>
             i <= 2 && (
@@ -129,6 +173,25 @@ function RightSidebar() {
         <header className="text-xl h-9 flex justify-center items-center font-medium text-white bg-ksGreen rounded-sm text-center">
           {agendaTitles[2].title}
         </header>
+        {loading && (
+          <>
+            <AgendaContentSiderbarBox
+              title={"..."}
+              viewNum={0}
+              date={"00.00.0000"}
+            />
+            <AgendaContentSiderbarBox
+              title={"..."}
+              viewNum={0}
+              date={"00.00.0000"}
+            />
+            <AgendaContentSiderbarBox
+              title={"..."}
+              viewNum={0}
+              date={"00.00.0000"}
+            />
+          </>
+        )}
         {announcements.map(
           (agenda, i) =>
             i <= 2 && (

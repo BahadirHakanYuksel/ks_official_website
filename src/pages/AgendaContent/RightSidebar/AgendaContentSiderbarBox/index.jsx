@@ -59,7 +59,7 @@ function AgendaContentSiderbarBox({
       <header className="line-clamp-2 text-sm text-start h-10 duration-200">
         {title}
       </header>
-      <span className="absolute right-3 bottom-[60px] w-20 bg-backColor text-xs text-titleColor duration-200 rounded-sm py-0.5 font-medium">
+      <span className="absolute right-3 bottom-[60px] w-20 bg-backColor text-xs text-titleColor duration-200 rounded-sm py-0.5 font-medium overflow-hidden">
         {FormatedDate}
       </span>
       <div className="absolute left-3 bottom-[60px] w-12 bg-backColor text-xs text-titleColor duration-200 rounded-sm py-0.5 font-medium flex items-center justify-center gap-1">

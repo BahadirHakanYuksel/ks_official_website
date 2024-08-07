@@ -1,9 +1,10 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import classNames from "classnames";
-import Slider from "react-slick";
+// import Slider from "react-slick";
 import { useTranslation } from "react-i18next";
-import { useResponsiveData } from "../../../Context";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 function SampleNextArrow(props) {
   const { onClick } = props;
@@ -31,6 +32,31 @@ function SamplePrevArrow(props) {
 
 function PresentationSlider() {
   const { i18n } = useTranslation();
+  const [sliderSettings, setSliderSettings] = useState({});
+  const [activeSliderPageId, setactiveSliderPageId] = useState(0);
+  let sliderInterval;
+
+  const rightClick = () => {
+    clearInterval(sliderInterval);
+    activeSliderPageId < 2
+      ? setactiveSliderPageId(activeSliderPageId + 1)
+      : setactiveSliderPageId(0);
+  };
+
+  const leftClick = () => {
+    clearInterval(sliderInterval);
+    activeSliderPageId > 0
+      ? setactiveSliderPageId(activeSliderPageId - 1)
+      : setactiveSliderPageId(2);
+  };
+
+  useEffect(() => {
+    sliderInterval = setInterval(rightClick, 8000);
+
+    return () => {
+      clearInterval(sliderInterval);
+    };
+  }, [activeSliderPageId]);
 
   const sliderData = [
     {
@@ -50,38 +76,50 @@ function PresentationSlider() {
     },
   ];
 
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 6000,
-    pauseOnHover: true,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
-  };
-
-  const { isLaptop, isTablet, isMobile } = useResponsiveData();
-
   return (
     <div
       className={classNames("rounded-md overflow-hidden h-auto presenteSlider")}
     >
-      <Slider {...settings} className="flex gap-2.5 relative sliderBox">
+      <div className="flex gap-2.5 relative sliderBox w-full aspect-video">
         {sliderData.map((sliderSection) => (
-          <div
+          <motion.div
             key={sliderSection.id}
             className={classNames(
-              " aspect-video text-white bg-gray-700 duration-300 rounded-lg "
+              "aspect-video absolute w-full left-0 top-0 opacity-0 invisible text-white bg-gray-700 transition-all rounded-lg",
+              {
+                "!opacity-100 !visible":
+                  sliderSection.id === activeSliderPageId,
+              }
             )}
           >
             {/* <img src="" className="aspect-video" alt="" /> */}
-            <img src={`images/${sliderSection.url}`} alt="" />
-          </div>
+            <AnimatePresence>
+              {activeSliderPageId === sliderSection.id && (
+                <motion.img
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="w-full h-full"
+                  src={`images/${sliderSection.url}`}
+                  alt=""
+                />
+              )}
+            </AnimatePresence>
+          </motion.div>
         ))}
-      </Slider>
+        <button
+          onClick={rightClick}
+          className="absolute right-2 top-1/2 -translate-y-1/2  w-10 h-10 rounded-full text-white bg-ksGreen text-base hover:bg-green-600 opacity-0 pointer-events-none sliderBtn duration-300"
+        >
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+        <button
+          onClick={leftClick}
+          className="absolute left-2 top-1/2 -translate-y-1/2  w-10 h-10 rounded-full text-white bg-ksGreen text-base hover:bg-green-600 opacity-0 pointer-events-none sliderBtn duration-300"
+        >
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      </div>
     </div>
   );
 }
