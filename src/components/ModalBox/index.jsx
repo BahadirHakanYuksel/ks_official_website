@@ -596,7 +596,11 @@ function ModalBox() {
                   name="ksWriter"
                 />
               </div>
-              <div className="grid grid-cols-3 gap-5">
+              <div
+                className={classNames("grid grid-cols-3 gap-5", {
+                  "!grid-cols-1 !gap-2.5": isMobile,
+                })}
+              >
                 <div className="flex flex-col w-full gap-2.5">
                   <header className="text-2xl font-medium text-titleColor">
                     Yükleme Tarihi
