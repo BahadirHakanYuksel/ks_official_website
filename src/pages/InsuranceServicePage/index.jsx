@@ -135,7 +135,7 @@ function InsuranceServicePage() {
       setResponsiveServiceMenuIsOpen(false);
       setTimeout(() => {
         document.scrollingElement.scrollTop = 0;
-      }, 500);
+      }, 600);
     } else document.scrollingElement.scrollTop = 0;
   }, [pathServiceName, pathServiceCategory]);
 
@@ -223,7 +223,8 @@ function InsuranceServicePage() {
                     opacity: 1,
                     visibility: "visible",
                   }}
-                  exit={{ height: "48px", opacity: 0, visibility: "hidden" }}
+                  transition={{ duration: 0.5 }}
+                  exit={{ height: 0, opacity: 0, visibility: "hidden" }}
                   className={classNames(
                     "bg-serviceMenuBack shadow-md rounded-md p-3 flex flex-col gap-5 sticky left-0 h-0 top-[80px] w-full overflow-hidden",
                     {
