@@ -52,7 +52,7 @@ function ResponsiveNavMenu() {
       initial={{ right: "-600px", opacity: 0 }}
       animate={{ right: 0, opacity: 1 }}
       exit={{ right: "-600px", opacity: 0 }}
-      className="fixed responsiveNavMenu right-0 bottom-0 flex flex-col bg-responsiveNavMenuBack pt-12 w-full px-[10px] overflow-hidden text-sm"
+      className="fixed responsiveNavMenu right-0 bottom-0 flex flex-col bg-responsiveNavMenuBack pt-[50px] w-full px-[10px] overflow-hidden text-sm"
     >
       <header className="text-3xl border-b-2 border-solid border-b-ksGrayTp font-medium text-titleColor text-end mb-2.5 text-nowrap">
         Menu
