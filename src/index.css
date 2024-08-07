@@ -202,6 +202,12 @@ textarea {
     grid-template-columns: 280px auto;
     padding: 0 50px;
   }
+  .adminWelcomeText {
+    font-size: 36px;
+  }
+  .adminHeader {
+    font-size: 24px;
+  }
 }
 
 @media screen and (max-width: 769px) {
@@ -230,6 +236,21 @@ textarea {
   .servicePageGrid {
     grid-template-columns: repeat(1, 1fr);
     padding: 0 20px;
+  }
+  .adminWelcomeText {
+    font-size: 28px;
+    height: 300px;
+  }
+  .fastMenuBox {
+    width: 128px;
+    height: 128px;
+    font-size: 16px;
+  }
+  .fastMenu {
+    gap: 20px;
+  }
+  .adminHeader {
+    font-size: 20px;
   }
 }
 @media screen and (max-width: 426px) {
@@ -268,6 +289,25 @@ textarea {
   }
   .presenteSlider {
     height: 260px;
+  }
+  .adminWelcomeText {
+    font-size: 18px;
+    text-align: center;
+    height: 300px;
+  }
+  .fastMenuBox {
+    width: 100px;
+    height: 100px;
+    font-size: 12px;
+  }
+  .fastMenu {
+    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    bottom: -105px;
+  }
+  .adminHeader {
+    font-size: 18px;
   }
 }
 

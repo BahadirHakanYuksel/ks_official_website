@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { useResponsiveData } from "../../Context";
 
 function ModalBox() {
   const { modalInfos } = useSelector((state) => state.modal);
+  const { isMobile } = useResponsiveData();
   const [modalData, setModalData] = useState({
     ksId: "",
     ksTitle: "",
@@ -398,19 +400,32 @@ function ModalBox() {
             document.querySelector("html").style.overflowY = "auto";
             closeModalBoxHandle();
           }}
-          className="fixed right-8 top-2.5 w-28 h-10 rounded-full bg-ksGrayTp text-myText text-base font-medium hover:bg-black hover:text-white duration-200"
+          className={classNames(
+            "fixed right-8 top-2.5 w-28 h-10 rounded-full bg-ksGrayTp text-myText text-base font-medium hover:bg-black hover:text-white duration-200",
+            {
+              "!right-0 !top-0 !rounded-none !text-sm !w-24 !rounded-bl-md":
+                isMobile,
+            }
+          )}
         >
           Kapat
         </button>
-        {modalInfos.operation === "add" ||
-          (modalInfos.operation === "edit" && (
+        {modalInfos.operation !== "delete" &&
+          modalInfos.operation !== "logOut" && (
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-2.5">
                 <header className="text-2xl font-medium text-titleColor">
                   Resim {modalInfos.operation === "edit" && "Düzenle"}
                   {modalInfos.operation === "add" && "Yükle"}
                 </header>
-                <div className="aspect-video flex items-center justify-center w-[800px] border-2 border-solid rounded-md overflow-hidden border-ksGrayTp relative">
+                <div
+                  className={classNames(
+                    "aspect-video flex items-center justify-center w-[800px] border-2 border-solid rounded-md overflow-hidden border-ksGrayTp relative",
+                    {
+                      "!w-full": isMobile,
+                    }
+                  )}
+                >
                   <AnimatePresence>
                     {modalInfos.operation === "edit" && previewImg !== "" && (
                       <motion.img
@@ -438,7 +453,12 @@ function ModalBox() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         htmlFor="imgInput"
-                        className="absolute w-full text-4xl font-medium hover:bg-ksGreen hover:text-white duration-200 h-full flex items-center justify-center cursor-pointer select-none"
+                        className={classNames(
+                          "absolute w-full text-4xl font-medium hover:bg-ksGreen hover:text-white duration-200 h-full flex items-center justify-center cursor-pointer select-none",
+                          {
+                            "!text-xl": isMobile,
+                          }
+                        )}
                       >
                         Resim Yüklemek İçin Tıklayın
                       </motion.label>
@@ -635,7 +655,7 @@ function ModalBox() {
                 {modalInfos.operation === "add" && "Yükle"}
               </button>
             </div>
-          ))}
+          )}
 
         {modalInfos.operation === "delete" && (
           <div className="flex flex-col gap-2.5">

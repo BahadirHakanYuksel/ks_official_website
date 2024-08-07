@@ -9,6 +9,7 @@ import LanguageButtons from "../../../components/LanguageButtons";
 import { AnimatePresence, motion } from "framer-motion";
 import { openModalBoxHandle, updateKsAdminHandle } from "../../../utils";
 import ModalBox from "../../../components/ModalBox";
+import { useResponsiveData } from "../../../Context";
 
 function AdminLayout() {
   const { ksAdmin } = useSelector((state) => state.admin);
@@ -17,23 +18,25 @@ function AdminLayout() {
   const navigate = useNavigate();
   const { modalInfos } = useSelector((state) => state.modal);
   const [activeNavMenuButtonId, setActiveNavMenuButtonId] = useState(0);
+  const adminUrl = import.meta.env.VITE_ADMIN_URL;
+  const { isLaptop, isTablet, isMobile } = useResponsiveData();
 
   const adminMenuData = [
     {
       dbUrlKey: false,
-      url: "/admin",
+      url: `/admin-${adminUrl}`,
       title: t("homepage"),
       id: 0,
     },
     {
       dbUrlKey: "news",
-      url: "/admin/news",
+      url: `/admin-${adminUrl}/news`,
       title: t("agenda"),
       id: 1,
     },
     {
       dbUrlKey: "accountInfos",
-      url: "/admin/account-settings",
+      url: `/admin-${adminUrl}/account-settings`,
       title: t("accountSettings"),
       id: 2,
     },
@@ -86,30 +89,52 @@ function AdminLayout() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col w-full min-h-screen bg-backColor px-10 relative"
+            className={classNames(
+              "flex flex-col w-full min-h-screen bg-backColor px-10 relative",
+              {
+                "px-2.5": isMobile,
+              }
+            )}
           >
             <nav className="flex z-10 items-center justify-between h-14 bg-backColor sticky top-0 w-full left-0">
-              <button
-                onClick={() => navigate("/admin")}
-                className="text-3xl font-medium text-ksGreen active:scale-105 duration-200"
-              >
-                {t("piap")}
-              </button>
+              {isMobile && (
+                <button
+                  onClick={() => navigate(`/admin-${adminUrl}`)}
+                  className={classNames(
+                    "text-[18px] font-medium text-ksGreen active:scale-105 duration-200"
+                  )}
+                >
+                  Admin
+                </button>
+              )}
+              {!isMobile && (
+                <button
+                  onClick={() => navigate(`/admin-${adminUrl}`)}
+                  className={classNames(
+                    "adminHeader text-3xl font-medium text-ksGreen active:scale-105 duration-200"
+                  )}
+                >
+                  {t("piap")}
+                </button>
+              )}
               <div className="flex gap-2.5">
-                {adminMenuData.map((btn) => (
-                  <button
-                    onClick={() => navigate(btn.url)}
-                    key={btn.id}
-                    className={classNames(
-                      "text-base font-medium text-myText bg-serviceMenuBtnBack shadow-md px-2 flex items-center justify-center rounded-sm h-8 duration-200",
-                      {
-                        "!text-ksGreen": btn.id === activeNavMenuButtonId,
-                      }
-                    )}
-                  >
-                    {btn.title}
-                  </button>
-                ))}
+                {!isLaptop &&
+                  !isMobile &&
+                  !isTablet &&
+                  adminMenuData.map((btn) => (
+                    <button
+                      onClick={() => navigate(btn.url)}
+                      key={btn.id}
+                      className={classNames(
+                        "text-base font-medium text-myText bg-serviceMenuBtnBack shadow-md px-2 flex items-center justify-center rounded-sm h-8 duration-200",
+                        {
+                          "!text-ksGreen": btn.id === activeNavMenuButtonId,
+                        }
+                      )}
+                    >
+                      {btn.title}
+                    </button>
+                  ))}
                 <button
                   onClick={() =>
                     openModalBoxHandle({
@@ -117,7 +142,15 @@ function AdminLayout() {
                       myData: false,
                     })
                   }
-                  className="text-base font-medium text-myText bg-serviceMenuBtnBack shadow-md px-2 flex items-center justify-center rounded-sm h-8 duration-200 hover:bg-red-700 hover:text-white"
+                  className={classNames(
+                    "text-base font-medium text-myText bg-serviceMenuBtnBack shadow-md px-2 flex items-center justify-center rounded-sm h-8 duration-200 hover:bg-red-700 hover:text-white",
+                    {
+                      "!h-6 !text-sm": isTablet,
+                    },
+                    {
+                      "!h-6 !text-xs": isMobile,
+                    }
+                  )}
                 >
                   {t("logOut")}
                 </button>

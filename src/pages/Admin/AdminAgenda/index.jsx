@@ -6,14 +6,17 @@ import AdminErrorPage from "../AdminErrorPage";
 import AdminAgendaBox from "../AdminAgendaBox";
 import { motion } from "framer-motion";
 import { openModalBoxHandle } from "../../../utils";
+import { useResponsiveData } from "../../../Context";
 
 function AdminAgenda() {
   const { pathAdminCategory } = useParams();
   const { t, i18n } = useTranslation();
   const [activeAgendaCategoryId, setActiveAgendaCategoryId] = useState(0);
+  const { isMobile } = useResponsiveData();
   const navigate = useNavigate();
   const [isAgenda, setIsAgenda] = useState(false);
   const [ksData, setKsData] = useState([]);
+  const adminUrl = import.meta.env.VITE_ADMIN_URL;
 
   const categories = [
     {
@@ -89,17 +92,25 @@ function AdminAgenda() {
           <header className="w-full h-16 text-3xl font-medium flex items-center justify-center rounded-sm bg-gradient-to-r to-green-950 from-green-950 via-[#189245] text-white mb-5">
             {categories[activeAgendaCategoryId].title}
           </header>
-          <div className="flex gap-5 items-center h-12 mb-5">
+          <div
+            className={classNames("flex gap-5 items-center h-12 mb-5", {
+              "!flex-col !h-auto": isMobile,
+            })}
+          >
             <header className="text-xl font-medium relative">
               {t("otherCategories")}{" "}
-              <div className="absolute -right-2.5 top-0 h-full bg-ksGrayTp w-0.5 rounded-full flex"></div>
+              {!isMobile && (
+                <div className="absolute -right-2.5 top-0 h-full bg-ksGrayTp w-0.5 rounded-full flex"></div>
+              )}
             </header>
-            <div className="flex gap-2.5 items-center">
+            <div className={classNames("flex gap-2.5 items-center")}>
               {categories.map(
                 (category) =>
                   category.urlName !== pathAdminCategory && (
                     <button
-                      onClick={() => navigate(`/admin/${category.urlName}`)}
+                      onClick={() =>
+                        navigate(`/admin-${adminUrl}/${category.urlName}`)
+                      }
                       key={category.id}
                       className={classNames(
                         "rounded-md bg-backColor text-myText border-2 border-solid border-ksGrayTp hover:border-ksGreen h-10 min-w-32 text-base font-medium duration-200"
@@ -111,7 +122,11 @@ function AdminAgenda() {
               )}
             </div>
           </div>
-          <div className="flex flex-wrap justify-start gap-10 mb-10">
+          <div
+            className={classNames("flex flex-wrap justify-start gap-10 mb-10", {
+              "!justify-center !gap-5": isMobile,
+            })}
+          >
             <button
               onClick={() => {
                 openModalBoxHandle({

@@ -1,29 +1,32 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useResponsiveData } from "../../Context";
+import classNames from "classnames";
 
 function Admin() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-
+  const adminUrl = import.meta.env.VITE_ADMIN_URL;
+  const { isLaptop, isTablet, isMobile } = useResponsiveData();
   const fastMenuData = [
     {
-      url: "/admin/news",
+      url: `/admin-${adminUrl}/news`,
       title: t("news"),
       id: 0,
     },
     {
-      url: "/admin/articles",
+      url: `/admin-${adminUrl}/articles`,
       title: t("articles"),
       id: 1,
     },
     {
-      url: "/admin/announcements",
+      url: `/admin-${adminUrl}/announcements`,
       title: t("announcements"),
       id: 2,
     },
     {
-      url: "/admin/account-settings",
+      url: `/admin-${adminUrl}/account-settings`,
       title: "Hesap Ayarları",
       id: 3,
     },
@@ -35,17 +38,27 @@ function Admin() {
       animate={{ opacity: 1 }}
       className="flex flex-col"
     >
-      <div className="w-full h-[400px] bg-gradient-to-t to-ksGreen from-ksGray text-white text-5xl font-medium flex items-center justify-center shadow-lg relative rounded-t-md">
+      <div
+        className={classNames(
+          "adminWelcomeText w-full h-[400px] bg-gradient-to-t to-ksGreen from-ksGray text-white text-5xl font-medium flex items-center justify-center shadow-lg relative rounded-t-md"
+        )}
+      >
         <div className="absolute left-2.5 top-2.5 text-sm text-backColor">
           {t("fastMenu")}
         </div>
         <header className="mb-5">{t("adminWelcomeMessage")}</header>
-        <div className="flex items-center justify-center gap-8 absolute h-40 left-1/2 -translate-x-1/2 -bottom-12">
+        <div
+          className={classNames(
+            "fastMenu flex items-center justify-center gap-8 absolute left-1/2 -translate-x-1/2 -bottom-12"
+          )}
+        >
           {fastMenuData.map((menu) => (
             <button
               onClick={() => navigate(menu.url)}
               key={menu.id}
-              className="h-full w-40 flex items-center justify-center border-0 border-solid border-ksGrayTp text-xl rounded-lg font-medium text-myText shadow-lg hover:text-ksGreen duration-200 bg-preKsBoxBack"
+              className={classNames(
+                "fastMenuBox h-40 w-40 flex items-center justify-center border-0 border-solid border-ksGrayTp text-xl rounded-lg font-medium text-myText shadow-lg hover:text-ksGreen duration-200 bg-preKsBoxBack"
+              )}
             >
               {menu.title}
             </button>

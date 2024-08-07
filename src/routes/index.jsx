@@ -16,7 +16,7 @@ import AdminAgenda from "../pages/Admin/AdminAgenda";
 
 export const useDynamicRoutes = () => {
   const { i18n } = useTranslation();
-
+  const adminUrl = import.meta.env.VITE_ADMIN_URL;
   return [
     {
       path: "/",
@@ -57,7 +57,7 @@ export const useDynamicRoutes = () => {
       ],
     },
     {
-      path: "/admin/",
+      path: "/admin-" + adminUrl,
       element: <AdminLayout />,
       children: [
         {
