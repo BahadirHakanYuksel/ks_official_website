@@ -665,7 +665,11 @@ function ModalBox() {
             <header className="text-titleColor font-medium text-lg">
               {modalData.ksTitle}
             </header>
-            <div className="w-[500px] h-auto aspect-video">
+            <div
+              className={classNames("w-[500px] h-auto aspect-video", {
+                "!w-full": isMobile,
+              })}
+            >
               <img
                 src={`https://katilimsigortacisi.com/img/${modalData.ksImgUrl}`}
                 className="w-full aspect-video rounded-md"
