@@ -1,11 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useResponsiveData } from "../../Context";
 import classNames from "classnames";
+import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
 
 function MessageBox() {
   const { t } = useTranslation();
   const { isLaptop, isTablet, isMobile } = useResponsiveData();
+  const { act_theme } = useSelector((state) => state.theme);
+
+  const notifySuccess = () =>
+    toast.success(t("messageSent"), {
+      theme: act_theme ? act_theme : "colored",
+    });
+
+  const notifyAlert = () =>
+    toast.error(t("failedMessage"), {
+      theme: "colored",
+    });
 
   const [formKs, setFormKs] = useState({
     name: "",
@@ -23,27 +38,45 @@ function MessageBox() {
     });
   };
 
+  const form = useRef();
+
   const sendForm = (e) => {
     e.preventDefault();
-    setFormKs({
-      name: "",
-      surname: "",
-      email: "",
-      message: "",
-    });
-    console.log(formKs);
+
+    emailjs
+      .sendForm("service_3gqxd1s", "template_eixy2c8", form.current, {
+        publicKey: "qdNFEWRFxqSmJPOSw",
+      })
+      .then(
+        () => {
+          setFormKs({
+            name: "",
+            surname: "",
+            email: "",
+            message: "",
+          });
+          notifySuccess();
+        },
+        (error) => {
+          notifyAlert();
+        }
+      );
   };
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   useEffect(() => {
     formKs.name.trim().length > 2 &&
     formKs.surname.trim().length > 1 &&
-    formKs.message.trim().length >= 10
+    formKs.message.trim().length >= 10 &&
+    emailRegex.test(formKs.email)
       ? setSendButtonIsActive(true)
       : setSendButtonIsActive(false);
   }, [formKs]);
 
   return (
     <form
+      ref={form}
       onSubmit={sendForm}
       className={classNames(
         "flex flex-col gap-5 bg-messageBoxBack p-5",
@@ -55,6 +88,9 @@ function MessageBox() {
         }
       )}
     >
+      <div className="absolute">
+        <ToastContainer autoClose={5000} limit={3} />
+      </div>
       <header
         className={classNames(
           "text-2xl font-medium flex items-center justify-center rounded-sm h-12 bg-ksGreen text-white",
@@ -72,11 +108,17 @@ function MessageBox() {
       >
         <div className="flex flex-col gap-0.5">
           <header
-            className={classNames("text-lg font-medium", {
-              "!text-base": isLaptop,
-            })}
+            className={classNames(
+              "text-lg font-medium flex gap-1 items-center",
+              {
+                "!text-base": isLaptop,
+              }
+            )}
           >
-            {t("yourName")}
+            <span>{t("yourName")}</span>
+            <span className="text-xs font-medium text-gray-400">
+              * min 3 {t("chars")}
+            </span>
           </header>
           <input
             maxLength={100}
@@ -95,11 +137,17 @@ function MessageBox() {
         </div>
         <div className="flex flex-col gap-0.5">
           <header
-            className={classNames("text-lg font-medium", {
-              "!text-base": isLaptop,
-            })}
+            className={classNames(
+              "text-lg font-medium flex items-center gap-1",
+              {
+                "!text-base": isLaptop,
+              }
+            )}
           >
-            {t("yourSurname")}
+            <span>{t("yourSurname")}</span>
+            <span className="text-xs font-medium text-gray-400">
+              * min 2 {t("chars")}
+            </span>
           </header>
           <input
             maxLength={100}
@@ -119,11 +167,14 @@ function MessageBox() {
       </div>
       <div className="flex flex-col gap-0.5">
         <header
-          className={classNames("text-lg font-medium", {
+          className={classNames("text-lg font-medium flex items-center gap-1", {
             "!text-base": isLaptop,
           })}
         >
-          {t("yourEmail")}
+          <span>{t("yourEmail")}</span>
+          <span className="text-xs font-medium text-gray-400">
+            * {t("example")}123@gmail.com
+          </span>
         </header>
         <input
           maxLength={60}
@@ -143,11 +194,17 @@ function MessageBox() {
       <div className="flex flex-col gap-0.5">
         <div className="flex items-center justify-between">
           <header
-            className={classNames("text-lg font-medium", {
-              "!text-base": isLaptop,
-            })}
+            className={classNames(
+              "text-lg font-medium flex items-center gap-1",
+              {
+                "!text-base": isLaptop,
+              }
+            )}
           >
-            {t("yourMessage")}
+            <span>{t("yourMessage")}</span>
+            <span className="text-xs font-medium text-gray-400">
+              * min 10 {t("chars")}
+            </span>
           </header>
           <span
             className={classNames("text-gray-300 font-medium text-sm", {

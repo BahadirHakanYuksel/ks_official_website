@@ -78,5 +78,10 @@
   "darkMode": "Koyu Mod",
   "lightMode": "Açık Mod",
   "category": "Kategori",
-  "otherServices": "Diğer Hizmetler"
+  "otherServices": "Diğer Hizmetler",
+  "messageSent": "Mesaj Gönderildi !",
+  "failedMessage": "Mesaj Gönderilemedi !",
+  "chars": "karakter",
+  "example": "ornek",
+  "productionWorkers": "Yapımda Emeği Geçenler"
 }

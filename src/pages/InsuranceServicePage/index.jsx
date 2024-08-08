@@ -150,8 +150,21 @@ function InsuranceServicePage() {
   };
 
   const changeService = (title) => {
-    setResponsiveServiceMenuIsOpen(false);
-    setTimeout(() => {
+    if (isTablet) {
+      setResponsiveServiceMenuIsOpen(false);
+      setTimeout(() => {
+        document.scrollingElement.scrollTop = 0;
+        navigate(
+          `/${encodeURIComponent(
+            turkishToEnglish(
+              urlCategories[activeCategoryIndex].replace(/ /g, "-")
+            )
+          ).toLowerCase()}/${encodeURIComponent(
+            turkishToEnglish(title.replace(/ /g, "-"))
+          ).toLowerCase()}`
+        );
+      }, 600);
+    } else {
       document.scrollingElement.scrollTop = 0;
       navigate(
         `/${encodeURIComponent(
@@ -162,7 +175,7 @@ function InsuranceServicePage() {
           turkishToEnglish(title.replace(/ /g, "-"))
         ).toLowerCase()}`
       );
-    }, 600);
+    }
   };
 
   return (
@@ -335,7 +348,7 @@ function InsuranceServicePage() {
               {!isTablet && (
                 <div
                   className={classNames(
-                    "bg-serviceMenuBack shadow-md rounded-md p-3 flex flex-col gap-5",
+                    "bg-serviceMenuBack shadow-md rounded-md p-3 flex flex-col gap-5 h-[514px] sticky top-14",
                     {
                       "!sticky !left-0 !top-14 !w-full !overflow-hidden":
                         isTablet,

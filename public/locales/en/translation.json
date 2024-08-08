@@ -78,5 +78,10 @@
   "darkMode": "Dark Mode",
   "lightMode": "Light Mode",
   "category": "Category",
-  "otherServices": "Other Services"
+  "otherServices": "Other Services",
+  "messageSent": "Message Sent !",
+  "failedMessage": "Failed to Send Message !",
+  "chars": "characters",
+  "example": "example",
+  "productionWorkers": "Production Workers"
 }
