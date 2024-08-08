@@ -34,7 +34,7 @@ function ThemeButton({ responsiveMode = false }) {
     if (localStorage.getItem("ks_theme")) {
       if (localStorage.getItem("ks_theme") === "light") setthemeIcon("fa-moon");
       else setthemeIcon("fa-sun");
-    } else setthemeIcon("fa-moon");
+    } else setthemeIcon("fa-sun");
     document.documentElement.setAttribute("data-theme", act_theme);
   }, []);
   return (

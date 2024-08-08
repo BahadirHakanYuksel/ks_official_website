@@ -16,7 +16,7 @@
 [data-theme="light"] {
   --ksGray: #383e42;
   --ksGrayTp: rgba(56, 62, 66, 0.05);
-  --ksGreen: #22c55e;
+  --ksGreen: #22c55e; /* blue #2258c5; */
   --back_color: #f7f7f7;
   --myText: black;
   --titleColor: #374151;

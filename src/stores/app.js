@@ -48,7 +48,7 @@ const initialState = {
     {
       id: 7,
       title: "Seyehat Sağlık Sigortası",
-      iconUrl: "/seyehat_sağlık.png",
+      iconUrl: "/seyehatsaglik.png",
       url: "",
     },
   ],
@@ -92,13 +92,13 @@ const initialState = {
     {
       id: 6,
       title: "İşyeri Sigortaları",
-      iconUrl: "/işyeri_sigortası.png",
+      iconUrl: "/isyeri_sigortasi.png",
       url: "",
     },
     {
       id: 7,
       title: "Nakliyat Sigortaları",
-      iconUrl: "/nakliyat_sigortası.png",
+      iconUrl: "/nakliyat_sigortasi.png",
       url: "",
     },
   ],
