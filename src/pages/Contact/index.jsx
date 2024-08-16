@@ -5,6 +5,7 @@ import MessageBox from "../../components/MessageBox";
 import ContactBox from "../../components/ContactBox";
 import { useResponsiveData } from "../../Context";
 import classNames from "classnames";
+import { Helmet } from "react-helmet-async";
 function Contact() {
   const { t } = useTranslation();
   const { isLaptop, isTablet, isMobile } = useResponsiveData();
@@ -15,6 +16,9 @@ function Contact() {
       animate={{ opacity: 1 }}
       className="flex flex-col gap-5"
     >
+      <Helmet>
+        <title>{t("contact")}</title>
+      </Helmet>
       <PageTitle>{t("contact")}</PageTitle>
       <div className="page">
         <div

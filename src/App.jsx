@@ -3,9 +3,10 @@ import { useDynamicRoutes } from "./routes";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { updateThemeHandle } from "./utils";
+import { HelmetProvider } from "react-helmet-async";
 
 function App() {
-  const routes = useDynamicRoutes();
+  const routes = useRoutes(useDynamicRoutes());
   const act_theme = useSelector((state) => state.theme);
   // useEffect(() => {
   //   const path_name = location.pathname;
@@ -30,7 +31,7 @@ function App() {
     }
   }, [act_theme]);
 
-  return useRoutes(routes);
+  return <HelmetProvider>{routes}</HelmetProvider>;
 }
 
 export default App;

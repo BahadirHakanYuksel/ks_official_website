@@ -86,5 +86,7 @@
   "productionWorkers": "Yapımda Emeği Geçenler",
   "current": "Güncel",
   "comingSoon": "çok yakında...",
-  "sending": "Gönderiliyor..."
+  "sending": "Gönderiliyor...",
+  "pageNotFound": "Sayfa Bulunamadı !",
+  "goToHomepage": "Anasayfaya Dön"
 }

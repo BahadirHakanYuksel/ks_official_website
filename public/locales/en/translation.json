@@ -86,5 +86,7 @@
   "productionWorkers": "Production Workers",
   "current": "Current",
   "comingSoon": "coming soon...",
-  "sending": "Sending..."
+  "sending": "Sending...",
+  "pageNotFound": "Page Not Found !",
+  "goToHomepage": "Go to homepage"
 }

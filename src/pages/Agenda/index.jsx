@@ -8,6 +8,7 @@ import AgendaBox from "../../components/AgendaBox";
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import { useResponsiveData } from "../../Context";
+import { Helmet } from "react-helmet-async";
 
 function Agenda() {
   const { t } = useTranslation();
@@ -83,6 +84,9 @@ function Agenda() {
           transition={{ duration: 0.5 }}
           className="flex flex-col gap-5"
         >
+          <Helmet>
+            <title>{categories[activeCategoryId].title}</title>
+          </Helmet>
           <PageTitle>{categories[activeCategoryId].title}</PageTitle>
           <div className="page flex flex-col gap-5">
             <div

@@ -10,6 +10,7 @@ import ErrorPage from "../ErrorPage";
 import classNames from "classnames";
 import InsuranceServiceContent from "./InsuranceServiceContent";
 import { useResponsiveData } from "../../Context";
+import { Helmet } from "react-helmet-async";
 
 function InsuranceServicePage() {
   const { individual, corporate, activeService } = useSelector(
@@ -103,13 +104,18 @@ function InsuranceServicePage() {
           ).toLowerCase() === pathServiceName
         );
       });
-      const thisMyMainContent = mainIndividualContents.filter((content) => {
-        return content.id === thisMyService[0].id;
-      });
-      updateServiceHandle(thisMyService[0]);
-      setActiveCategoryIndex(0);
-      setActiveServiceButtonIndex(1);
-      updateMainContentHandle(thisMyMainContent[0].text.split("\n"));
+      if (thisMyService.length === 0) {
+        updateServiceHandle(false);
+      } else {
+        const thisMyMainContent = mainIndividualContents.filter((content) => {
+          return content.id === thisMyService[0].id;
+        });
+
+        updateServiceHandle(thisMyService[0]);
+        setActiveCategoryIndex(0);
+        setActiveServiceButtonIndex(1);
+        updateMainContentHandle(thisMyMainContent[0].text.split("\n"));
+      }
     }
     if (pathServiceCategory === "corporate") {
       const thisMyService = corporate.filter((service) => {
@@ -119,13 +125,18 @@ function InsuranceServicePage() {
           ).toLowerCase() === pathServiceName
         );
       });
-      const thisMyMainContent = mainCorporateContents.filter((content) => {
-        return content.id === thisMyService[0].id;
-      });
-      updateServiceHandle(thisMyService[0]);
-      setActiveCategoryIndex(1);
-      setActiveServiceButtonIndex(0);
-      updateMainContentHandle(thisMyMainContent[0].text.split("\n"));
+
+      if (thisMyService.length === 0) {
+        updateServiceHandle(false);
+      } else {
+        const thisMyMainContent = mainCorporateContents.filter((content) => {
+          return content.id === thisMyService[0].id;
+        });
+        updateServiceHandle(thisMyService[0]);
+        setActiveCategoryIndex(1);
+        setActiveServiceButtonIndex(0);
+        updateMainContentHandle(thisMyMainContent[0].text.split("\n"));
+      }
     }
   };
 
@@ -186,6 +197,9 @@ function InsuranceServicePage() {
           animate={{ opacity: 1 }}
           className="flex flex-col gap-5"
         >
+          <Helmet>
+            <title>{activeService.title}</title>
+          </Helmet>
           <PageTitle>{activeService.title}</PageTitle>
           <div className="servicePageGrid grid gap-5">
             {isTablet && (
