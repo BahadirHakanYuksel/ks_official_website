@@ -49,7 +49,7 @@ function AgendaContent() {
         return (
           <div className="flex justify-start items-center">
             <header
-              className={classNames("!text-2xl relative", {})}
+              className={classNames("!text-2xl font-medium relative", {})}
               key={index}
             >
               {part.slice(1, -1)}
@@ -100,6 +100,7 @@ function AgendaContent() {
   const [loading, setLoading] = useState(false);
 
   const [ksContentData, setKsContentData] = useState([]);
+  const [viewOk, setViewOk] = useState(false);
   const [paragraph, setParagraph] = useState([]);
 
   const [dates, setDates] = useState({
@@ -126,29 +127,26 @@ function AgendaContent() {
       })
         .then((res) => res.json())
         .then((contentData) => {
-          if (
-            contentData[0].ks_id ===
-            pathAgendaInfo.split("-")[pathAgendaInfo.split("-").length - 1]
-          ) {
-            setKsContentData(contentData[0]);
-            setDates({
-              loadDate: `${contentData[0].dat.split(" ")[0].split("-")[2]}.${
-                contentData[0].dat.split(" ")[0].split("-")[1]
-              }.${contentData[0].dat.split(" ")[0].split("-")[0]} - ${
-                contentData[0].dat.split(" ")[1].split(":")[0]
-              }.${contentData[0].dat.split(" ")[1].split(":")[1]}`,
-              uploadDate: `${
-                contentData[0].lastDat.split(" ")[0].split("-")[2]
-              }.${contentData[0].lastDat.split(" ")[0].split("-")[1]}.${
-                contentData[0].lastDat.split(" ")[0].split("-")[0]
-              } - ${contentData[0].lastDat.split(" ")[1].split(":")[0]}.${
-                contentData[0].lastDat.split(" ")[1].split(":")[1]
-              }`,
-            });
-            setParagraph(contentData[0].dsc.split("\n"));
-          } else setKsContentData(false);
+          contentData.forEach((db) => {
+            if (db.ks_id === myID) {
+              setKsContentData(db);
+              setDates({
+                loadDate: `${db.dat.split(" ")[0].split("-")[2]}.${
+                  db.dat.split(" ")[0].split("-")[1]
+                }.${db.dat.split(" ")[0].split("-")[0]} - ${
+                  db.dat.split(" ")[1].split(":")[0]
+                }.${db.dat.split(" ")[1].split(":")[1]}`,
+                uploadDate: `${db.lastDat.split(" ")[0].split("-")[2]}.${
+                  db.lastDat.split(" ")[0].split("-")[1]
+                }.${db.lastDat.split(" ")[0].split("-")[0]} - ${
+                  db.lastDat.split(" ")[1].split(":")[0]
+                }.${db.lastDat.split(" ")[1].split(":")[1]}`,
+              });
+              setParagraph(db.dsc.split("\n"));
 
-          setLoading(false);
+              setLoading(false);
+            }
+          });
         });
     } catch (error) {
       console.error("Error:", error);
