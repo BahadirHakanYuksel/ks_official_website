@@ -85,5 +85,6 @@
   "example": "ornek",
   "productionWorkers": "Yapımda Emeği Geçenler",
   "current": "Güncel",
-  "comingSoon": "çok yakında..."
+  "comingSoon": "çok yakında...",
+  "sending": "Gönderiliyor..."
 }

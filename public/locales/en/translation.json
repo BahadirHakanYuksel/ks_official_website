@@ -85,5 +85,6 @@
   "example": "example",
   "productionWorkers": "Production Workers",
   "current": "Current",
-  "comingSoon": "coming soon..."
+  "comingSoon": "coming soon...",
+  "sending": "Sending..."
 }

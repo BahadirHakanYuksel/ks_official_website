@@ -29,6 +29,7 @@ function MessageBox() {
     message: "",
   });
   const [sendButtonIsActive, setSendButtonIsActive] = useState(false);
+  const [wait, setWait] = useState(false);
 
   const formUpdate = (e) => {
     const { value, name } = e.target;
@@ -42,7 +43,7 @@ function MessageBox() {
 
   const sendForm = (e) => {
     e.preventDefault();
-
+    setWait(true);
     emailjs
       .sendForm("service_3gqxd1s", "template_eixy2c8", form.current, {
         publicKey: "qdNFEWRFxqSmJPOSw",
@@ -56,9 +57,11 @@ function MessageBox() {
             message: "",
           });
           notifySuccess();
+          setWait(false);
         },
         (error) => {
           notifyAlert();
+          setWait(false);
         }
       );
   };
@@ -235,9 +238,14 @@ function MessageBox() {
       <button
         disabled={!sendButtonIsActive}
         type="submit"
-        className="bg-messageBoxBack border-2 border-solid border-ksGreen text-ksGreen hover:bg-ksGreen hover:text-white h-12 rounded-full text-lg font-medium duration-200 disabled:pointer-events-none disabled:opacity-50"
+        className={classNames(
+          "bg-messageBoxBack border-2 border-solid border-ksGreen text-ksGreen hover:bg-ksGreen hover:text-white h-12 rounded-full text-lg font-medium duration-200 disabled:pointer-events-none disabled:opacity-50 active:bg-green-600  active:text-white",
+          {
+            "!pointer-events-none": wait,
+          }
+        )}
       >
-        {t("send")}
+        {wait ? t("sending") : t("send")}
       </button>
     </form>
   );
