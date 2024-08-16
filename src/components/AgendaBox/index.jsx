@@ -4,6 +4,7 @@ import { convertFromTextToUrl } from "../../consts";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { useResponsiveData } from "../../Context";
+import { motion } from "framer-motion";
 
 function AgendaBox({
   agendaDate,
@@ -48,7 +49,9 @@ function AgendaBox({
   };
 
   return (
-    <button
+    <motion.button
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       onClick={goAgendaContentPage}
       className={classNames(
         "agendaBoxHome h-[290.5px] w-80 bg-preKsBoxBack rounded-lg shadow-xl p-3 flex flex-col gap-2.5 hover:text-ksGreen transition-all hover:shadow-md relative overflow-hidden",
@@ -103,7 +106,17 @@ function AgendaBox({
               }
             )}
           ></i>
-          <span className="flex items-center h-full">
+          <span
+            className={classNames(
+              "flex items-center h-full",
+              {
+                "!text-[10px] ": isLaptop,
+              },
+              {
+                "!text-[9px] ": isTablet,
+              }
+            )}
+          >
             {viewNum.toString().length >= 4 &&
               viewNum.toString().length < 7 &&
               viewNum.toString().slice(0, -3) + " B"}
@@ -134,7 +147,7 @@ function AgendaBox({
         {t("read")}
       </button>
       <div className="absolute text-xs agendaBoxMarkName opacity-100 duration-200 bottom-3 left-1/2 -translate-x-1/2 w-full bg-ksGrayTp h-1.5 rounded-full"></div>
-    </button>
+    </motion.button>
   );
 }
 

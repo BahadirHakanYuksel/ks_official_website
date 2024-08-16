@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { convertFromTextToUrl } from "../../../consts";
 import AgendaBox from "../../../components/AgendaBox";
 import { useResponsiveData } from "../../../Context";
+import { motion } from "framer-motion";
 
 function AgendaHome() {
   const [activeAgendaTitleId, setActiveAgendaTitleId] = useState(0);
@@ -14,7 +15,6 @@ function AgendaHome() {
   const navigate = useNavigate();
   const [ksData, setKsData] = useState([]);
   const [buttonsDisable, setButtonsDisable] = useState(false);
-
   const agendaTitles = [
     {
       urlName: "news",
@@ -49,8 +49,8 @@ function AgendaHome() {
         .then((res) => res.json())
         .then((db) => {
           setButtonsDisable(false);
-
-          setKsData([db[0], db[1], db[2]]);
+          if (db.length === 0) setKsData(false);
+          else setKsData(db);
         });
     } catch (error) {
       console.error("Error:", error);
@@ -126,34 +126,55 @@ function AgendaHome() {
           "!flex !justify-center !items-center": isTablet,
         })}
       >
-        {ksData.map(
-          (agenda, index) =>
-            index < 3 && (
-              <AgendaBox
-                agendaDate={agenda.dat}
-                agendaImgUrl={agenda.img_url}
-                agendaTitle={agenda.title}
-                key={agenda.id}
-                ksId={agenda.ks_id}
-                category={agendaTitles[activeAgendaTitleId].urlName}
-                viewNum={agenda.number_of_views}
-              />
-            )
+        {ksData ? (
+          ksData.map(
+            (agenda, index) =>
+              index < 3 && (
+                <AgendaBox
+                  agendaDate={agenda.dat}
+                  agendaImgUrl={agenda.img_url}
+                  agendaTitle={agenda.title}
+                  key={agenda.id}
+                  ksId={agenda.ks_id}
+                  category={agendaTitles[activeAgendaTitleId].urlName}
+                  viewNum={agenda.number_of_views}
+                />
+              )
+          )
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className={classNames(
+              "h-[200px] w-full bg-preKsBoxBack text-myText flex items-center justify-center rounded-2xl text-3xl font-medium",
+              {
+                "!text-2xl !h-[180px]": isTablet,
+              },
+              {
+                "!text-sm !h-[120px]": isMobile,
+              }
+            )}
+          >
+            {t("current")} {agendaTitles[activeAgendaTitleId].title}{" "}
+            {t("comingSoon")}
+          </motion.div>
         )}
       </div>
-      <div className="flex items-center justify-center mt-5">
-        <button
-          onClick={goAgendaMain}
-          className={classNames(
-            "bg-preKsBoxBack w-[200px] border-2 border-solid border-ksGray duration-200 hover:text-ksGreen hover:border-ksGreen h-10 rounded-full hover:bg-ksGray font-semibold",
-            {
-              "!w-[150px] !text-base !h-9": isTablet,
-            }
-          )}
-        >
-          {t("all")} {agendaTitles[activeAgendaTitleId].title}
-        </button>
-      </div>
+      {ksData && (
+        <div className="flex items-center justify-center mt-5">
+          <button
+            onClick={goAgendaMain}
+            className={classNames(
+              "bg-preKsBoxBack w-[200px] border-2 border-solid border-ksGray duration-200 hover:text-ksGreen hover:border-ksGreen h-10 rounded-full hover:bg-ksGray font-semibold",
+              {
+                "!w-[150px] !text-base !h-9": isTablet,
+              }
+            )}
+          >
+            {t("all")} {agendaTitles[activeAgendaTitleId].title}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

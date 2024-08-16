@@ -130,7 +130,7 @@ textarea {
   grid-area: preBox5;
 }
 
-.sliderBox:hover .sliderBtn {
+.presenteSlider:hover .sliderBtn {
   opacity: 100%;
   pointer-events: all;
 }
@@ -195,9 +195,7 @@ textarea {
   .introductionOfKs {
     height: 240px;
   }
-  .presenteSlider {
-    height: 550px;
-  }
+
   .servicePageGrid {
     grid-template-columns: 280px auto;
     padding: 0 50px;
@@ -230,9 +228,7 @@ textarea {
   .introductionOfKs {
     height: 200px;
   }
-  .presenteSlider {
-    height: 460px;
-  }
+
   .servicePageGrid {
     grid-template-columns: repeat(1, 1fr);
     padding: 0 20px;
@@ -287,9 +283,7 @@ textarea {
   .introductionOfKs {
     height: 160px;
   }
-  .presenteSlider {
-    height: 260px;
-  }
+
   .adminWelcomeText {
     font-size: 18px;
     text-align: center;
@@ -309,11 +303,40 @@ textarea {
   .adminHeader {
     font-size: 18px;
   }
+  .sliderLeftBtn {
+    width: 80px;
+    height: 28px;
+    top: 100%;
+    left: 0;
+    transform: translateY(0);
+    font-size: 14px;
+    border-radius: 2px;
+    pointer-events: all;
+    opacity: 100%;
+  }
+  .sliderRightBtn {
+    width: 80px;
+    height: 28px;
+    top: 100%;
+    right: 0;
+    transform: translateY(0);
+    font-size: 14px;
+    border-radius: 2px;
+    pointer-events: all;
+    opacity: 100%;
+  }
 }
 
 @media screen and (max-width: 376px) {
-  .presenteSlider {
-    height: 230px;
+  .sliderLeftBtn {
+    width: 70px;
+    height: 24px;
+    font-size: 12px;
+  }
+  .sliderRightBtn {
+    width: 70px;
+    height: 24px;
+    font-size: 12px;
   }
 }
 
@@ -335,8 +358,5 @@ textarea {
   .homeInsuranceServices {
     grid-template-columns: repeat(1, 1fr);
     gap: 12px;
-  }
-  .presenteSlider {
-    height: 200px;
   }
 }

@@ -6,7 +6,7 @@ import PageTitle from "../../components/PageTitle";
 import ErrorPage from "../ErrorPage";
 import AgendaBox from "../../components/AgendaBox";
 import classNames from "classnames";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useResponsiveData } from "../../Context";
 
 function Agenda() {
@@ -29,7 +29,8 @@ function Agenda() {
       })
         .then((res) => res.json())
         .then((db) => {
-          setKsData(db);
+          if (db.length === 0) setKsData(false);
+          else setKsData(db);
         });
     } catch (error) {
       console.error("Error:", error);
@@ -98,7 +99,7 @@ function Agenda() {
                   className={classNames(
                     "text-ksGreen font-medium text-xl relative",
                     {
-                      "!text-base": isMobile,
+                      "!text-lg": isMobile,
                     }
                   )}
                 >
@@ -123,9 +124,9 @@ function Agenda() {
                           }
                           key={category.id}
                           className={classNames(
-                            "rounded-md bg-backColor text-myText border-2 border-solid border-ksGrayTp hover:border-ksGreen h-10 min-w-32 text-base font-medium duration-200",
+                            "rounded-md bg-backColor text-myText border-2 border-solid border-ksGrayTp hover:border-ksGreen h-10 min-w-36 text-base font-medium duration-200",
                             {
-                              "!min-w-24 !text-sm": isMobile,
+                              "!text-sm": isMobile,
                             }
                           )}
                         >
@@ -156,17 +157,36 @@ function Agenda() {
                 }
               )}
             >
-              {ksData.map((box) => (
-                <AgendaBox
-                  key={box.id}
-                  agendaImgUrl={box.img_url}
-                  agendaTitle={box.title}
-                  agendaDate={box.dat}
-                  ksId={box.ks_id}
-                  category={categories[activeCategoryId].urlName}
-                  viewNum={box.number_of_views}
-                />
-              ))}
+              {ksData ? (
+                ksData.map((box) => (
+                  <AgendaBox
+                    key={box.id}
+                    agendaImgUrl={box.img_url}
+                    agendaTitle={box.title}
+                    agendaDate={box.dat}
+                    ksId={box.ks_id}
+                    category={categories[activeCategoryId].urlName}
+                    viewNum={box.number_of_views}
+                  />
+                ))
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className={classNames(
+                    "h-[200px] w-full bg-preKsBoxBack text-myText flex items-center justify-center rounded-2xl text-3xl font-medium",
+                    {
+                      "!text-2xl !h-[180px]": isTablet,
+                    },
+                    {
+                      "!text-sm !h-[120px]": isMobile,
+                    }
+                  )}
+                >
+                  {t("current")} {categories[activeCategoryId].title}{" "}
+                  {t("comingSoon")}
+                </motion.div>
+              )}
             </div>
           </div>
         </motion.div>

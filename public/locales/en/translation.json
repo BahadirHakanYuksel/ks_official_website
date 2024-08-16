@@ -83,5 +83,7 @@
   "failedMessage": "Failed to Send Message !",
   "chars": "characters",
   "example": "example",
-  "productionWorkers": "Production Workers"
+  "productionWorkers": "Production Workers",
+  "current": "Current",
+  "comingSoon": "coming soon..."
 }

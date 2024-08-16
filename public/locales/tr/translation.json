@@ -83,5 +83,7 @@
   "failedMessage": "Mesaj Gönderilemedi !",
   "chars": "karakter",
   "example": "ornek",
-  "productionWorkers": "Yapımda Emeği Geçenler"
+  "productionWorkers": "Yapımda Emeği Geçenler",
+  "current": "Güncel",
+  "comingSoon": "çok yakında..."
 }

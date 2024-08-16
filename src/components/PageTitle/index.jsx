@@ -12,12 +12,12 @@ function PageTitle({ children }) {
       animate={{ height: "80px" }}
       transition={{ duration: 0.3 }}
       className={classNames(
-        "bg-gradient-to-r to-green-950 from-green-950 via-[#189245] text-white w-full text-4xl font-medium flex justify-center items-center mb-5 overflow-hidden",
+        "bg-gradient-to-r to-green-950 from-green-950 via-[#189245] text-white w-full text-4xl font-medium flex justify-center items-center mb-5 overflow-hidden text-center",
         {
           "!text-3xl": isTablet,
         },
         {
-          "!text-xl": isMobile,
+          "!text-[26px]": isMobile,
         }
       )}
     >

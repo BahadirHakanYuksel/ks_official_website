@@ -5,35 +5,12 @@ import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-
-function SampleNextArrow(props) {
-  const { onClick } = props;
-  return (
-    <button
-      className="absolute right-2 top-1/2 -translate-y-1/2  w-10 h-10 rounded-full text-white bg-ksGreen text-base hover:bg-green-600 opacity-0 pointer-events-none sliderBtn duration-300"
-      onClick={onClick}
-    >
-      <i class="fa-solid fa-arrow-right"></i>
-    </button>
-  );
-}
-
-function SamplePrevArrow(props) {
-  const { onClick } = props;
-  return (
-    <button
-      className="absolute z-10 left-2 top-1/2 -translate-y-1/2  w-10 h-10 rounded-full text-white bg-ksGreen text-base hover:bg-green-600 duration-300 opacity-0 sliderBtn"
-      onClick={onClick}
-    >
-      <i class="fa-solid fa-arrow-left"></i>
-    </button>
-  );
-}
+import { useResponsiveData } from "../../../Context";
 
 function PresentationSlider() {
   const { i18n } = useTranslation();
-  const [sliderSettings, setSliderSettings] = useState({});
   const [activeSliderPageId, setactiveSliderPageId] = useState(0);
+  const { isMobile, isSmallMobile } = useResponsiveData();
   let sliderInterval;
 
   const rightClick = () => {
@@ -77,10 +54,8 @@ function PresentationSlider() {
   ];
 
   return (
-    <div
-      className={classNames("rounded-md overflow-hidden h-auto presenteSlider")}
-    >
-      <div className="flex gap-2.5 relative sliderBox w-full aspect-video">
+    <div className={classNames("rounded-md h-auto presenteSlider relative")}>
+      <div className="flex gap-2.5 relative sliderBox overflow-hidden rounded-lg w-full aspect-video">
         {sliderData.map((sliderSection) => (
           <motion.div
             key={sliderSection.id}
@@ -107,18 +82,49 @@ function PresentationSlider() {
             </AnimatePresence>
           </motion.div>
         ))}
-        <button
-          onClick={rightClick}
-          className="absolute right-2 top-1/2 -translate-y-1/2  w-10 h-10 rounded-full text-white bg-ksGreen text-base hover:bg-green-600 opacity-0 pointer-events-none sliderBtn duration-300"
-        >
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
-        <button
-          onClick={leftClick}
-          className="absolute left-2 top-1/2 -translate-y-1/2  w-10 h-10 rounded-full text-white bg-ksGreen text-base hover:bg-green-600 opacity-0 pointer-events-none sliderBtn duration-300"
-        >
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
+      </div>
+      <button
+        onClick={rightClick}
+        className={classNames(
+          "absolute right-2 top-1/2 -translate-y-1/2  w-10 h-10 rounded-full text-white bg-ksGreen text-base hover:bg-green-600 opacity-0 pointer-events-none sliderBtn sliderRightBtn duration-300"
+        )}
+      >
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+      <button
+        onClick={leftClick}
+        className={classNames(
+          "absolute left-2 top-1/2 -translate-y-1/2  w-10 h-10 rounded-full text-white bg-ksGreen text-base hover:bg-green-600 opacity-0 pointer-events-none sliderBtn sliderLeftBtn duration-300"
+        )}
+      >
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <div
+        className={classNames(
+          "absolute left-1/2 -translate-x-1/2 bottom-2 flex items-center justify-center gap-2.5"
+        )}
+      >
+        {sliderData.map((btn) => (
+          <button
+            onClick={() => {
+              clearInterval(sliderInterval);
+              setactiveSliderPageId(btn.id);
+            }}
+            key={btn.id}
+            className={classNames(
+              "w-20 h-1.5 rounded-full bg-white duration-200 hover:bg-opacity-70 sliderControlBtn",
+              {
+                "!bg-ksGreen": btn.id === activeSliderPageId,
+              },
+              {
+                "!w-12 !h-1": isMobile,
+              },
+              {
+                "!w-[38px]": isSmallMobile,
+              }
+            )}
+          ></button>
+        ))}
       </div>
     </div>
   );
