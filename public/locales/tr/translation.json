@@ -88,5 +88,11 @@
   "comingSoon": "çok yakında...",
   "sending": "Gönderiliyor...",
   "pageNotFound": "Sayfa Bulunamadı !",
-  "goToHomepage": "Anasayfaya Dön"
+  "goToHomepage": "Anasayfaya Dön",
+  "timeLeft": "Kalan süre",
+  "verifyEmail": "E-Posta Doğrula",
+  "verificationCodeMessageOk": "Doğrulama kodu E-posta adresinize gönderildi.",
+  "verificationCodeMessageError": "Doğrulama kodu gönderilemedi!",
+  "sendingVerificationCode": "Doğrulama kodu gönderiliyor",
+  "enterCode": "Kodu giriniz"
 }

@@ -48,8 +48,6 @@ function AgendaHome() {
       })
         .then((res) => res.json())
         .then((db) => {
-          console.log(db);
-
           if (db.length === 0) setKsData(false);
           else setKsData(db);
           setButtonsDisable(false);
