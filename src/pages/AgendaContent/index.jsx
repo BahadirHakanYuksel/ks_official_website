@@ -249,7 +249,7 @@ function AgendaContent() {
                       className="hover:scale-105 duration-200 rounded-full w-12 h-12 bg-black"
                       url={`https://katilimsigortacisi.com${path}`}
                     >
-                      <i className="fa-brands fa-x-twitter text-2xl bg-black w-12 h-12 flex items-center justify-center pointer-events-none rounded-full"></i>
+                      <i className="fa-brands fa-x-twitter text-2xl bg-black text-white w-12 h-12 flex items-center justify-center pointer-events-none rounded-full"></i>
                     </TwitterShareButton>
                     <TelegramShareButton
                       className="hover:scale-105 duration-200 rounded-full"
