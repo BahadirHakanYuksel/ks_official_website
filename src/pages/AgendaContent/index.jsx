@@ -222,7 +222,7 @@ function AgendaContent() {
                   <button
                     onClick={closeSharingMenu}
                     type="button"
-                    className="absolute w-10 h-7 hover:bg-black duration-200 right-3 top-3 flex items-center justify-center rounded-lg bg-preKsBoxBack shadow-lg border-2 border-solid border-ksGrayTp"
+                    className="absolute w-10 h-7 hover:bg-black hover:text-white duration-200 right-3 top-3 flex items-center justify-center rounded-lg bg-preKsBoxBack shadow-lg border-2 border-solid border-ksGrayTp"
                   >
                     <i className="fa-solid fa-xmark"></i>
                   </button>
