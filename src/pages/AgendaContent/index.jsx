@@ -185,7 +185,6 @@ function AgendaContent() {
     setLinkCopied(true);
     setTimeout(() => {
       setLinkCopied(false);
-      closeSharingMenu();
     }, 2000);
   };
 
@@ -247,10 +246,10 @@ function AgendaContent() {
                       <WhatsappIcon size={48} round />
                     </WhatsappShareButton>
                     <TwitterShareButton
-                      className="hover:scale-105 duration-200 rounded-full"
+                      className="hover:scale-105 duration-200 rounded-full w-12 h-12 bg-black"
                       url={`https://katilimsigortacisi.com${path}`}
                     >
-                      <TwitterIcon size={48} round />
+                      <i className="fa-brands fa-x-twitter text-2xl bg-black w-12 h-12 flex items-center justify-center pointer-events-none rounded-full"></i>
                     </TwitterShareButton>
                     <TelegramShareButton
                       className="hover:scale-105 duration-200 rounded-full"
