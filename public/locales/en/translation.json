@@ -94,5 +94,7 @@
   "verificationCodeMessageOk": "Verification code sent to your e-mail address.",
   "verificationCodeMessageError": "The verification code could not be sent!",
   "sendingVerificationCode": "Sending a verification code...",
-  "enterCode": "Enter code"
+  "enterCode": "Enter code",
+  "copy": "Copy",
+  "copied": "Copied"
 }

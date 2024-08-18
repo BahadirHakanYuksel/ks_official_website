@@ -1,12 +1,27 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import RightSidebar from "./RightSidebar";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { useResponsiveData } from "../../Context";
 import { Helmet } from "react-helmet-async";
 import ErrorPage from "../ErrorPage";
+
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  TelegramShareButton,
+  TelegramIcon,
+  RedditShareButton,
+  RedditIcon,
+  LinkedinShareButton,
+  LinkedinIcon,
+} from "react-share";
 
 function AgendaContent() {
   const parseContent = (content) => {
@@ -158,19 +173,130 @@ function AgendaContent() {
     getContentOnDb();
   }, [pathAgendaInfo]);
 
+  const [showMenu, setShowMenu] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(`https://katilimsigortacisi.com${path}`);
+    setLinkCopied(true);
+    setTimeout(() => {
+      setLinkCopied(false);
+      closeSharingMenu();
+    }, 2000);
+  };
+
+  const closeSharingMenu = () => {
+    setShowMenu(false);
+    setLinkCopied(false);
+  };
+
   return (
     <>
       {ksContentData ? (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className={classNames("page flex gap-10", {
+          className={classNames("page flex gap-10 relative", {
             "!flex-col": isMobile,
           })}
         >
           <Helmet>
             <title>{ksContentData.title}</title>
           </Helmet>
+          <AnimatePresence>
+            {showMenu && (
+              <motion.div
+                onClick={(e) => {
+                  e.target.id === "shareButtonsMain" && closeSharingMenu();
+                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-50 w-full h-full z-50 flex items-center justify-center"
+                id="shareButtonsMain"
+              >
+                <div className="flex flex-col gap-10 w-[400px] h-auto bg-backColor rounded-lg shadow-lg pt-10 p-3 relative">
+                  <button
+                    onClick={closeSharingMenu}
+                    type="button"
+                    className="absolute w-10 h-7 hover:bg-black duration-200 right-3 top-3 flex items-center justify-center rounded-lg bg-preKsBoxBack shadow-lg border-2 border-solid border-ksGrayTp"
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </button>
+                  <div className="flex justify-center">
+                    <header className="text-titleColor font-medium text-4xl relative">
+                      {t("share")}
+                      <div className="absolute w-[60%] h-1 left-1/2 -translate-x-1/2 -bottom-3.5 rounded-full bg-ksGreen"></div>
+                    </header>
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-2.5">
+                    <FacebookShareButton
+                      className="hover:scale-105 duration-200 rounded-full"
+                      url={`https://katilimsigortacisi.com${path}`}
+                    >
+                      <FacebookIcon size={48} round />
+                    </FacebookShareButton>
+                    <WhatsappShareButton
+                      className="hover:scale-105 duration-200 rounded-full"
+                      url={`https://katilimsigortacisi.com${path}`}
+                    >
+                      <WhatsappIcon size={48} round />
+                    </WhatsappShareButton>
+                    <TwitterShareButton
+                      className="hover:scale-105 duration-200 rounded-full"
+                      url={`https://katilimsigortacisi.com${path}`}
+                    >
+                      <TwitterIcon size={48} round />
+                    </TwitterShareButton>
+                    <TelegramShareButton
+                      className="hover:scale-105 duration-200 rounded-full"
+                      url={`https://katilimsigortacisi.com${path}`}
+                    >
+                      <TelegramIcon size={48} round />
+                    </TelegramShareButton>
+                    <RedditShareButton
+                      className="hover:scale-105 duration-200 rounded-full"
+                      url={`https://katilimsigortacisi.com${path}`}
+                    >
+                      <RedditIcon size={48} round />
+                    </RedditShareButton>
+                    <LinkedinShareButton
+                      className="hover:scale-105 duration-200 rounded-full"
+                      url={`https://katilimsigortacisi.com${path}`}
+                    >
+                      <LinkedinIcon size={48} round />
+                    </LinkedinShareButton>
+                  </div>
+                  <div className="relative">
+                    <input
+                      disabled
+                      type="text"
+                      value={`https://katilimsigortacisi.com${path}`}
+                      className={classNames(
+                        "h-14 w-full rounded-md px-3 pr-28 text-base font-medium text-messageBoxInputBack bg-backColor disabled:pointer-events-none border-2 border-solid border-gray-400 focus:border-ksGreen duration-200"
+                      )}
+                    />
+                    <button
+                      onClick={copyLink}
+                      className={classNames(
+                        "absolute right-3 top-1/2 -translate-y-1/2 bg-ksGreen w-24 h-10 rounded-md text-sm font-medium text-white active:bg-green-700 hover:bg-green-600 duration-200",
+                        {
+                          "!bg-blue-500 !pointer-events-none !opacity-80":
+                            linkCopied,
+                        }
+                      )}
+                    >
+                      {linkCopied ? t("copied") : t("copy")}
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
           <div
             className={classNames("w-[75%] flex flex-col gap-2.5", {
               "!w-full": isMobile,
@@ -254,11 +380,7 @@ function AgendaContent() {
             <div className="flex items-center justify-between h-8">
               <div className="flex gap-2 h-full items-center">
                 <button
-                  onClick={() =>
-                    navigator.clipboard.writeText(
-                      `https://katilimsigortacisi.com${path}`
-                    )
-                  }
+                  onClick={toggleMenu}
                   className={classNames(
                     "flex gap-1.5 items-center justify-center text-sm font-medium bg-preKsBoxBack text-preKsBoxIcon h-full w-20 rounded-sm hover:text-ksGreen duration-200 border-2 border-solid border-ksGrayTp hover:border-ksGreen",
                     {

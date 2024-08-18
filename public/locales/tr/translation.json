@@ -94,5 +94,7 @@
   "verificationCodeMessageOk": "Doğrulama kodu E-posta adresinize gönderildi.",
   "verificationCodeMessageError": "Doğrulama kodu gönderilemedi!",
   "sendingVerificationCode": "Doğrulama kodu gönderiliyor",
-  "enterCode": "Kodu giriniz"
+  "enterCode": "Kodu giriniz",
+  "copy": "Kopyala",
+  "copied": "Kopyalandı"
 }
