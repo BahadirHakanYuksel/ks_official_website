@@ -96,5 +96,7 @@
   "sendingVerificationCode": "Doğrulama kodu gönderiliyor",
   "enterCode": "Kodu giriniz",
   "copy": "Kopyala",
-  "copied": "Kopyalandı"
+  "copied": "Kopyalandı",
+  "lastPublished": "Son yayınlanan",
+  "mostRead": "En çok okunan"
 }

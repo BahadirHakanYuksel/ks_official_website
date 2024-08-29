@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [
     react(),
     sitemapPlugin({
-      hostname: "https://www.katilimsigortacisi.com", // Sitenizin ana URL'sini buraya yazın
+      hostname: "https://www.katilimsigortacisi.com",
     }),
   ],
   build: {
-    outDir: "dist", // Çıktı dizinini doğru ayarlayın
+    outDir: "dist",
   },
 });

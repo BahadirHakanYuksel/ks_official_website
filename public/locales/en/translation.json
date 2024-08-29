@@ -96,5 +96,7 @@
   "sendingVerificationCode": "Sending a verification code...",
   "enterCode": "Enter code",
   "copy": "Copy",
-  "copied": "Copied"
+  "copied": "Copied",
+  "lastPublished": "Last published",
+  "mostRead": "Most read"
 }

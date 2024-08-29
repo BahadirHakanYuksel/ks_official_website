@@ -14,7 +14,6 @@ import {
   WhatsappShareButton,
   WhatsappIcon,
   TwitterShareButton,
-  TwitterIcon,
   TelegramShareButton,
   TelegramIcon,
   RedditShareButton,
@@ -115,7 +114,6 @@ function AgendaContent() {
   const [loading, setLoading] = useState(false);
 
   const [ksContentData, setKsContentData] = useState([]);
-  const [viewOk, setViewOk] = useState(false);
   const [paragraph, setParagraph] = useState([]);
 
   const [dates, setDates] = useState({

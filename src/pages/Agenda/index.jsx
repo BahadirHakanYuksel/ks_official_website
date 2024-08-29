@@ -17,11 +17,14 @@ function Agenda() {
   const [activeCategoryId, setactiveCategoryId] = useState(0);
   const [thisPageIsAgenda, setThisPageIsAgenda] = useState(true);
   const [ksData, setKsData] = useState([]);
+  const [filter, setFilter] = useState("last");
   const navigate = useNavigate();
 
   const getDataOnDb = async () => {
     const formData = new FormData();
-    formData.append("action", pathAgendaCategory);
+    filter === "last" && formData.append("action", pathAgendaCategory);
+    filter === "popular" &&
+      formData.append("action", `${pathAgendaCategory}_most_viewed`);
 
     try {
       await fetch("https://katilimsigortacisi.com/php-admin/", {
@@ -53,6 +56,10 @@ function Agenda() {
 
     getDataOnDb();
   }, [pathAgendaCategory]);
+
+  useEffect(() => {
+    getDataOnDb();
+  }, [filter]);
 
   const categories = [
     {
@@ -91,7 +98,7 @@ function Agenda() {
           <div className="page flex flex-col gap-5">
             <div
               className={classNames("flex justify-between items-center", {
-                "!justify-center": isTablet,
+                "!items-center !gap-5 !flex-col": isTablet,
               })}
             >
               <div
@@ -140,15 +147,38 @@ function Agenda() {
                   )}
                 </div>
               </div>
-              {/* <div className="flex gap-2.5">
+              <div className={classNames("flex")}>
                 <button
+                  onClick={() => setFilter("last")}
                   className={classNames(
-                    "rounded-md bg-backColor text-myText border-2 border-solid border-ksGrayTp hover:border-ksGreen h-10 min-w-32 text-base font-medium duration-200"
+                    "text-titleColor border-b-2 border-solid border-ksGrayTp h-10 min-w-32 text-base font-medium duration-200 opacity-70",
+                    {
+                      "!border-ksGreen !text-myText !pointer-events-none !opacity-100":
+                        filter === "last",
+                    },
+                    {
+                      "!text-sm": isMobile,
+                    }
                   )}
                 >
-                  {t("filter")}
+                  {t("lastPublished")}
                 </button>
-              </div> */}
+                <button
+                  onClick={() => setFilter("popular")}
+                  className={classNames(
+                    "text-titleColor border-b-2 border-solid border-ksGrayTp h-10 min-w-32 text-base font-medium duration-200 opacity-70",
+                    {
+                      "!border-ksGreen !text-myText !pointer-events-none !opacity-100":
+                        filter === "popular",
+                    },
+                    {
+                      "!text-sm": isMobile,
+                    }
+                  )}
+                >
+                  {t("mostRead")}
+                </button>
+              </div>
             </div>
             <div
               className={classNames(
