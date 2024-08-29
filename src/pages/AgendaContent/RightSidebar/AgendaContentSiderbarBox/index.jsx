@@ -55,9 +55,9 @@ function AgendaContentSiderbarBox({
   return (
     <button
       onClick={() => goOtherAgenda()}
-      className="agendaContentSiderbarBox flex flex-col w-full bg-preKsBoxBack overflow-hidden p-2.5 gap-2 shadow-lg relative"
+      className="agendaContentSiderbarBox flex flex-col w-full bg-preKsBoxBack overflow-hidden p-2.5 gap-2 shadow-lg relative rounded-sm"
     >
-      <div className="w-full aspect-video bg-ksGrayTp bg-opacity-10 rounded-sm ">
+      <div className="w-full aspect-video bg-ksGrayTp bg-opacity-10 rounded-sm overflow-hidden ">
         <img
           src={`https://katilimsigortacisi.com/img/${imgUrl}`}
           className="w-full aspect-video"

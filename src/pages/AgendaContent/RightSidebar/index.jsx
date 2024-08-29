@@ -12,6 +12,7 @@ function RightSidebar() {
   const [announcements, setAnnouncements] = useState([]);
   const { isMobile } = useResponsiveData();
   const navigate = useNavigate();
+  const { pathAgendaInfo } = useParams();
   const agendaTitles = [
     {
       urlName: "news",
@@ -32,6 +33,9 @@ function RightSidebar() {
       id: 2,
     },
   ];
+  const myID = `${
+    pathAgendaInfo.split("-")[pathAgendaInfo.split("-").length - 1]
+  }`;
   const [loading, setLoading] = useState(false);
   const getDataOnDb = async () => {
     setLoading(true);
@@ -91,7 +95,7 @@ function RightSidebar() {
 
   return (
     <div
-      className={classNames("flex flex-col w-[25%] gap-10", {
+      className={classNames("flex flex-col w-[25%] gap-14", {
         "!w-full": isMobile,
       })}
     >
@@ -124,7 +128,8 @@ function RightSidebar() {
           )}
           {news.map(
             (agenda, i) =>
-              i <= 2 && (
+              i <= 2 &&
+              agenda.ks_id !== myID && (
                 <AgendaContentSiderbarBox
                   title={agenda.title}
                   key={agenda.id}
@@ -167,7 +172,8 @@ function RightSidebar() {
           )}
           {articles.map(
             (agenda, i) =>
-              i <= 2 && (
+              i <= 2 &&
+              agenda.ks_id !== myID && (
                 <AgendaContentSiderbarBox
                   title={agenda.title}
                   key={agenda.id}
@@ -210,7 +216,8 @@ function RightSidebar() {
           )}
           {announcements.map(
             (agenda, i) =>
-              i <= 2 && (
+              i <= 2 &&
+              agenda.ks_id !== myID && (
                 <AgendaContentSiderbarBox
                   title={agenda.title}
                   key={agenda.id}
