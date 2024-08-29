@@ -15,7 +15,7 @@ function AgendaBox({
   viewNum,
 }) {
   const { isLaptop, isTablet, isMobile } = useResponsiveData();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [myDate, setmyDate] = useState(agendaDate);
 
@@ -134,7 +134,10 @@ function AgendaBox({
           }
         )}
       >
-        {agendaTitle}
+        {agendaTitle
+          .split(" ")
+          .map((word) => word.charAt(0).toLocaleUpperCase("tr") + word.slice(1))
+          .join(" ")}
       </header>
       <button
         className={classNames(

@@ -120,6 +120,7 @@ function AgendaContent() {
     loadDate: "",
     uploadDate: "",
   });
+  const [agendaTitle, setAgendaTitle] = useState(undefined);
 
   const getContentOnDb = async () => {
     setLoading(true);
@@ -156,7 +157,15 @@ function AgendaContent() {
                 }.${db.lastDat.split(" ")[1].split(":")[1]}`,
               });
               setParagraph(db.dsc.split("\n"));
-
+              setAgendaTitle(
+                db.title
+                  .split(" ")
+                  .map(
+                    (word) =>
+                      word.charAt(0).toLocaleUpperCase("tr") + word.slice(1)
+                  )
+                  .join(" ")
+              );
               setLoading(false);
             }
           });
@@ -305,7 +314,7 @@ function AgendaContent() {
                 "!h-9 !bg-ksGrayTp !rounded-md": loading,
               })}
             >
-              {ksContentData.title}
+              {agendaTitle}
             </header>
             <div className="flex flex-col">
               <div

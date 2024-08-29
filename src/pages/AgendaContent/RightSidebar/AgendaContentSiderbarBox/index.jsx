@@ -14,11 +14,19 @@ function AgendaContentSiderbarBox({
   const [lastUpload, setLastUpload] = useState();
   const [numberOfView, setNumberOfView] = useState(viewNum);
   const [FormatedDate, setFormatedDate] = useState("");
+  const [agendaTitle, setAgendaTitle] = useState(undefined);
   useEffect(() => {
     const formatted = `${date.split(" ")[0].split("-")[2]}.${
       date.split(" ")[0].split("-")[1]
     }.${date.split(" ")[0].split("-")[0]}`;
     setFormatedDate(formatted);
+
+    setAgendaTitle(
+      title
+        .split(" ")
+        .map((word) => word.charAt(0).toLocaleUpperCase("tr") + word.slice(1))
+        .join(" ")
+    );
   }, []);
 
   const updateViewNumber = async () => {
@@ -57,7 +65,7 @@ function AgendaContentSiderbarBox({
         />
       </div>
       <header className="line-clamp-2 text-sm text-start h-10 duration-200">
-        {title}
+        {agendaTitle}
       </header>
       <span className="absolute right-3 bottom-[60px] w-20 bg-backColor text-xs text-titleColor duration-200 rounded-sm py-0.5 font-medium overflow-hidden">
         {FormatedDate}

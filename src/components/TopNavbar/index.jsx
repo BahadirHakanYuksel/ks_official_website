@@ -46,26 +46,29 @@ function TopNavbar() {
             ))}
 
             <div className="flex gap-2 items-center">
-              {languages.map((lng) => (
-                <button
-                  onClick={() => i18n.changeLanguage(lng)}
-                  className={classNames(
-                    "text-gray-400 text-xs hover:text-ksGreen font-medium",
-                    {
-                      "!text-[11px]": isLaptop,
-                    },
-                    {
-                      "!text-[9px]": isTablet,
-                    },
-                    {
-                      "!underline !pointer-events-none !opacity-70":
-                        lng === i18n.language,
-                    }
-                  )}
-                >
-                  {lng.toUpperCase()}
-                </button>
-              ))}
+              {languages.map(
+                (lng) =>
+                  lng !== i18n.language && (
+                    <button
+                      onClick={() => i18n.changeLanguage(lng)}
+                      className={classNames(
+                        "text-gray-400 text-xs hover:text-ksGreen font-medium",
+                        {
+                          "!text-[11px]": isLaptop,
+                        },
+                        {
+                          "!text-[9px]": isTablet,
+                        },
+                        {
+                          "!underline !pointer-events-none !opacity-70":
+                            lng === i18n.language,
+                        }
+                      )}
+                    >
+                      {lng.toUpperCase()}
+                    </button>
+                  )
+              )}
             </div>
           </div>
         </div>
