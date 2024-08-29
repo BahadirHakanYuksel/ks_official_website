@@ -376,7 +376,7 @@ function AgendaContent() {
             
           </div> */}
             </div>
-            <div className="w-full aspect-video border-2 border-solid border-ksGrayTp rounded-md overflow-hidden">
+            <div className="w-full aspect-video rounded-md overflow-hidden">
               <img
                 src={`https://katilimsigortacisi.com/img/${ksContentData.img_url}`}
                 className="w-full aspect-video"
