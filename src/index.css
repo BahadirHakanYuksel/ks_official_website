@@ -66,7 +66,7 @@
   --contactBoxTitleBack: var(--preKsBoxBack);
   --footerAgendaButtonBack: var(--ksGray);
   --responsiveNavMenuBack: #24282a;
-  --goUpButtonBack: var(--preKsBoxBack);
+  --goUpButtonBack: #24282a;
 }
 /** old  */
 /* 
