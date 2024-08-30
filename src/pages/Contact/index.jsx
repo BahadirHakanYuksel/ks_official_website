@@ -6,6 +6,7 @@ import ContactBox from "../../components/ContactBox";
 import { useResponsiveData } from "../../Context";
 import classNames from "classnames";
 import { Helmet } from "react-helmet-async";
+import { useEffect } from "react";
 function Contact() {
   const { t } = useTranslation();
   const { isLaptop, isTablet, isMobile } = useResponsiveData();
