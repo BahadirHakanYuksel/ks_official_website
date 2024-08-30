@@ -10,6 +10,10 @@ function Contact() {
   const { t } = useTranslation();
   const { isLaptop, isTablet, isMobile } = useResponsiveData();
 
+  useEffect(() => {
+    document.scrollingElement.scrollTop = 0;
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

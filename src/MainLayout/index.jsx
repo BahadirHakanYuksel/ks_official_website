@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router-dom";
 import { updateLngHandle } from "../utils";
@@ -10,6 +10,7 @@ import ResponsiveNavMenu from "../components/ResponsiveNavMenu";
 import { AnimatePresence } from "framer-motion";
 import { useResponsiveData } from "../Context";
 import classNames from "classnames";
+import GoUpButton from "../components/GoUpButton";
 
 function MainLayout() {
   const { t, i18n } = useTranslation();
@@ -17,6 +18,31 @@ function MainLayout() {
   const { responsiveNavMenuIsActive } = useSelector((state) => state.app);
 
   const { isMobile } = useResponsiveData();
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => {
+    if (window.scrollY > 300) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", toggleVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, []);
 
   useEffect(() => {
     updateLngHandle(i18n.language);
@@ -61,6 +87,9 @@ function MainLayout() {
       </div>
       <AnimatePresence>
         {responsiveNavMenuIsActive && isMobile && <ResponsiveNavMenu />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {isVisible && <GoUpButton clickFunc={scrollToTop} />}
       </AnimatePresence>
     </div>
   );

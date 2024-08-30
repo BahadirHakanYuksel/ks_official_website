@@ -41,6 +41,7 @@
   --contactBoxTitleBack: white;
   --footerAgendaButtonBack: #e1e9e6;
   --responsiveNavMenuBack: rgb(237, 237, 237);
+  --goUpButtonBack: #dedede;
 }
 
 [data-theme="dark"] {
@@ -65,6 +66,7 @@
   --contactBoxTitleBack: var(--preKsBoxBack);
   --footerAgendaButtonBack: var(--ksGray);
   --responsiveNavMenuBack: #24282a;
+  --goUpButtonBack: var(--preKsBoxBack);
 }
 /** old  */
 /* 

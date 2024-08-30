@@ -1,10 +1,16 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 
 function ErrorPage() {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    document.scrollingElement.scrollTop = 0;
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
