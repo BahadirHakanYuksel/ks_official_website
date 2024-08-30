@@ -22,11 +22,7 @@ function MainLayout() {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
-    if (window.scrollY > 300) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
+    window.scrollY > 300 ? setIsVisible(true) : setIsVisible(false);
   };
 
   const scrollToTop = () => {
