@@ -7,7 +7,7 @@ import { closeResNavMenuHandle } from "../../utils";
 
 function ResponsiveNavMenu() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const navMenu = [
     {
@@ -47,6 +47,8 @@ function ResponsiveNavMenu() {
     },
   ];
 
+  const languages = ["tr", "en"];
+
   return (
     <motion.div
       initial={{ right: "-600px", opacity: 0 }}
@@ -78,6 +80,22 @@ function ResponsiveNavMenu() {
             {btn.title}
           </button>
         ))}
+        <div className="flex justify-end gap-2.5 h-8 mt-2.5 text-sm ">
+          {languages.map(
+            (lng) =>
+              lng !== i18n.language && (
+                <button
+                  onClick={() => i18n.changeLanguage(lng)}
+                  className="border-2 border-solid border-ksGrayTp bg-goUpButtonBack font-medium h-full rounded-full w-20 hover:border-ksGreen hover:text-ksGreen duration-200"
+                >
+                  {lng.toUpperCase()}
+                </button>
+              )
+          )}
+          <div className="flex items-center justify-center h-full text-base">
+            {t("changeLanguage")}
+          </div>
+        </div>
         <ThemeButton responsiveMode={true} />
       </div>
     </motion.div>
