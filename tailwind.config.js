@@ -24,6 +24,8 @@ export default {
         footerAgendaButtonBack: "var(--footerAgendaButtonBack)",
         responsiveNavMenuBack: "var(--responsiveNavMenuBack)",
         goUpButtonBack: "var(--goUpButtonBack)",
+        agendaHomeAllAgendaButtonBorder:
+          "var(--agendaHomeAllAgendaButtonBorder)",
       },
     },
   },

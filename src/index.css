@@ -41,7 +41,8 @@
   --contactBoxTitleBack: white;
   --footerAgendaButtonBack: #e1e9e6;
   --responsiveNavMenuBack: rgb(237, 237, 237);
-  --goUpButtonBack: #dedede;
+  --goUpButtonBack: #eeedee;
+  --agendaHomeAllAgendaButtonBorder: var(--ksGray);
 }
 
 [data-theme="dark"] {
@@ -67,6 +68,7 @@
   --footerAgendaButtonBack: var(--ksGray);
   --responsiveNavMenuBack: #24282a;
   --goUpButtonBack: #24282a;
+  --agendaHomeAllAgendaButtonBorder: var(--ksGrayTp);
 }
 /** old  */
 /* 

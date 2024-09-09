@@ -55,7 +55,7 @@ function FooterBox({ title, description, url = "/", type = 0 }) {
             <button
               onClick={() => navigation(url)}
               className={classNames(
-                "mt-2 h-8 w-28 font-medium rounded-sm text-[13px] text-white hover:bg-ksGray duration-200 bg-ksGreen",
+                "mt-2 h-8 w-28 font-medium rounded-sm text-[13px] text-white hover:bg-ksGreen duration-200 bg-ksGray",
                 {
                   "!text-xs !h-7 !w-24 !mt-5": isLaptop,
                 }

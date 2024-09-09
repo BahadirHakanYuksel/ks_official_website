@@ -165,7 +165,7 @@ function AgendaHome() {
           <button
             onClick={goAgendaMain}
             className={classNames(
-              "bg-preKsBoxBack w-[200px] border-2 border-solid border-ksGray duration-200 hover:text-ksGreen hover:border-ksGreen h-10 rounded-full hover:bg-ksGray font-semibold",
+              "bg-preKsBoxBack w-[200px] border-2 border-solid border-agendaHomeAllAgendaButtonBorder duration-200 hover:text-ksGreen hover:border-ksGreen h-12 rounded-full hover:bg-backColor font-semibold",
               {
                 "!w-[150px] !text-base !h-9": isTablet,
               }

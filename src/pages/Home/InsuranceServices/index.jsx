@@ -32,9 +32,10 @@ function InsuranceServices() {
               onClick={() => setActiveServiceId(btn.id)}
               key={btn.id}
               className={classNames(
-                "bg-ksGray text-white w-32 h-10 rounded-full border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-base shadow-md opacity-70 hover:opacity-100",
+                "bg-backColor text-myText w-[132px] h-11 rounded-full border-2 border-solid border-agendaHomeAllAgendaButtonBorder font-medium hover:border-ksGreen duration-200 text-base shadow-md opacity-70 hover:opacity-100",
                 {
-                  "!bg-ksGreen !opacity-100": ActiveServiceId === btn.id,
+                  "!bg-ksGreen !opacity-100 !text-white !border-ksGreen":
+                    ActiveServiceId === btn.id,
                 },
                 {
                   "!text-sm font-medium !w-28 !h-9": isTablet,

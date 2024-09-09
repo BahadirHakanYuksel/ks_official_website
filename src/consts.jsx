@@ -103,6 +103,69 @@ export const convertFromTextToUrl = (text) => {
   return myUrl;
 };
 
+export const parseContent = (content) => {
+  const parts = content.split(
+    /(\*\*.*?\*\*|###.*?###|##.*?##|#.*?#|--.*?--|\[.*?\]\(.*?\)|\* .+?(?:\n|$))/
+  );
+
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong className="text-ksGreen text-lg" key={index}>
+          {part.slice(2, -2)}
+        </strong>
+      );
+    } else if (part.startsWith("###") && part.endsWith("###")) {
+      return (
+        <header className="text-4xl font-medium text-titleColor" key={index}>
+          {part.slice(3, -3)}
+        </header>
+      );
+    } else if (part.startsWith("##") && part.endsWith("##")) {
+      return (
+        <header className="text-3xl font-medium text-titleColor" key={index}>
+          {part.slice(2, -2)}
+        </header>
+      );
+    } else if (part.startsWith("# ") && part.endsWith(" #")) {
+      return (
+        <header className="text-2xl font-medium text-titleColor" key={index}>
+          {part.slice(1, -1)}
+        </header>
+      );
+    } else if (
+      part.startsWith("[") &&
+      part.includes("](") &&
+      part.endsWith(")")
+    ) {
+      const text = part.slice(1, part.indexOf("]"));
+      const url = part.slice(part.indexOf("(") + 1, -1);
+      return (
+        <a key={index} href={url} target="_blank" rel="noopener noreferrer">
+          {text}
+        </a>
+      );
+    } else if (part.startsWith("-- ") && part.endsWith(" --")) {
+      return (
+        <span
+          key={index}
+          className="text-ksGreen flex items-center justify-start font-medium text-lg p-2.5 rounded-md bg-preKsBoxBack"
+        >
+          "{part.slice(2, -2)}"
+        </span>
+      );
+    } else if (part.startsWith("* ")) {
+      return (
+        <div key={index} className="flex items-center justify-start gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-ksGray"></div>
+          <span>{part.slice(2).trim()}</span>
+        </div>
+      );
+    }
+    return part;
+  });
+};
+
 export const aboutUsTextTR =
   "# FİNANS EKOSİSTEMİNDE SAMİMİ BİR ALTENATİF YOL ÇALIŞMASI; KATILIM ESASLI SİGORTACILIK #\n-- HER ANIMIZ İÇİN ALLAHU TEALAYA HAMD OLSUN --\nFaizsiz Finans Kuruluşları Muhasebe ve Denetleme Kurumu (AAOİFİ) tarafından belirlenip, Türkiye Katılım Bankaları Birliği tarafından yayınlanan ‘‘FAİZSİZ FİNANS STANDARTLARI ’’ kitabının SUNUŞ yazısı şöyle başlıyor. ‘‘ Dünyadaki finans ekosisteminin temelini teşkil eden faizin, dinimizce haram kılınmış olması Müslüman toplumların ayrı bir ekosistemi oluşturmasına sebebiyet vermiştir. Dünyanın geri kalanında İslami Finans olarak anılan bu finans sistemi ülkemizde ’’ KATILIM BANKACILIĞI ‘‘ olarak telaffuz edilmektedir. Bu finans kuruluşları faizsiz, İslami esaslara uygun işlem yapmaları dolayısıyla diğer finans kuruluşlarından ayrılmaktadır. Katılım bankaları mevcut sistemde İslami esaslara uygun olan yöntemleri veya kendilerine has geliştirdikleri yöntemlerle müşterilerine hizmet vermekte ve faizden uzak durmaya çalışan atıl fonları bu sayede ekonomiye kazandırmaktadır.’’ Gündelik yaşam içerisinde dünya,  karmaşık, devasa ve sonsuz çeşitlilikteki faaliyet ve olgularla iktisadi görevlerini yerine getirirken, küresel bir ekosistem içinde, bu günden yarına tarihsel akışını da sürdürmektedir. Günümüzde bu ekosistem, her türlü fikre, düşünceye, inanışa açık bir platforma dönüşmüştür. Bu izafi açık görüşlülük ve ekonomik tolerans sayesinde, kendi gücü ve gayreti nispetinde, tüm uygulama ve çeşitliliğiyle İSLAMİ FİNANS kavramı, başka bir deyişle KATILIM ESASLI FİNANS kavramı da bu ekosistemde yerini alacaktır. Bu nedenle artık, KATILIM ESASLI BANKACILIK, KATILIM ESASLI SİGORTACILIK, KATILIM ESASLI YATIRIM ARAÇLARI, KATILIM ESASLI TİCARET, gibi kavramları küresel ve ulusal ekosistem içinde daha fazla konuşacak ve duyacağız.\nDaha önceki dönemde Türkiye de pencere sistemiyle, TEKAFÜL SİGORTASI adı altında katılım esaslı sigortacılık faaliyetleri yürütülüyordu ve bunun yanın da münhasıran yalnız tekafül sigortası faaliyeti yürüten sigorta şirketleri de mevcuttu. Bu faaliyetler, uygulama, denetleme, büyüme ve gelişme açısından değişik mahzurlar içeriyordu. Bu nedenle kanun koyucu, ekonomi yönetimini de ilzam edecek şekilde 19.12.2020 tarihinde, 31339 sayılı ‘‘KATILIM ESASLARI ÇERÇEVESİNDE SİGORTACILIK VE BİREYSEL EMEKLİLİK FAALİYETLERİNE İLİŞKİN YÖNETMELİK’’ çıkardı. Bu yönetmelik, 5684 sayılı Sigortacılık Kanunu ve 4632 sayılı Bireysel Emeklilik Tasarruf ve Yatırım Sistemi kanunlarına dayandırılarak çıkarıldı ve uygulamaya kondu. Bu yönetmelikle Katılım Esaslı Sigortacılığın, tanımı yapıldı, sınırları çizildi, oyuncular ve oyuncuların rollerinin çerçevesi çizildi. Elbette ki her yeni şeyin inşasında yaşanan zorluklar bu konuda da yaşandı ve bazı farklı kavram ve modeller denendi. Önceleri Türkiye Modeli Katılım Esaslı Sigortacılık, Teysir Modeli Katılım esaslı sigortacılık, Tekafül Sigortacılığı gibi kavramlardan sonra bu günkü,  çalışma şeklini deklere ederek yukarıdakilerden seçtiği modeli uygulayabilme serbestisi, her modele açık esnek bir yöntem tercih edildi. Her ne kadar farklı isimleri olsa da modellerin hepsinde, İslami kriterlerin sağlanmasının denetlenmesi için Danışma Komitesi oluşturma, konusu dinen haram sayılan ticari risklere teminat vermeme, faaliyetlerden elde edilen gelirlerin katılım esaslı yatırım araçlarında değerlendirilmesi gibi ana konular aynı olarak belirlendi.\nYönetmeliğin amacı, katılım esasları çerçevesinde sigortacılık ve bireysel emeklilik faaliyetlerinin yürütülmesi için gerekli usul ve esasları düzenlemek olarak belirlendi. Yönetmeliğin ilgili kurum ve kuruluşları belirleyen kapsamı da oldukça geniş tutulmuş. Bu yönetmeliğe göre, Türkiye de katılım esasları çerçevesinde faaliyet gösteren sigorta, reasürans, ve emeklilik şirketleri, sigorta kooperatifleri, ve özel kanunları uyarınca sigorta sözleşmesi yapan kuruluşlar, katılım esaslı faaliyetleri ile sınırlı olmak üzere, birlik, büro, merkez, komite, hesap ve havuzlar, aracılar, eksperler, ve aktüerler bu yönetmeliğin hükümlerine tabidir. Böylelikle tüm faaliyetleri katılım esaslı olmasa bile, şirketler, yaptıkları işlemlerin bir kısmı katılım esaslı finans faaliyetiyse, katılım esaslı kısım için yönetmeliğin sınırlarına dâhil edilerek yönetmeliğin kavramsal çerçevesi genişletilmiş.\nYönetmelikle birlikte Katılım Uyum Birimi, Danışma Komitesi gibi yeni kavram ve kurumlar ihdas edilmiş ve sistemin içinde bunların ne şekilde yer alacakları, görevleri, bu birimlerde yer alacak personelin özelliklerinin neler olacağı gibi hususlar tespit edilmiştir.\nGünümüzde ülkemizde, Bireysel Emeklilik Sigortası içinde hem Otomatik Katılım hem de ihiyari katılımlarda Katılım Esaslı yatırım seçenekleri olması hasebiyle, Katılım Esaslı Bireysel Emeklilik fonu yöneten tüm hayat ve emeklilik şirketleri bu yönetmeliğe göre faaliyet göstermektedir.\nHayat dışı sigortacılık branşlarında, NEOVA SİGORTA A.Ş. , TÜRKİYE KATILIM SİGORTA  A.Ş., HDI KATILIM SİGORTA A.Ş., PAY SİGORT A.Ş. gibi birinci basamak sigorta şirketleri bu yönetmeliğe göre faaliyet göstermektedir.\nReasürans alanında tek ana ortağı, TÜRK REASÜRANS A.Ş. olan birinci basamak, katılım esaslı faaliyet gösteren hayat dışı sigorta şirketlerine reasürans teminatı ve koruma sağlayan TÜRK KATILIM REASÜRANS A.Ş. bu yönetmeliğe göre faaliyet göstermektedir.\nDünya ve Türkiye ekonomisi için oldukça yeni olan, tüm bu kavram ve kurumları tanımak, kavramak, tartışmak, taraflar arasındaki ilişkileri anlamak, anlamlandırmak için,\nDünya ve Türkiye ekonomisi için oldukça yeni olan, tüm bu kavram ve kurumları tanımak, kavramak, tartışmak, taraflar arasındaki ilişkileri anlamak, anlamlandırmak için,\nKatılım Esaslı Finans alanında akademik çalışmalar içinde olan tüm akademisyenlerimize dijital bir mekân olabilmek için,\nHELAL VE İMKÂN DAİRESİNDE OLANI MÜMKÜN KILMAK İÇİN\nKatılım sigortası platformunu kurmuş bulunuyoruz.\nDua ve destek ve katkılarınızı bekliyoruz.";
 

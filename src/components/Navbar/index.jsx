@@ -41,7 +41,7 @@ function Navbar() {
       id: 0,
     },
     {
-      url: "/about",
+      url: "/about-us",
       title: t("about-us"),
       id: 1,
     },

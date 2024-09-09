@@ -3,7 +3,12 @@ import LanguageButtons from "../LanguageButtons";
 import ThemeButton from "../ThemeButton";
 import FooterHeader from "./FooterHeader";
 import FooterBox from "./FooterBox";
-import { convertFromTextToUrl, turkishToEnglish } from "../../consts";
+import {
+  aboutUsTextEN,
+  aboutUsTextTR,
+  convertFromTextToUrl,
+  turkishToEnglish,
+} from "../../consts";
 import { useResponsiveData } from "../../Context";
 import classNames from "classnames";
 
@@ -11,12 +16,29 @@ function Footer() {
   const { t, i18n } = useTranslation();
   const { isLaptop, isTablet, isMobile } = useResponsiveData();
 
+  const footerTextData = {
+    tr: {
+      aboutUs:
+        "Dünya ve Türkiye ekonomisi için oldukça yeni olan, tüm bu kavram ve kurumları tanımak, kavramak, tartışmak, taraflar arasındaki ilişkileri anlamak, anlamlandırmak için, Dünya ve Türkiye ekonomisi için oldukça yeni olan, tüm bu kavram ve kurumları tanımak, kavramak, tartışmak, taraflar arasındaki ilişkileri anlamak, anlamlandırmak için, Katılım Esaslı Finans alanında akademik çalışmalar içinde olan tüm akademisyenlerimize dijital bir mekân olabilmek için, HELAL VE İMKÂN DAİRESİNDE OLANI MÜMKÜN KILMAK İÇİN Katılım sigortası platformunu kurmuş bulunuyoruz. Dua ve destek ve katkılarınızı bekliyoruz.",
+      whatIsTheKs:
+        "Faizsiz Finans Kuruluşları Muhasebe ve Denetleme Kurumu (AAOİFİ) tarafından belirlenip, Türkiye Katılım Bankaları Birliği tarafından yayınlanan ‘‘FAİZSİZ FİNANS STANDARTLARI ’’ kitabının SUNUŞ yazısı şöyle başlıyor. ‘‘ Dünyadaki finans ekosisteminin temelini teşkil eden faizin, dinimizce haram kılınmış olması Müslüman toplumların ayrı bir ekosistemi oluşturmasına sebebiyet vermiştir. Dünyanın geri kalanında İslami Finans olarak anılan bu finans sistemi ülkemizde ’’ KATILIM BANKACILIĞI ‘‘ olarak telaffuz edilmektedir.",
+    },
+    en: {
+      aboutUs:
+        "In order to recognise, comprehend and discuss all these concepts and institutions, which are quite new for the world and Turkish economy, to understand and make sense of the relations between the parties, in order to recognise, comprehend and discuss all these concepts and institutions, which are quite new for the world and Turkish economy, in order to understand and make sense of the relations between the parties, in order to be a digital space for all our academicians who are in academic studies in the field of Participation Based Finance, we have established the Participation insurance platform TO MAKE POSSIBLE WHAT IS WITHIN HALAL AND POSSIBLE. We are waiting for your prayers and support and contributions.",
+      whatIsTheKs:
+        "The introduction of the book ‘’FAISIZIZ FINANCE STANDARDS‘’, which was determined by the Accounting and Supervision Institution for Interest-Free Financial Institutions (AAOIFI) and published by the Participation Banks Association of Turkey, begins as follows. ‘’ The fact that interest, which forms the basis of the financial ecosystem in the world, is forbidden by our religion has caused Muslim societies to create a separate ecosystem. This financial system, which is referred to as Islamic Finance in the rest of the world, is known as ‘’ It is pronounced as ‘PARTICIPATION BANKING’",
+    },
+  };
+
   const footerBoxesData = [
     {
       title: t("about-us"),
       description:
-        "Katılım-Tekafül Sigorta olarak, müşterilerimize İslami prensiplere uygun, adil ve şeffaf bir sigorta deneyimi sunmayı taahhüt ediyoruz. Amacımız, bireylerin ve işletmelerin risklerini paylaşarak vence altına almalarına yardımcı olmak ve bu süreçte toplumsal dayanışmayıajshdashdaksdh",
-      buttonUrl: "/about",
+        i18n.language === "tr"
+          ? footerTextData.tr.aboutUs
+          : footerTextData.en.aboutUs,
+      buttonUrl: "/about-us",
     },
     {
       title: t("agenda"),
@@ -26,7 +48,9 @@ function Footer() {
     {
       title: `${t("what-is-the-ks")} ?`,
       description:
-        "Katılım sigortası, İslami finans prensiplerine uygun olarak faaliyet gösteren ve sigorta risklerinin paylaşımını esas alan bir sigorta modelidir. Bu model, geleneksel sigorta sistemlerinden farklı olarak,müşteri ve sigorta şirketi arasındaki ilişkiyi bir ortaklık şeklinde yapılandırır. Katılımasdasdasdasdasd",
+        i18n.language === "tr"
+          ? footerTextData.tr.whatIsTheKs
+          : footerTextData.en.whatIsTheKs,
       buttonUrl: "/what-is-participation-insurance",
     },
   ];

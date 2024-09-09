@@ -27,7 +27,7 @@ export const useDynamicRoutes = () => {
           element: <Home />,
         },
         {
-          path: "about",
+          path: "about-us",
           element: <About />,
         },
         {
