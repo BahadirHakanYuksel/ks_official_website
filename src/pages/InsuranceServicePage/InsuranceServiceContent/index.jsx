@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 function InsuranceServiceContent({ mainContent, subContent }) {
@@ -7,9 +8,9 @@ function InsuranceServiceContent({ mainContent, subContent }) {
     );
 
     return parts.map((part, index) => {
-      if (part.startsWith("**") && part.endsWith("**")) {
+      if (part.startsWith("** ") && part.endsWith(" **")) {
         return (
-          <strong className="text-ksGreen text-lg" key={index}>
+          <strong className="text-titleColor" key={index}>
             {part.slice(2, -2)}
           </strong>
         );
@@ -27,7 +28,7 @@ function InsuranceServiceContent({ mainContent, subContent }) {
         );
       } else if (part.startsWith("#") && part.endsWith("#")) {
         return (
-          <header className="text-xl font-medium text-titleColor" key={index}>
+          <header className="text-2xl font-medium text-myText" key={index}>
             {part.slice(1, -1)}
           </header>
         );
@@ -60,12 +61,24 @@ function InsuranceServiceContent({ mainContent, subContent }) {
       return part;
     });
   };
-
+  const [activeContent, setActiveContent] = useState("");
   const { activeMainContent } = useSelector((state) => state.app);
 
+  const WhenPageLoading = async () => {
+    console.log(activeMainContent);
+
+    const response = await fetch(activeMainContent);
+    const description = await response.text();
+    // console.log("Burdayım : ", description);
+    setActiveContent(description);
+  };
+  useEffect(() => {
+    WhenPageLoading();
+  }, [activeMainContent]);
+
   return (
-    <div className="">
-      {activeMainContent.map((row, i) => (
+    <div className="flex flex-col gap-1.5">
+      {activeContent.split("\n").map((row, i) => (
         <p key={i}>{parseContent(row)}</p>
       ))}
     </div>

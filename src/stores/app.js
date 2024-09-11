@@ -11,8 +11,8 @@ const initialState = {
     },
     {
       id: 1,
-      title: "NeoEnerjik Kasko",
-      iconUrl: "/e_arac.png",
+      title: "İşyeri Yangın Sigortaları",
+      iconUrl: "/isyeri_sigortasi.png",
       url: "",
     },
     {
@@ -91,7 +91,7 @@ const initialState = {
     },
     {
       id: 6,
-      title: "İşyeri Sigortaları",
+      title: "İşyeri Yangın Sigortaları",
       iconUrl: "/isyeri_sigortasi.png",
       url: "",
     },

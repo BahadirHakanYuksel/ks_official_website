@@ -29,7 +29,7 @@ function InsuranceServicePage() {
   const urlCategories = ["individual", "corporate"];
   const mainIndividualContents = [
     {
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam optio nulla voluptate repellat reprehenderit! Voluptas neque, maiores quam, quibusdam laborum tempora doloribus praesentium debitis inventore optio porro, id esse asperiores nostrum temporibus quaerat laudantium recusandae cumque suscipit magni alias corporis consequatur! Labore voluptatum, quisquam totam officia perspiciatis animi earum nesciunt aspernatur repellendus, nulla placeat maxime eaque, quod nam ut! Sunt maiores ut nulla recusandae sit corporis accusantium, placeat obcaecati esse odit est consectetur, ducimus doloremque quia laudantium repudiandae perferendis facilis doloribus facere. Animi qui quod quam commodi accusamus officia, distinctio obcaecati voluptas neque non fugit exercitationem. Fugit quos nihil voluptatibus architecto beatae perspiciatis ut, placeat corporis corrupti porro, animi voluptate obcaecati culpa ducimus possimus at molestias alias error consequatur quo. Beatae perferendis error in vitae iure corporis repellat dolores incidunt, dolorem placeat repudiandae tempore harum consequuntur quae quam quibusdam animi eos quasi sit vero excepturi ducimus tempora! Eos officia et adipisci sed labore iste quis autem harum culpa ut, voluptatum similique voluptates corrupti facere soluta ab iure maxime molestiae earum minima voluptas veniam. Accusantium, at velit cumque qui tempora veniam. Maiores hic, quod, totam accusantium quo voluptas quos eos ab quasi possimus cum id! Adipisci velit vitae tempore numquam obcaecati itaque autem, repellat, sequi nesciunt reprehenderit cupiditate! Voluptatibus at ea totam quisquam a incidunt ipsa, repellendus illo reiciendis accusamus maxime esse laborum natus nostrum dolorum laboriosam minima delectus, animi temporibus dignissimos aperiam omnis? Aliquid, in distinctio? Ullam obcaecati, repellat ratione blanditiis unde similique quibusdam consectetur. Unde dolore sed, numquam, tempore odio debitis aperiam provident eos est fugit quasi ratione dolor itaque odit necessitatibus tempora voluptatum? Temporibus cupiditate aliquam quia ab ipsa ex cum eius incidunt aspernatur sint tempore, inventore libero autem doloremque animi voluptas molestias, quisquam consequuntur repellendus sit dolores iusto qui! Quod culpa dolores quo tenetur qui deserunt quasi non mollitia quos, laudantium nulla magni voluptates corrupti ut itaque commodi! Nam incidunt sequi error ipsam, suscipit, pariatur unde fuga impedit ut qui, voluptatum quia nobis veniam quibusdam cum non excepturi sunt nisi debitis. Minima ducimus nesciunt consequuntur mollitia iste autem esse a ipsa, sunt repellat eos debitis molestiae soluta commodi modi recusandae illum ad reprehenderit quis? Magni commodi incidunt minus voluptatibus quis cum molestias aut at, ad, nesciunt placeat distinctio id. Nostrum ex quia, reiciendis labore culpa laborum at incidunt. Facilis voluptates porro distinctio ex soluta, cumque dicta, ipsum a amet rem iusto magni, fuga suscipit? Sed voluptate sit distinctio non aperiam quaerat aspernatur voluptatibus optio voluptatem. Necessitatibus earum eius labore non porro aut libero quas, sed odit magnam commodi, ipsum eum nam in cumque ducimus consequatur. Blanditiis nemo quisquam consequuntur dignissimos optio qui harum libero voluptatem molestiae hic nulla voluptas quos voluptates animi cumque, labore inventore? Incidunt doloremque qui magni atque ad consectetur vel voluptas earum voluptate modi at eius, impedit voluptatem velit quos! Minima enim mollitia quo culpa officiis voluptas aut ea vel? Quam praesentium eaque aliquam dolorum. Iure magnam assumenda reiciendis possimus asperiores sequi corrupti fugiat ad totam iusto eius quos molestias similique accusantium, quibusdam nulla ex, est non vel. Rem obcaecati modi ducimus! Magnam molestias, illo mollitia natus est voluptatum iste voluptatem officia dolore illum temporibus minima. Id nobis praesentium earum suscipit dicta quaerat obcaecati magnam vel perferendis cupiditate optio est eum ex numquam non minima reiciendis amet ullam alias, voluptatibus enim facere autem! Blanditiis distinctio eius, ad et odit necessitatibus facilis suscipit dolor? Voluptates provident iste natus illum distinctio magni repellat odit. Facere adipisci excepturi natus impedit voluptas hic magnam. Corporis in doloremque consectetur delectus exercitationem aperiam doloribus sapiente, voluptate sunt. Quibusdam, perferendis! Autem veritatis, tenetur repellat sed, optio at non id, dolor aspernatur et explicabo doloremque exercitationem quia vel asperiores sapiente incidunt minus illum? Recusandae sequi maiores sed, numquam explicabo dolor laborum vero quos est omnis nostrum. Facere sapiente blanditiis libero molestias? Labore modi officia ea facilis fugiat accusamus quis! Non animi quasi tempore cupiditate tempora nobis eligendi nesciunt adipisci atque voluptatum totam deleniti molestiae laboriosam saepe aliquam quibusdam unde alias corrupti, quod ut corporis culpa labore velit officiis. Error numquam ea, quae beatae reprehenderit officia voluptate dolorum cupiditate. Reprehenderit blanditiis dolore dignissimos debitis. Mollitia exercitationem assumenda obcaecati, atque nemo nulla libero. Aspernatur earum cupiditate velit veniam libero inventore quo ad deleniti rem possimus nobis perferendis deserunt eos, impedit ut autem consequatur labore ab magnam ea officia aut. Reiciendis asperiores, dignissimos suscipit, minima soluta accusantium accusamus iste eveniet, quod necessitatibus a explicabo assumenda aspernatur! Ullam nihil excepturi sit inventore fugiat ipsa facilis deleniti totam voluptatum quae consequuntur in pariatur, nemo nobis animi, praesentium at soluta non dolor quia! Cumque, ipsum libero. Ipsa, ullam. Quidem accusantium molestiae recusandae ipsa porro, officia quisquam, quo harum deserunt quaerat voluptas doloribus libero inventore fuga eos est sunt suscipit voluptatum ad optio placeat fugiat id. Praesentium officiis quibusdam consequatur natus commodi ducimus debitis ipsum consectetur velit dolorum illum facilis quos porro optio iure eum nisi molestias sint doloribus, placeat error accusantium nam voluptatum a. Harum exercitationem, ratione necessitatibus deserunt dolore obcaecati nisi minus dolorem, quas iste, nam dolorum facilis voluptatem suscipit. Vero doloremque accusamus, cum rem vitae officia unde dolorum error fugiat et eum repellat soluta deleniti quis dolorem sit ut culpa consequuntur, incidunt magnam illum nisi officiis voluptates eligendi. Inventore, itaque libero, eaque id magnam non totam deserunt labore, quisquam laborum ipsum autem? Veniam nisi nemo animi, quas, deleniti numquam dolore non tempora repudiandae quia, maxime sit dolorum? Explicabo repellendus officiis exercitationem cum, nostrum praesentium aut harum minus deleniti totam quos veritatis quaerat. Numquam neque maiores quia dignissimos rem tempora aut est facere quis tempore, praesentium, accusantium maxime. Sed optio deleniti, at velit nesciunt corrupti dignissimos dolores quasi voluptatibus consectetur. Autem veritatis, ipsum corporis ipsa nobis voluptates assumenda atque voluptatibus incidunt maiores reiciendis vel repellat quam quae tempora dolores velit. Corrupti mollitia ipsum sit at autem debitis sequi? Blanditiis dolore libero, eius excepturi fugiat voluptatum molestiae consequuntur! Illum totam voluptate non libero at. Quam, commodi molestias eum, eaque suscipit soluta dignissimos sunt dolorum excepturi ut numquam ducimus similique alias cumque minima quia reprehenderit, laborum hic. A, praesentium.",
+      text: "dask.txt",
       id: 0,
     },
     {
@@ -37,11 +37,11 @@ function InsuranceServicePage() {
       id: 1,
     },
     {
-      text: "Ferdi Kaza",
+      text: "ferdi-kaza.txt",
       id: 2,
     },
     {
-      text: "Kasko Bireysel",
+      text: "kasko.txt",
       id: 3,
     },
     {
@@ -63,7 +63,7 @@ function InsuranceServicePage() {
   ];
   const mainCorporateContents = [
     {
-      text: "dask",
+      text: "dask.txt",
       id: 0,
     },
     {
@@ -71,11 +71,11 @@ function InsuranceServicePage() {
       id: 1,
     },
     {
-      text: "Ferdi Kaza sigortası",
+      text: "ferdi-kaza.txt",
       id: 2,
     },
     {
-      text: "Kasko Kurumsal",
+      text: "kasko.txt",
       id: 3,
     },
     {
@@ -114,7 +114,9 @@ function InsuranceServicePage() {
         updateServiceHandle(thisMyService[0]);
         setActiveCategoryIndex(0);
         setActiveServiceButtonIndex(1);
-        updateMainContentHandle(thisMyMainContent[0].text.split("\n"));
+        updateMainContentHandle(
+          `/services_data/tr/${thisMyMainContent[0].text}`
+        );
       }
     }
     if (pathServiceCategory === "corporate") {
@@ -135,7 +137,9 @@ function InsuranceServicePage() {
         updateServiceHandle(thisMyService[0]);
         setActiveCategoryIndex(1);
         setActiveServiceButtonIndex(0);
-        updateMainContentHandle(thisMyMainContent[0].text.split("\n"));
+        updateMainContentHandle(
+          `/services_data/tr/${thisMyMainContent[0].text}`
+        );
       }
     }
   };
