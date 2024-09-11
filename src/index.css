@@ -196,6 +196,11 @@ textarea {
   gap: 10px;
 }
 
+.serviceContentButton:hover > i,
+span {
+  color: white;
+}
+
 @media screen and (max-width: 1025px) {
   .page {
     padding: 0 50px;

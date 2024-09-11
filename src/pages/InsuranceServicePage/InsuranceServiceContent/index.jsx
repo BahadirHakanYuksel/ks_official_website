@@ -63,14 +63,51 @@ function InsuranceServiceContent({ mainContent, subContent }) {
   };
   const [activeContent, setActiveContent] = useState("");
   const { activeMainContent } = useSelector((state) => state.app);
-
+  const tarsimUrls = [
+    {
+      service_name: "Bitkisel Ürün Sigortası",
+      url_name: "bus",
+    },
+    {
+      service_name: "Sera Sigortası",
+      url_name: "sera",
+    },
+    {
+      service_name: "Büyükbaş Hayvan Hayat Sigortası",
+      url_name: "buyukbas",
+    },
+    {
+      service_name: "Büyükbaş Hayvan Hayat Sigortası",
+      url_name: "kucukbas",
+    },
+    {
+      service_name: "Kümes Hayvanları Hayat Sigortası",
+      url_name: "kumes",
+    },
+    {
+      service_name: "Su Ürünleri Hayat Sigortası",
+      url_name: "su-urunleri",
+    },
+    {
+      service_name: "Arıcılık Sigortası",
+      url_name: "aricilik",
+    },
+    {
+      service_name: "Köy Bazlı Kuraklık Verim Sigortası",
+      url_name: "kbkvs",
+    },
+    {
+      service_name: "Gelir Koruma Sigortası",
+      url_name: "gks",
+    },
+  ];
   const WhenPageLoading = async () => {
-    console.log(activeMainContent);
-
-    const response = await fetch(activeMainContent);
-    const description = await response.text();
-    // console.log("Burdayım : ", description);
-    setActiveContent(description);
+    if (activeMainContent !== "alotsof") {
+      const response = await fetch(activeMainContent);
+      const description = await response.text();
+      // console.log("Burdayım : ", description);
+      setActiveContent(description);
+    }
   };
   useEffect(() => {
     WhenPageLoading();
@@ -78,9 +115,22 @@ function InsuranceServiceContent({ mainContent, subContent }) {
 
   return (
     <div className="flex flex-col gap-1.5">
-      {activeContent.split("\n").map((row, i) => (
-        <p key={i}>{parseContent(row)}</p>
-      ))}
+      {activeMainContent !== "alotsof" &&
+        activeContent
+          .split("\n")
+          .map((row, i) => <p key={i}>{parseContent(row)}</p>)}
+
+      {activeMainContent === "alotsof" &&
+        tarsimUrls.map((t, i) => (
+          <a
+            className="h-12 bg-preKsBoxBack border-2 border-solid border-ksGrayTp rounded-md hover:bg-ksGreen text-titleColor hover:text-white duration-200 flex items-center serviceContentButton px-2.5 font-medium shadow-lg gap-1.5"
+            href={`/services_data/tr/${t.url_name}-genel-sartlar.pdf`}
+            key={i}
+          >
+            <i className="fa-solid fa-file-pdf text-xl text-ksGreen duration-200"></i>
+            <span>{t.service_name}</span>
+          </a>
+        ))}
     </div>
   );
 }

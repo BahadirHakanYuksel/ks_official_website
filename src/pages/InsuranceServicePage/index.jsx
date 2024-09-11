@@ -33,7 +33,7 @@ function InsuranceServicePage() {
       id: 0,
     },
     {
-      text: "Neoenerejik",
+      text: "isyeri-yangin.txt",
       id: 1,
     },
     {
@@ -45,19 +45,19 @@ function InsuranceServicePage() {
       id: 3,
     },
     {
-      text: "IMM",
+      text: "imm.txt",
       id: 4,
     },
     {
-      text: "Zorunlu Trafik",
+      text: "zorunlu-trafik.txt",
       id: 5,
     },
     {
-      text: "Tamamlayıcı Sağlık",
+      text: "tamamlayici-saglik.txt",
       id: 6,
     },
     {
-      text: "Seyehat sağlık\n###bu şekilde devam ediyor###\n\n##bahadur##\n#başlık#\n--bahadır hakan yüksel--\n**strong**\n* madde1\n* madde 2",
+      text: "seyehat-saglik.txt",
       id: 7,
     },
   ];
@@ -67,7 +67,7 @@ function InsuranceServicePage() {
       id: 0,
     },
     {
-      text: "zorunlu trafik sigortası",
+      text: "zorunlu-trafik.txt",
       id: 1,
     },
     {
@@ -79,19 +79,19 @@ function InsuranceServicePage() {
       id: 3,
     },
     {
-      text: "IMM",
+      text: "imm.txt",
       id: 4,
     },
     {
-      text: "Tarsim",
+      text: false,
       id: 5,
     },
     {
-      text: "işyeri",
+      text: "isyeri-yangin.txt",
       id: 6,
     },
     {
-      text: t("deneme"),
+      text: "nakliyat-sigortasi.txt",
       id: 7,
     },
   ];
@@ -137,9 +137,13 @@ function InsuranceServicePage() {
         updateServiceHandle(thisMyService[0]);
         setActiveCategoryIndex(1);
         setActiveServiceButtonIndex(0);
-        updateMainContentHandle(
-          `/services_data/tr/${thisMyMainContent[0].text}`
-        );
+        if (thisMyMainContent[0].text) {
+          updateMainContentHandle(
+            `/services_data/tr/${thisMyMainContent[0].text}`
+          );
+        } else {
+          updateMainContentHandle("alotsof");
+        }
       }
     }
   };
@@ -470,6 +474,7 @@ function InsuranceServicePage() {
             </AnimatePresence>
             <InsuranceServiceContent />
           </div>
+          <div></div>
         </motion.div>
       ) : (
         <ErrorPage />
