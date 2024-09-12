@@ -13,6 +13,7 @@ import AgendaContent from "../pages/AgendaContent";
 import AdminLayout from "../pages/Admin/AdminLayout";
 import AdminSettings from "../pages/Admin/AdminSettings";
 import AdminAgenda from "../pages/Admin/AdminAgenda";
+import Team from "../pages/Team";
 
 export const useDynamicRoutes = () => {
   const { i18n } = useTranslation();
@@ -37,6 +38,10 @@ export const useDynamicRoutes = () => {
         {
           path: "what-is-participation-insurance",
           element: <WhatIsTheKs />,
+        },
+        {
+          path: "team",
+          element: <Team />,
         },
         {
           path: `agenda/:pathAgendaCategory`,
