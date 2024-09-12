@@ -10,6 +10,7 @@ import { useResponsiveData } from "../../Context";
 import classNames from "classnames";
 import { Helmet } from "react-helmet-async";
 import { useEffect } from "react";
+import Team from "../Team";
 
 function Home() {
   const { t } = useTranslation();
@@ -37,6 +38,7 @@ function Home() {
       <InsuranceServices />
       <AgendaHome />
       <ContactHome />
+      <Team type="home" />
     </motion.div>
   );
 }
