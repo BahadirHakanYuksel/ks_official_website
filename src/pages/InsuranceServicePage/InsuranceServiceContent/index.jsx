@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useResponsiveData } from "../../../Context";
+import classNames from "classnames";
 
 function InsuranceServiceContent({ mainContent, subContent }) {
+  const { isTablet, isMobile } = useResponsiveData();
   const parseContent = (content) => {
     const parts = content.split(
       /(\*\*.*?\*\*|###.*?###|##.*?##|#.*?#|--.*?--|\[.*?\]\(.*?\)|\* .+?(?:\n|$))/
@@ -28,7 +31,18 @@ function InsuranceServiceContent({ mainContent, subContent }) {
         );
       } else if (part.startsWith("#") && part.endsWith("#")) {
         return (
-          <header className="text-2xl font-medium text-myText" key={index}>
+          <header
+            className={classNames(
+              "text-2xl font-medium text-myText",
+              {
+                "!text-xl": isTablet,
+              },
+              {
+                "!text-lg": isMobile,
+              }
+            )}
+            key={index}
+          >
             {part.slice(1, -1)}
           </header>
         );
@@ -116,9 +130,14 @@ function InsuranceServiceContent({ mainContent, subContent }) {
   return (
     <div className="flex flex-col gap-1.5">
       {activeMainContent !== "alotsof" &&
-        activeContent
-          .split("\n")
-          .map((row, i) => <p key={i}>{parseContent(row)}</p>)}
+        activeContent.split("\n").map((row, i) => (
+          <p
+            className={classNames("text-base", { "!text-sm": isMobile })}
+            key={i}
+          >
+            {parseContent(row)}
+          </p>
+        ))}
 
       {activeMainContent === "alotsof" &&
         tarsimUrls.map((t, i) => (
@@ -126,6 +145,7 @@ function InsuranceServiceContent({ mainContent, subContent }) {
             className="h-12 bg-preKsBoxBack border-2 border-solid border-ksGrayTp rounded-md hover:bg-ksGreen text-titleColor hover:text-white duration-200 flex items-center serviceContentButton px-2.5 font-medium shadow-lg gap-1.5"
             href={`/services_data/tr/${t.url_name}-genel-sartlar.pdf`}
             key={i}
+            target="_blank"
           >
             <i className="fa-solid fa-file-pdf text-xl text-ksGreen duration-200"></i>
             {t.service_name}

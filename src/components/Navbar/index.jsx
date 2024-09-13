@@ -186,14 +186,14 @@ function Navbar() {
               ></div>
             </button>
           ))}
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center -mr-2.5">
             {languages.map(
               (lng) =>
                 lng !== i18n.language && (
                   <button
                     onClick={() => i18n.changeLanguage(lng)}
                     className={classNames(
-                      "text-mytext text-base hover:text-ksGreen font-medium bg-goUpButtonBack px-1.5 rounded-sm",
+                      "text-mytext text-base hover:text-ksGreen font-medium bg-goUpButtonBack px-1.5 py-[2.5px] rounded-lg duration-200",
                       {
                         "!text-sm": isTablet,
                       },

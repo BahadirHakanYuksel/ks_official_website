@@ -63,7 +63,9 @@ function AgendaContent() {
         return (
           <div className="flex justify-start items-center">
             <header
-              className={classNames("!text-2xl font-medium relative", {})}
+              className={classNames("!text-2xl font-medium relative", {
+                "!text-lg": isMobile,
+              })}
               key={index}
             >
               {part.slice(1, -1)}
@@ -355,26 +357,6 @@ function AgendaContent() {
                   : {ksContentData.writer}
                 </p>
               </div>
-              {/* <div
-            className={classNames(
-              "flex flex-col justify-center items-center gap-0.5 text-sm",
-              {
-                "!text-xs": isMobile,
-              }
-            )}
-          >
-            <header
-              className={classNames(
-                "font-medium bg-ksGrayTp w-20 flex items-center justify-center rounded-sm text-myText",
-                {
-                  "!w-14": isMobile,
-                }
-              )}
-            >
-              {}
-            </header>
-            
-          </div> */}
             </div>
             <div className="w-full aspect-video rounded-md overflow-hidden">
               <img
@@ -395,7 +377,7 @@ function AgendaContent() {
                   )}
                 >
                   <i className="fa-solid fa-share-nodes"></i>
-                  <span>{t("share")}</span>
+                  <span className="text-myText">{t("share")}</span>
                 </button>
                 {ksContentData.link !== "" && (
                   <a
@@ -409,7 +391,7 @@ function AgendaContent() {
                     )}
                   >
                     <i className="fa-solid fa-play"></i>
-                    <span>{t("watch")}</span>
+                    <span className="text-myText">{t("watch")}</span>
                   </a>
                 )}
               </div>
@@ -433,7 +415,9 @@ function AgendaContent() {
                   )}
                 >
                   <i className="fa-solid fa-eye"></i>
-                  <span>{ksContentData.number_of_views}</span>
+                  <span className="text-myText">
+                    {ksContentData.number_of_views}
+                  </span>
                 </div>
               </div>
             </div>
