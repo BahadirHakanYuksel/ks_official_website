@@ -44,7 +44,7 @@ function ThemeButton({ responsiveMode = false }) {
       title={act_theme === "dark" ? t("lightMode") : t("darkMode")}
       onClick={changeTheme}
       className={classNames(
-        "flex items-center justify-center text-myText bg-ksGrayTp w-7 h-7 text-base rounded-md hover:bg-ksGray hover:text-white duration-200 border-2 border-solid border-ksGrayTp",
+        "flex items-center justify-center text-myText bg-ksGrayTp w-7 h-7 text-base rounded-md hover:bg-ksGray hover:text-white duration-200 border-2 border-solid border-ksGrayTp font-medium",
         {
           "!w-6 !h-6 !text-[13px]": isTablet && !responsiveMode,
         },
@@ -55,9 +55,9 @@ function ThemeButton({ responsiveMode = false }) {
     >
       <i className={`fa-solid ${themeIcon}`}></i>
       {responsiveMode && (
-        <span className="font-medium">
+        <div className="font-medium text-myText">
           {act_theme === "dark" ? t("lightMode") : t("darkMode")}
-        </span>
+        </div>
       )}
     </motion.button>
   );

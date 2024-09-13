@@ -201,6 +201,18 @@ span {
   color: white;
 }
 
+.labelOnSupporter {
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+}
+
+.supporterCard:hover .labelOnSupporter {
+  opacity: 100%;
+  visibility: visible;
+  height: 24px;
+}
+
 @media screen and (max-width: 1025px) {
   .page {
     padding: 0 50px;

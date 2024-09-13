@@ -128,7 +128,7 @@ function InsuranceServiceContent({ mainContent, subContent }) {
             key={i}
           >
             <i className="fa-solid fa-file-pdf text-xl text-ksGreen duration-200"></i>
-            <span>{t.service_name}</span>
+            {t.service_name}
           </a>
         ))}
     </div>

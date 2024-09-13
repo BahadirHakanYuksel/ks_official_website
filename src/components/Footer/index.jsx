@@ -149,7 +149,7 @@ function Footer() {
               <button
                 key={i}
                 className={classNames(
-                  "flex flex-col items-center justify-center rounded-md bg-footerAgendaButtonBack hover:bg-ksGray hover:text-white duration-200 h-16 w-16",
+                  "flex flex-col items-center justify-center rounded-md bg-footerAgendaButtonBack hover:bg-ksGray text-myText hover:text-white duration-200 h-16 w-16",
                   {
                     "!w-14 !h-14": isLaptop,
                   }
@@ -160,13 +160,13 @@ function Footer() {
                     "!text-lg": isLaptop,
                   })}
                 ></i>
-                <span
-                  className={classNames("text-xs font-medium", {
+                <div
+                  className={classNames("text-xs font-medium ", {
                     "!text-[10px]": isLaptop,
                   })}
                 >
                   {smButton.smName}
-                </span>
+                </div>
               </button>
             ))}
           </div>

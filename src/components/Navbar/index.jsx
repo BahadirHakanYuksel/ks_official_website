@@ -10,6 +10,7 @@ import { updateResNavMenuHandle } from "../../utils";
 
 function Navbar() {
   const { t, i18n } = useTranslation();
+  const languages = ["tr", "en"];
   const path = useLocation().pathname;
   const [activeNavTitleId, setActiveNavTitleId] = useState(0);
   const navigate = useNavigate();
@@ -185,6 +186,28 @@ function Navbar() {
               ></div>
             </button>
           ))}
+          <div className="flex gap-2 items-center">
+            {languages.map(
+              (lng) =>
+                lng !== i18n.language && (
+                  <button
+                    onClick={() => i18n.changeLanguage(lng)}
+                    className={classNames(
+                      "text-mytext text-base hover:text-ksGreen font-medium bg-goUpButtonBack px-1.5 rounded-sm",
+                      {
+                        "!text-sm": isTablet,
+                      },
+                      {
+                        "!underline !pointer-events-none !opacity-70":
+                          lng === i18n.language,
+                      }
+                    )}
+                  >
+                    {lng.toUpperCase()}
+                  </button>
+                )
+            )}
+          </div>
           <ThemeButton />
         </div>
       )}

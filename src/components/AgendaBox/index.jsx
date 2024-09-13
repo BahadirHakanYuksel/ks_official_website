@@ -108,7 +108,7 @@ function AgendaBox({
           ></i>
           <span
             className={classNames(
-              "flex items-center h-full",
+              "flex items-center h-full text-myText",
               {
                 "!text-[10px] ": isLaptop,
               },
