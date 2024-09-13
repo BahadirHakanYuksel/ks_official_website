@@ -60,7 +60,7 @@ function PresentationSlider() {
           <motion.div
             key={sliderSection.id}
             className={classNames(
-              "aspect-video absolute w-full left-0 top-0 opacity-0 invisible text-white bg-gray-700 transition-all rounded-lg",
+              "aspect-video absolute w-full left-0 top-0 opacity-0 invisible text-white bg-gray-700 transition-all",
               {
                 "!opacity-100 !visible":
                   sliderSection.id === activeSliderPageId,

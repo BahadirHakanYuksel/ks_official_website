@@ -338,6 +338,10 @@ span {
   .adminHeader {
     font-size: 18px;
   }
+  .sliderBox {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
   .sliderLeftBtn {
     width: 80px;
     height: 28px;
@@ -345,7 +349,7 @@ span {
     left: 0;
     transform: translateY(0);
     font-size: 14px;
-    border-radius: 2px;
+    border-radius: 0 0 8px 8px;
     pointer-events: all;
     opacity: 100%;
   }
@@ -356,7 +360,7 @@ span {
     right: 0;
     transform: translateY(0);
     font-size: 14px;
-    border-radius: 2px;
+    border-radius: 0 0 8px 8px;
     pointer-events: all;
     opacity: 100%;
   }
