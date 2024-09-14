@@ -20,6 +20,8 @@
   --contactBoxTitleBack: var(--preKsBoxBack);
   --footerAgendaButtonBack: var(--ksGray);
   --responsiveNavMenuBack: #24282a;
+  --goUpButtonBack: #24282a;
+  --agendaHomeAllAgendaButtonBorder: var(--ksGrayTp);
 }
 [data-theme="light"] {
   --ksGray: #383e42;
