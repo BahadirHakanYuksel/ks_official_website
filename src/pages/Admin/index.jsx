@@ -8,7 +8,7 @@ function Admin() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const adminUrl = import.meta.env.VITE_ADMIN_URL;
-  const { isLaptop, isTablet, isMobile } = useResponsiveData();
+
   const fastMenuData = [
     {
       url: `/admin-${adminUrl}/news`,
@@ -26,9 +26,14 @@ function Admin() {
       id: 2,
     },
     {
-      url: `/admin-${adminUrl}/account-settings`,
-      title: "Hesap Ayarları",
+      url: `/admin-${adminUrl}/admin-team`,
+      title: "Danışman Ekibi",
       id: 3,
+    },
+    {
+      url: `/admin-${adminUrl}/account-settings`,
+      title: t("accountSettings"),
+      id: 4,
     },
   ];
 

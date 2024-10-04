@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   modalInfos: false,
+  teamModal: false,
 };
 
 const modal = createSlice({
@@ -14,8 +15,15 @@ const modal = createSlice({
     closeModalBox: (state) => {
       state.modalInfos = false;
     },
+    openTeamModal: (state, action) => {
+      state.teamModal = action.payload;
+    },
+    closeTeamModal: (state) => {
+      state.teamModal = false;
+    },
   },
 });
 
 export default modal.reducer;
-export const { openModalBox, closeModalBox } = modal.actions;
+export const { openModalBox, closeModalBox, openTeamModal, closeTeamModal } =
+  modal.actions;

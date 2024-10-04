@@ -14,6 +14,8 @@ import AdminLayout from "../pages/Admin/AdminLayout";
 import AdminSettings from "../pages/Admin/AdminSettings";
 import AdminAgenda from "../pages/Admin/AdminAgenda";
 import Team from "../pages/Team";
+import AdminTeam from "../pages/Admin/AdminTeam";
+import EditCounsellor from "../pages/Admin/AdminTeam/EditCounsellor";
 
 export const useDynamicRoutes = () => {
   const { i18n } = useTranslation();
@@ -72,6 +74,14 @@ export const useDynamicRoutes = () => {
         {
           path: "account-settings",
           element: <AdminSettings />,
+        },
+        {
+          path: "admin-team",
+          element: <AdminTeam />,
+        },
+        {
+          path: "admin-team/:counsellorId",
+          element: <EditCounsellor />,
         },
         {
           path: ":pathAdminCategory",

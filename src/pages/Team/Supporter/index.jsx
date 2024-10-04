@@ -2,32 +2,42 @@ import { useEffect, useState } from "react";
 import { useResponsiveData } from "../../../Context";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { openTeamModalHandle } from "../../../utils";
 
 export default function Supporter({
   img_url = false,
   social_links = false,
-  name_and_surname = "Undefined Supporter",
+  name = "Undefined",
+  surname = "Counsellor",
   description,
+  id,
+  admin = false,
+  trying = false,
 }) {
   const [hasLinks, setHasLinks] = useState(false);
   const { isMobile } = useResponsiveData();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const socialLinksControl = () => {
-    let activeLinkCounter = 0;
+    if (social_links) {
+      let activeLinkCounter = 0;
 
-    social_links.forEach((sl) => {
-      sl.link && activeLinkCounter++;
-    });
+      social_links.forEach((sl) => {
+        sl.link && activeLinkCounter++;
+      });
 
-    activeLinkCounter > 0 ? setHasLinks(true) : setHasLinks(false);
+      activeLinkCounter > 0 ? setHasLinks(true) : setHasLinks(false);
+    }
   };
 
   useEffect(() => {
     socialLinksControl();
-  }, []);
+  }, [social_links]);
 
   return (
-    <div className="supporterCard w-[320px] aspect-square h-auto bg-preKsBoxBack border-2 border-solid border-ksGrayTp hover:border-ksGreen rounded-md duration-200 p-5 pt-14 pb-10 shadow-lg relative">
+    <div className="supporterCard w-[320px] min-h-[332px] max-h-[342px] aspect-square h-auto bg-preKsBoxBack border-2 border-solid border-ksGrayTp hover:border-ksGreen rounded-md duration-200 p-5 pt-14 pb-10 shadow-lg relative">
       <div
         className={classNames(
           "absolute left-1/2 -translate-x-1/2 bg-goUpButtonBack border-4 border-solid border-backColor w-[90px] h-auto aspect-square rounded-lg -top-[90px] translate-y-1/2 text-titleColor font-medium text-4xl flex items-center justify-center overflow-hidden",
@@ -37,10 +47,14 @@ export default function Supporter({
         )}
       >
         {img_url ? (
-          <img src={img_url} className="w-full aspect-square" alt="" />
+          <img
+            src={trying ? img_url : `https://katilimsigortacisi.com/${img_url}`}
+            className="w-full aspect-square"
+            alt=""
+          />
         ) : (
           <div className="bg-transparent">
-            {name_and_surname.split(" ").map(
+            {`${name} ${surname}`.split(" ").map(
               (word, i) =>
                 i < 3 && (
                   <span key={i} className="text-ksGreen">
@@ -53,7 +67,7 @@ export default function Supporter({
       </div>
       <div className="flex flex-col gap-3.5">
         <header
-          title={name_and_surname}
+          title={`${name} ${surname}`}
           className={classNames(
             "text-center text-xl font-medium text-titleColor line-clamp-1",
             {
@@ -61,9 +75,13 @@ export default function Supporter({
             }
           )}
         >
-          {name_and_surname}
+          {`${name} ${surname}` !== " "
+            ? `${name} ${surname}`
+            : "Supporter Name"}
         </header>
-        <p className="line-clamp-6 text-sm h-[120px]">{description}</p>
+        <p className="line-clamp-6 text-sm h-[120px]">
+          {description !== "" ? description : "Açıklama Yok"}
+        </p>
 
         {hasLinks && (
           <div className="flex flex-col gap-1.5">
@@ -73,7 +91,9 @@ export default function Supporter({
             <div className="flex flex-wrap gap-2.5 items-center">
               {social_links.map(
                 (sl, i) =>
-                  sl.link && (
+                  sl.link &&
+                  i !== 0 &&
+                  sl.link.includes(`${sl.name.toLocaleLowerCase()}.com`) && (
                     <a
                       title={sl.name}
                       key={i}
@@ -85,11 +105,31 @@ export default function Supporter({
                         }
                       )}
                     >
-                      <i className={`fa-brands fa-${sl.name}`}></i>
+                      <i
+                        className={`fa-brands fa-${sl.name.toLowerCase()}`}
+                      ></i>
                     </a>
                   )
               )}
             </div>
+          </div>
+        )}
+        {admin && (
+          <div className="flex flex-col absolute right-0 -top-8 gap-1">
+            <button
+              onClick={() => navigate(`${id}`)}
+              className=" bg-gray-700 h-9 px-1.5 hover:bg-gray-600 text-sm border-2 border-solid border-gray-200 rounded-md text-white"
+            >
+              Düzenle
+            </button>
+            <button
+              onClick={() =>
+                openTeamModalHandle({ name: `${name} ${surname}`, id })
+              }
+              className=" bg-red-700 h-9 px-1.5 hover:bg-red-500 text-sm border-2 border-solid border-gray-200 rounded-md text-white"
+            >
+              Sil
+            </button>
           </div>
         )}
         <div className="labelOnSupporter absolute bottom-0 left-0 w-full h-6 bg-ksGreen rounded-t-[40px] flex items-center justify-center font-medium text-sm duration-200 text-white">

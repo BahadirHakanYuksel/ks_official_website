@@ -9,7 +9,12 @@ import {
   updateService,
 } from "../stores/app";
 import { updateLng } from "../stores/lng";
-import { closeModalBox, openModalBox } from "../stores/modal";
+import {
+  closeModalBox,
+  closeTeamModal,
+  openModalBox,
+  openTeamModal,
+} from "../stores/modal";
 import { updateTheme } from "../stores/theme";
 
 export const updateLngHandle = (lng) => {
@@ -58,4 +63,12 @@ export const updateResNavMenuHandle = () => {
 
 export const closeResNavMenuHandle = () => {
   stores.dispatch(closeResNavMenu());
+};
+
+export const openTeamModalHandle = (id) => {
+  stores.dispatch(openTeamModal(id));
+};
+
+export const closeTeamModalHandle = () => {
+  stores.dispatch(closeTeamModal());
 };
