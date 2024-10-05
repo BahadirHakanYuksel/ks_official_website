@@ -69,7 +69,7 @@ function MessageBox() {
     const { value, name } = e.target;
     setFormKs({
       ...formKs,
-      [name]: value.trim(),
+      [name]: value,
     });
   };
 
@@ -116,7 +116,7 @@ function MessageBox() {
       .send(
         verifyServiceId,
         verifyTemplateId,
-        { verifyCode: vcode, email: formKs.email },
+        { verifyCode: vcode, email: formKs.email.trim() },
         {
           publicKey: publicKey,
         }
@@ -389,7 +389,9 @@ function MessageBox() {
                 <input
                   maxLength={6}
                   name="verifyCode"
-                  onChange={(e) => formUpdate(e)}
+                  onChange={(e) =>
+                    setFormKs({ ...formKs, verifyCode: e.target.value.trim() })
+                  }
                   value={formKs.verifyCode}
                   type="text"
                   inputMode="numeric"
