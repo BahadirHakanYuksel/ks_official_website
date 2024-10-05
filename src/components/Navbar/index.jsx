@@ -188,9 +188,10 @@ function Navbar() {
           ))}
           <div className="flex gap-2 items-center -mr-2.5">
             {languages.map(
-              (lng) =>
+              (lng, i) =>
                 lng !== i18n.language && (
                   <button
+                    key={i}
                     onClick={() => i18n.changeLanguage(lng)}
                     className={classNames(
                       "text-mytext text-base hover:text-ksGreen font-medium bg-goUpButtonBack px-1.5 py-[2.5px] rounded-lg duration-200",

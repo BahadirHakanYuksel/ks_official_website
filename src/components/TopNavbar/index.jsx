@@ -24,6 +24,20 @@ function TopNavbar() {
           )}
         >
           <div className="flex items-center gap-3.5">
+            <a
+              href="/KVKK_Form.pdf"
+              className={classNames(
+                "text-gray-400 text-xs hover:text-ksGreen font-medium",
+                {
+                  "!text-[11px]": isLaptop,
+                },
+                {
+                  "!text-[9px]": isTablet,
+                }
+              )}
+            >
+              KVKK {t("statementText")}
+            </a>
             {myUrls.map((url) => (
               <button
                 className={classNames(

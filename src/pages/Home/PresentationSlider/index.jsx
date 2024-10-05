@@ -46,13 +46,13 @@ function PresentationSlider() {
       id: 1,
       url: i18n.language === "en" ? "ks_2.png" : "ks_2tr.png",
       link: "page 2",
-      hrefUrl: false,
+      hrefUrl: undefined,
     },
     {
       id: 2,
       url: i18n.language === "en" ? "ks_3.png" : "ks_3tr.png",
       link: "page 3",
-      hrefUrl: false,
+      hrefUrl: undefined,
     },
   ];
 
@@ -93,7 +93,7 @@ function PresentationSlider() {
           "absolute right-2 top-1/2 -translate-y-1/2  w-10 h-10 rounded-full text-white bg-ksGreen text-base hover:bg-green-600 opacity-0 pointer-events-none sliderBtn sliderRightBtn duration-300"
         )}
       >
-        <i class="fa-solid fa-arrow-right"></i>
+        <i className="fa-solid fa-arrow-right"></i>
       </button>
       <button
         onClick={leftClick}
@@ -101,7 +101,7 @@ function PresentationSlider() {
           "absolute left-2 top-1/2 -translate-y-1/2  w-10 h-10 rounded-full text-white bg-ksGreen text-base hover:bg-green-600 opacity-0 pointer-events-none sliderBtn sliderLeftBtn duration-300"
         )}
       >
-        <i class="fa-solid fa-arrow-left"></i>
+        <i className="fa-solid fa-arrow-left"></i>
       </button>
       <div
         className={classNames(

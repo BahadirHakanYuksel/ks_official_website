@@ -16,7 +16,7 @@ function ResponsiveNavMenu() {
       id: 0,
     },
     {
-      url: "/about",
+      url: "/about-us",
       title: t("about-us"),
       id: 1,
     },
@@ -68,7 +68,7 @@ function ResponsiveNavMenu() {
             }}
             key={btn.id}
             className={classNames(
-              "flex justify-end w-full items-center text-4xl active::bg-preKsBoxIcon rounded-md active::text-white text-end",
+              "flex justify-end w-full items-center text-4xl rounded-md active:text-ksGreen text-end",
               {
                 "mt-5": btn.id === 4,
               },
@@ -80,7 +80,15 @@ function ResponsiveNavMenu() {
             {btn.title}
           </button>
         ))}
-        <div className="flex justify-end gap-2.5 h-8 mt-2.5 text-sm ">
+        <a
+          href="/KVKK_Form.pdf"
+          className={classNames(
+            "text-gray-300 active:bg-preKsBoxIcon text-lg flex items-center justify-end hover:text-ksGreen font-medium -mt-2.5 active:text-ksGreen"
+          )}
+        >
+          KVKK {t("statementText")}
+        </a>
+        <div className="flex justify-end gap-2.5 h-8 text-sm ">
           {languages.map(
             (lng) =>
               lng !== i18n.language && (

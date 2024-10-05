@@ -32,7 +32,7 @@ function AgendaBox({
       })
         .then((res) => res.json())
         .then((db) => {
-          console.log(db);
+          // console.log(db);
         });
     } catch (error) {
       console.error("Error:", error);
@@ -49,12 +49,12 @@ function AgendaBox({
   };
 
   return (
-    <motion.button
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       onClick={goAgendaContentPage}
       className={classNames(
-        "agendaBoxHome h-[290.5px] w-80 bg-preKsBoxBack rounded-lg shadow-xl p-3 flex flex-col gap-2.5 hover:text-ksGreen transition-all hover:shadow-md relative overflow-hidden",
+        "agendaBoxHome h-[290.5px] w-80 bg-preKsBoxBack rounded-lg shadow-xl p-3 flex flex-col gap-2.5 hover:text-ksGreen transition-all hover:shadow-md relative overflow-hidden cursor-pointer",
         {
           "!w-[280px] !h-[265.5px]": isLaptop,
         },
@@ -150,7 +150,7 @@ function AgendaBox({
         {t("read")}
       </button>
       <div className="absolute text-xs agendaBoxMarkName opacity-100 duration-200 bottom-3 left-1/2 -translate-x-1/2 w-full bg-ksGrayTp h-1.5 rounded-full"></div>
-    </motion.button>
+    </motion.div>
   );
 }
 

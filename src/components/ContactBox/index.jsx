@@ -106,9 +106,9 @@ function ContactBox() {
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3150.0411754855136!2d32.5364230757492!3d37.859326971964094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d085da2d1e08b7%3A0x5f87710882bc58b3!2sEmiray%20Sigorta%20Arac%C4%B1l%C4%B1k%20Hizmetleri!5e0!3m2!1str!2str!4v1722200196097!5m2!1str!2str"
           className="border-none w-full h-full hover:scale-105 duration-300"
-          allowfullscreen=""
+          allowFullScreen=""
           loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
+          referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
     </div>

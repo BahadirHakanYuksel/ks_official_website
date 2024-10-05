@@ -102,5 +102,8 @@
   "team": "Danışman Ekibimiz",
   "smLinks": "Sosyal Medya Hesapları",
   "goToTeam": "Danışman Ekibe Git",
-  "loading": "Yükleniyor..."
+  "loading": "Yükleniyor...",
+  "emailjs1": "Bu formdaki mesajlarınız,",
+  "emailjs2": "sistemi üzerinden gönderilmektedir.",
+  "statementText": "Aydınlatma Metni"
 }

@@ -16,12 +16,12 @@ function MessageBox() {
   let intervalTime = 120; //s
   const [time, setTime] = useState(intervalTime);
 
-  const formServiceId = import.meta.VITE_FORM_SERVICE_ID;
-  const formTemplateId = import.meta.VITE_FORM_TEMPLATE_ID;
-  const publicKey = import.meta.VITE_FORM_PUBLIC_KEY;
+  const formServiceId = import.meta.env.VITE_FORM_SERVICE_ID;
+  const formTemplateId = import.meta.env.VITE_FORM_TEMPLATE_ID;
+  const publicKey = import.meta.env.VITE_FORM_PUBLIC_KEY;
 
-  const verifyServiceId = import.meta.VITE_VERIFY_SERVICE_ID;
-  const verifyTemplateId = import.meta.VITE_VERIFY_TEMPLATE_ID;
+  const verifyServiceId = import.meta.env.VITE_VERIFY_SERVICE_ID;
+  const verifyTemplateId = import.meta.env.VITE_VERIFY_TEMPLATE_ID;
 
   const notifySuccess = () =>
     toast.success(t("messageSent"), {
@@ -79,8 +79,8 @@ function MessageBox() {
     e.preventDefault();
     setWait(true);
     emailjs
-      .sendForm("service_3gqxd1s", "template_eixy2c8", form.current, {
-        publicKey: "qdNFEWRFxqSmJPOSw",
+      .sendForm(formServiceId, formTemplateId, form.current, {
+        publicKey: publicKey,
       })
       .then(
         () => {
@@ -114,11 +114,11 @@ function MessageBox() {
 
     emailjs
       .send(
-        "service_wuojszq",
-        "template_2w7pzrn",
+        verifyServiceId,
+        verifyTemplateId,
         { verifyCode: vcode, email: formKs.email },
         {
-          publicKey: "qdNFEWRFxqSmJPOSw",
+          publicKey: publicKey,
         }
       )
       .then(
@@ -174,7 +174,7 @@ function MessageBox() {
       ref={form}
       onSubmit={sendForm}
       className={classNames(
-        "flex flex-col gap-5 bg-messageBoxBack p-5",
+        "flex flex-col gap-5 bg-messageBoxBack p-5 relative",
         {
           "!gap-4": isLaptop,
         },
@@ -188,7 +188,7 @@ function MessageBox() {
       </div>
       <header
         className={classNames(
-          "text-2xl font-medium flex items-center justify-center rounded-sm h-12 bg-ksGreen text-white",
+          "text-2xl font-medium flex items-center justify-center rounded-sm h-12 bg-ksGreen text-white ",
           {
             "!text-xl !h-10": isLaptop,
           }
@@ -491,7 +491,7 @@ function MessageBox() {
         disabled={!sendButtonIsActive}
         type="submit"
         className={classNames(
-          "bg-messageBoxBack border-2 border-solid border-ksGreen text-ksGreen hover:bg-ksGreen hover:text-white h-12 rounded-full text-lg font-medium duration-200 disabled:pointer-events-none disabled:opacity-50 active:bg-green-600  active:text-white",
+          "bg-messageBoxBack border-2 border-solid border-ksGreen text-ksGreen hover:bg-ksGreen hover:text-white h-12 rounded-full text-lg font-medium duration-200 disabled:pointer-events-none disabled:opacity-50 active:bg-green-600  active:text-white relative",
           {
             "!pointer-events-none": wait,
           }
@@ -499,6 +499,11 @@ function MessageBox() {
       >
         {wait ? t("sending") : t("send")}
       </button>
+      <p className="absolute left-1/2 -translate-x-1/2 w-full flex items-center justify-center bottom-1.5 text-titleColor text-[8px] gap-0.5">
+        {t("emailjs1")}
+        <span className="text-yellow-600 font-medium">EmailJS</span>{" "}
+        {t("emailjs2")}
+      </p>
     </form>
   );
 }
