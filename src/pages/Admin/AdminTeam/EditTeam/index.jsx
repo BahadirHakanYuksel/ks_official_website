@@ -210,6 +210,8 @@ export default function EditTeam({ operationId, edit_data }) {
 
   const smLinkRef = useRef();
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   return (
     <div className="w-full flex flex-col gap-12">
       {operationId === 2 && <PageTitle>Danışman Düzenle</PageTitle>}
@@ -368,8 +370,8 @@ export default function EditTeam({ operationId, edit_data }) {
                     )}
                   {i === 0 &&
                     supporterInformations.socialMediaLinks[i].link !== "" &&
-                    supporterInformations.socialMediaLinks[i].link.includes(
-                      "@"
+                    emailRegex.test(
+                      supporterInformations.socialMediaLinks[i].link
                     ) && (
                       <div className="absolute w-5 h-5 flex items-center justify-center pointer-events-none rounded-full bg-blue-500 text-white -right-2.5 -top-2.5 text-[10px]">
                         <i className="fa-solid fa-check"></i>
@@ -430,7 +432,7 @@ export default function EditTeam({ operationId, edit_data }) {
         <Supporter
           trying={operationId !== 2 ? true : false}
           name={supporterInformations.name}
-          surname={supporterInformations.surname.toUpperCase()}
+          surname={supporterInformations.surname}
           description={supporterInformations.description}
           social_links={supporterInformations.socialMediaLinks}
           img_url={seeProfileImage}

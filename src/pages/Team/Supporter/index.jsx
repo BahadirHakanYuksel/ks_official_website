@@ -17,7 +17,7 @@ export default function Supporter({
 }) {
   const [hasLinks, setHasLinks] = useState(false);
   const { isMobile } = useResponsiveData();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const socialLinksControl = () => {
@@ -54,14 +54,16 @@ export default function Supporter({
           />
         ) : (
           <div className="bg-transparent">
-            {`${name} ${surname}`.split(" ").map(
-              (word, i) =>
-                i < 3 && (
-                  <span key={i} className="text-ksGreen">
-                    {word.slice(0, 1).toUpperCase()}
-                  </span>
-                )
-            )}
+            {`${name} ${surname.toLocaleUpperCase(i18n.language)}`
+              .split(" ")
+              .map(
+                (word, i) =>
+                  i < 3 && (
+                    <span key={i} className="text-ksGreen">
+                      {word.slice(0, 1).toUpperCase()}
+                    </span>
+                  )
+              )}
           </div>
         )}
       </div>
