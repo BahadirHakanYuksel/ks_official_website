@@ -105,5 +105,7 @@
   "loading": "Loading...",
   "emailjs1": "Your messages in this form are sent through the",
   "emailjs2": "system.",
-  "statementText": "Statement Text"
+  "statementText": "Statement Text",
+  "street": "St.",
+  "hood": "Hood"
 }

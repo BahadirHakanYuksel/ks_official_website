@@ -21,14 +21,14 @@ function AdminSettings() {
     >
       <PageTitle>{t("accountSettings")}</PageTitle>
       <div className="flex justify-between items-center -mt-5">
-        <div className="flex gap-5 items-center">
+        <div className="flex items-center">
           {appList.map((item, index) => (
             <button
               onClick={() => setActiveApp(index)}
               className={classNames(
-                "text-myText pointer-events-auto border-2 border-solid border-ksGrayTp rounded-md flex items-center justify-center h-12 px-3.5 hover:border-green-700 opacity-80 hover:opacity-90 bg-contactBoxTitleBack duration-200 text-lg",
+                "text-myText pointer-events-auto border-b-4 border-solid border-ksGrayTp flex items-center justify-center h-12 px-3.5 hover:border-b-green-700 opacity-70 hover:opacity-90 duration-200 text-lg",
                 {
-                  "!text-myText !opacity-100 !pointer-events-none !border-ksGreen !scale-110":
+                  "!text-myText !opacity-100 !pointer-events-none !border-ksGreen":
                     index === activeApp,
                 }
               )}

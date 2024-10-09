@@ -25,7 +25,6 @@ export default function AdminTeam() {
       })
         .then((res) => res.json())
         .then((db) => {
-          console.log(db);
           setCounsellors(db);
         });
     } catch (error) {

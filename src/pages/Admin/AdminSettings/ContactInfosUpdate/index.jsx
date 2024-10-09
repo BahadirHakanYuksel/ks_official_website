@@ -16,6 +16,7 @@ export default function ContactInfosUpdate() {
     district: "",
     city: "",
     googleMapsIframe: "",
+    googleMapsLink: "",
     instagram: "",
     facebook: "",
     youtube: "",
@@ -174,18 +175,32 @@ export default function ContactInfosUpdate() {
                 />
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-2.5">
-              {addressInformations.map((item, index) => (
-                <AddressInput
-                  key={index}
-                  text={item.shortName}
-                  value={item.value}
-                  name={item.name}
-                  placeholder={item.title}
-                  changeFunc={changeContactInfos}
-                  index={index}
-                />
-              ))}
+            <div className="flex flex-col">
+              <header>Adres</header>
+              <div className="flex flex-wrap items-center gap-2.5">
+                {addressInformations.map((item, index) => (
+                  <AddressInput
+                    key={index}
+                    text={item.shortName}
+                    value={item.value}
+                    name={item.name}
+                    placeholder={item.title}
+                    changeFunc={changeContactInfos}
+                    index={index}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <header>Google Maps Linkini Giriniz</header>
+              <input
+                type="text"
+                name="googleMapsLink"
+                value={contactInfos.googleMapsLink}
+                onChange={(e) => changeContactInfos(e)}
+                placeholder="Google Maps Lİnki"
+                className="bg-preKsBoxBack border-2 border-solid border-ksGrayTp rounded-md h-12 p-2.5 focus:border-ksGreen duration-200 overflow-y-hidden resize-none"
+              />
             </div>
             <div className="flex flex-col">
               <header>Google Maps Iframe Bilgisi</header>
@@ -195,7 +210,7 @@ export default function ContactInfosUpdate() {
                 value={contactInfos.googleMapsIframe}
                 onChange={(e) => changeContactInfos(e)}
                 placeholder="Google Maps Iframe Bilgisi"
-                className="bg-preKsBoxBack border-2 border-solid border-ksGrayTp rounded-md h-24 p-2.5 focus:border-ksGreen duration-200 overflow-y-hidden resize-none"
+                className="bg-preKsBoxBack border-2 border-solid border-ksGrayTp rounded-md h-28 p-2.5 focus:border-ksGreen duration-200 overflow-y-hidden resize-none"
               />
             </div>
             <div className="flex flex-col">

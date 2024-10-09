@@ -1,20 +1,13 @@
 import { useTranslation } from "react-i18next";
 import LanguageButtons from "../LanguageButtons";
-import ThemeButton from "../ThemeButton";
-import FooterHeader from "./FooterHeader";
 import FooterBox from "./FooterBox";
-import {
-  aboutUsTextEN,
-  aboutUsTextTR,
-  convertFromTextToUrl,
-  turkishToEnglish,
-} from "../../consts";
 import { useResponsiveData } from "../../Context";
 import classNames from "classnames";
+import { useEffect, useState } from "react";
 
 function Footer() {
   const { t, i18n } = useTranslation();
-  const { isLaptop, isTablet, isMobile } = useResponsiveData();
+  const { isLaptop, isMobile } = useResponsiveData();
 
   const footerTextData = {
     tr: {
@@ -55,7 +48,7 @@ function Footer() {
     },
   ];
 
-  const socialMediaButtons = [
+  const [socialMediaButtons, setSocialMediaButtons] = useState([
     {
       smName: "Instagram",
       link: "",
@@ -71,7 +64,38 @@ function Footer() {
       link: "",
       iconClass: "fa-brands fa-facebook",
     },
-  ];
+  ]);
+
+  const getContactInfos = async () => {
+    const formData = new FormData();
+    formData.append("action", "getContactInfos");
+
+    try {
+      await fetch("https://katilimsigortacisi.com/php-admin/", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((db) => {
+          const data = JSON.parse(db[0].contactInformations);
+          setSocialMediaButtons((prev) => {
+            return prev.map((smButton, i) => {
+              return {
+                ...smButton,
+                link: data[smButton.smName.toLowerCase()],
+              };
+            });
+          });
+        });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getContactInfos();
+    return () => {};
+  }, []);
 
   return (
     <footer className="page flex flex-col gap-2.5 mt-24 mb-5">
@@ -145,30 +169,36 @@ function Footer() {
             {t("socialMediaAccouts")}
           </header>
           <div className="flex items-center gap-2.5">
-            {socialMediaButtons.map((smButton, i) => (
-              <button
-                key={i}
-                className={classNames(
-                  "flex flex-col items-center justify-center rounded-md bg-footerAgendaButtonBack hover:bg-ksGray text-myText hover:text-white duration-200 h-16 w-16",
-                  {
-                    "!w-14 !h-14": isLaptop,
-                  }
-                )}
-              >
-                <i
-                  className={classNames(`${smButton.iconClass} text-xl`, {
-                    "!text-lg": isLaptop,
-                  })}
-                ></i>
-                <div
-                  className={classNames("text-xs font-medium ", {
-                    "!text-[10px]": isLaptop,
-                  })}
-                >
-                  {smButton.smName}
-                </div>
-              </button>
-            ))}
+            {socialMediaButtons.map(
+              (smButton, i) =>
+                smButton.link !== "" && (
+                  <a
+                    href={`${smButton.link}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={i}
+                    className={classNames(
+                      "flex flex-col items-center justify-center rounded-md bg-footerAgendaButtonBack hover:bg-ksGray text-myText hover:text-white duration-200 h-16 w-16 cursor-pointer",
+                      {
+                        "!w-14 !h-14": isLaptop,
+                      }
+                    )}
+                  >
+                    <i
+                      className={classNames(`${smButton.iconClass} text-xl`, {
+                        "!text-lg": isLaptop,
+                      })}
+                    ></i>
+                    <div
+                      className={classNames("text-xs font-medium ", {
+                        "!text-[10px]": isLaptop,
+                      })}
+                    >
+                      {smButton.smName}
+                    </div>
+                  </a>
+                )
+            )}
           </div>
         </div>
       </div>

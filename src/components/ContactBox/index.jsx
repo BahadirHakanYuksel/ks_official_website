@@ -1,10 +1,68 @@
 import { useTranslation } from "react-i18next";
 import { useResponsiveData } from "../../Context";
 import classNames from "classnames";
+import { useEffect, useState } from "react";
 
 function ContactBox() {
   const { t } = useTranslation();
   const { isLaptop, isTablet, isMobile } = useResponsiveData();
+
+  const [contactInfos, setContactInfos] = useState(false);
+  const [address, setAddress] = useState(undefined);
+  const [iframeLink, setIframeLink] = useState(undefined);
+  const [telNoText, setTelNoText] = useState(undefined);
+
+  const getContactInfos = async () => {
+    const formData = new FormData();
+    formData.append("action", "getContactInfos");
+
+    try {
+      await fetch("https://katilimsigortacisi.com/php-admin/", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((db) => {
+          const data = JSON.parse(db[0].contactInformations);
+          setContactInfos(data);
+
+          let hood =
+            data.neighborhood !== "" ? `${data.neighborhood} ${t("hood")}` : "";
+          let street =
+            data.street !== "" ? `${data.street} ${t("street")}` : "";
+          let no = data.no !== "" ? `No:${data.no}` : "";
+          let apartament = data.apartment !== "" ? `Apt:${data.apartment}` : "";
+          let district = data.district !== "" ? `${data.district}/` : "";
+          let city = data.city !== "" ? `${data.city}` : "";
+
+          setIframeLink(
+            data.googleMapsIframe
+              .trim()
+              .replace("{", "")
+              .replace("}", "")
+              .replace("referrerpolicy", "referrerPolicy")
+              .replace("allowfullscreen", "allowFullScreen")
+          );
+
+          setAddress(
+            `${hood} ${street} ${no} ${apartament} ${district}${city}`
+          );
+
+          setTelNoText(
+            `+90 ${data.telNo.slice(0, 3)} ${data.telNo.slice(
+              3,
+              6
+            )} ${data.telNo.slice(6, 8)} ${data.telNo.slice(8, 10)}`
+          );
+        });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getContactInfos();
+  }, []);
 
   return (
     <div
@@ -34,7 +92,8 @@ function ContactBox() {
         })}
       >
         <a
-          href=""
+          href={contactInfos.googleMapsLink}
+          target="_blank"
           className={classNames(
             "p-3 w-full h-36 flex flex-col gap-2.5 items-center rounded-lg bg-contactBoxTitleBack text-ksGreen relative overflow-hidden contactBoxButton duration-300",
             {
@@ -52,11 +111,11 @@ function ContactBox() {
               "!text-sm": isLaptop,
             })}
           >
-            {t("address")}
+            {address}
           </header>
           <span
             className={classNames(
-              "bg-black bg-opacity-90 text-2xl font-medium w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo",
+              "bg-gradient-to-tl to-black from-ksGreen bg-opacity-90 text-2xl font-medium w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo",
               {
                 "!text-xl": isLaptop,
               }
@@ -66,7 +125,7 @@ function ContactBox() {
           </span>
         </a>
         <a
-          href="tel:05511234567"
+          href={`tel:+90${contactInfos.telNo}`}
           className={classNames(
             "p-3 w-full h-36 flex flex-col gap-2.5 items-center rounded-lg bg-contactBoxTitleBack text-ksGreen relative overflow-hidden contactBoxButton duration-300",
             {
@@ -84,11 +143,11 @@ function ContactBox() {
               "!text-sm": isLaptop,
             })}
           >
-            0551 123 45 67
+            {telNoText}
           </header>
           <span
             className={classNames(
-              "bg-black bg-opacity-90 text-2xl font-medium w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo",
+              "bg-gradient-to-tr to-black from-ksGreen bg-opacity-90 text-2xl font-medium w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo",
               {
                 "!text-xl": isLaptop,
               }
@@ -103,13 +162,7 @@ function ContactBox() {
           "h-[264.5px]": isLaptop,
         })}
       >
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3150.0411754855136!2d32.5364230757492!3d37.859326971964094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d085da2d1e08b7%3A0x5f87710882bc58b3!2sEmiray%20Sigorta%20Arac%C4%B1l%C4%B1k%20Hizmetleri!5e0!3m2!1str!2str!4v1722200196097!5m2!1str!2str"
-          className="border-none w-full h-full hover:scale-105 duration-300"
-          allowFullScreen=""
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
+        <div dangerouslySetInnerHTML={{ __html: iframeLink }} />
       </div>
     </div>
   );

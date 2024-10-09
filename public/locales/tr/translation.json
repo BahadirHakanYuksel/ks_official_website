@@ -105,5 +105,7 @@
   "loading": "Yükleniyor...",
   "emailjs1": "Bu formdaki mesajlarınız,",
   "emailjs2": "sistemi üzerinden gönderilmektedir.",
-  "statementText": "Aydınlatma Metni"
+  "statementText": "Aydınlatma Metni",
+  "street": "Sk./Cd.",
+  "hood": "Mah."
 }

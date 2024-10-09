@@ -100,6 +100,7 @@ export default function Supporter({
                       title={sl.name}
                       key={i}
                       href={sl.link}
+                      target="_blank"
                       className={classNames(
                         "border-2 border-solid border-ksGrayTp bg-backColor flex items-center justify-center text-myText hover:bg-ksGreen hover:text-white text-base duration-200 w-10 h-10 rounded-full",
                         {
