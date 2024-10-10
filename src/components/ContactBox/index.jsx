@@ -86,51 +86,45 @@ function ContactBox() {
       >
         {t("addressAndContactDetails")}
       </header>
+      <a
+        href={contactInfos.googleMapsLink}
+        target="_blank"
+        className={classNames(
+          "p-3.5 py-5 min-h-[122px] w-full flex flex-col gap-2.5 items-center rounded-lg bg-contactBoxTitleBack text-ksGreen relative overflow-hidden contactBoxButton duration-300 -mb-1.5"
+        )}
+      >
+        <i
+          className={classNames("fa-solid fa-location-dot text-3xl h-8", {
+            "!text-2xl": isLaptop,
+          })}
+        ></i>
+        <header
+          className={classNames("text-myText font-medium text-center", {
+            "!text-sm": isLaptop,
+          })}
+        >
+          {address}
+        </header>
+        <span
+          className={classNames(
+            "bg-gradient-to-tl to-black from-ksGreen bg-opacity-90 text-xl font-medium w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo",
+            {
+              "!text-lg": isLaptop,
+            }
+          )}
+        >
+          {t("ourAddress")}
+        </span>
+      </a>
       <div
-        className={classNames("grid grid-cols-2 gap-5", {
+        className={classNames("grid grid-cols-2 gap-2.5", {
           "!grid-cols-1": isMobile,
         })}
       >
         <a
-          href={contactInfos.googleMapsLink}
-          target="_blank"
-          className={classNames(
-            "p-3 w-full h-36 flex flex-col gap-2.5 items-center rounded-lg bg-contactBoxTitleBack text-ksGreen relative overflow-hidden contactBoxButton duration-300",
-            {
-              "!h-32": isLaptop,
-            }
-          )}
-        >
-          <i
-            className={classNames("fa-solid fa-location-dot text-3xl h-8", {
-              "!text-2xl": isLaptop,
-            })}
-          ></i>
-          <header
-            className={classNames("text-myText font-medium text-center", {
-              "!text-sm": isLaptop,
-            })}
-          >
-            {address}
-          </header>
-          <span
-            className={classNames(
-              "bg-gradient-to-tl to-black from-ksGreen bg-opacity-90 text-2xl font-medium w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo",
-              {
-                "!text-xl": isLaptop,
-              }
-            )}
-          >
-            {t("ourAddress")}
-          </span>
-        </a>
-        <a
           href={`tel:+90${contactInfos.telNo}`}
           className={classNames(
-            "p-3 w-full h-36 flex flex-col gap-2.5 items-center rounded-lg bg-contactBoxTitleBack text-ksGreen relative overflow-hidden contactBoxButton duration-300",
-            {
-              "!h-32": isLaptop,
-            }
+            "p-3.5 py-5 min-h-[122px] w-full flex flex-col gap-2.5 justify-center items-center rounded-lg bg-contactBoxTitleBack text-ksGreen relative overflow-hidden contactBoxButton duration-300"
           )}
         >
           <i
@@ -147,19 +141,48 @@ function ContactBox() {
           </header>
           <span
             className={classNames(
-              "bg-gradient-to-tr to-black from-ksGreen bg-opacity-90 text-2xl font-medium w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo",
+              "bg-gradient-to-tr to-black from-ksGreen bg-opacity-90 text-xl font-medium w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo",
               {
-                "!text-xl": isLaptop,
+                "!text-lg": isLaptop,
               }
             )}
           >
             {t("callUs")}
           </span>
         </a>
+        <a
+          href={contactInfos.email}
+          className={classNames(
+            "p-3.5 py-5 min-h-[122px] w-full flex flex-col gap-2.5 justify-center items-center rounded-lg bg-contactBoxTitleBack text-ksGreen relative overflow-hidden contactBoxButton duration-300"
+          )}
+        >
+          <i
+            className={classNames("fa-solid fa-envelope text-3xl h-8", {
+              "!text-2xl": isLaptop,
+            })}
+          ></i>
+          <header
+            className={classNames("text-myText font-medium text-center", {
+              "!text-sm": isLaptop,
+            })}
+          >
+            {contactInfos.email}
+          </header>
+          <span
+            className={classNames(
+              "bg-gradient-to-tr to-black from-ksGreen bg-opacity-90 text-xl font-medium w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo",
+              {
+                "!text-lg": isLaptop,
+              }
+            )}
+          >
+            Mail Gönder
+          </span>
+        </a>
       </div>
       <div
-        className={classNames("bg-white rounded-lg overflow-hidden h-72", {
-          "h-[264.5px]": isLaptop,
+        className={classNames("bg-white rounded-lg overflow-hidden h-48", {
+          "!h-40": isLaptop,
         })}
       >
         <div dangerouslySetInnerHTML={{ __html: iframeLink }} />
