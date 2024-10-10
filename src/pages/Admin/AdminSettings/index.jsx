@@ -6,12 +6,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { openModalBoxHandle } from "../../../utils";
 import classNames from "classnames";
+import PresentationUpdate from "./PresentationUpdate";
 
 function AdminSettings() {
   const { t } = useTranslation();
 
   const [activeApp, setActiveApp] = useState(1);
-  const appList = ["Password Update", "Contact Informations"];
+  const appList = ["İletişim Bilgileri", "Reklam Panosu", "Şifre Güncelleme"];
 
   return (
     <motion.div
@@ -54,8 +55,9 @@ function AdminSettings() {
           </button>
         </div>
       </div>
-      {activeApp === 0 && <PasswordUpdate />}
-      {activeApp === 1 && <ContactInfosUpdate />}
+      {activeApp === 0 && <ContactInfosUpdate />}
+      {activeApp === 1 && <PresentationUpdate />}
+      {activeApp === 2 && <PasswordUpdate />}
     </motion.div>
   );
 }

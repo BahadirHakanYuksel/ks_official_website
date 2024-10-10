@@ -13,13 +13,14 @@ import { useResponsiveData } from "../../../Context";
 
 function AdminLayout() {
   const { ksAdmin } = useSelector((state) => state.admin);
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const path = useLocation().pathname;
   const navigate = useNavigate();
   const { modalInfos } = useSelector((state) => state.modal);
   const [activeNavMenuButtonId, setActiveNavMenuButtonId] = useState(0);
   const adminUrl = import.meta.env.VITE_ADMIN_URL;
   const { isLaptop, isTablet, isMobile } = useResponsiveData();
+  const languages = ["tr", "en"];
 
   const adminMenuData = [
     {
@@ -154,7 +155,29 @@ function AdminLayout() {
                 >
                   {t("logOut")}
                 </button>
-                <LanguageButtons />
+                <div className="flex gap-2 items-center">
+                  {languages.map(
+                    (lng, i) =>
+                      lng !== i18n.language && (
+                        <button
+                          key={i}
+                          onClick={() => i18n.changeLanguage(lng)}
+                          className={classNames(
+                            "text-mytext text-base hover:text-ksGreen font-medium bg-goUpButtonBack px-1.5  h-full rounded-sm duration-200",
+                            {
+                              "!text-sm": isTablet,
+                            },
+                            {
+                              "!underline !pointer-events-none !opacity-70":
+                                lng === i18n.language,
+                            }
+                          )}
+                        >
+                          {lng.toUpperCase()}
+                        </button>
+                      )
+                  )}
+                </div>
                 <ThemeButton />
               </div>
             </nav>
