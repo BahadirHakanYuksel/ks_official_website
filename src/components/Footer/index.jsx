@@ -78,14 +78,14 @@ function Footer() {
         .then((res) => res.json())
         .then((db) => {
           const data = JSON.parse(db[0].contactInformations);
-          setSocialMediaButtons((prev) => {
-            return prev.map((smButton, i) => {
-              return {
-                ...smButton,
-                link: data[smButton.smName.toLowerCase()],
-              };
-            });
-          });
+          // setSocialMediaButtons((prev) => {
+          //   return prev.map((smButton, i) => {
+          //     return {
+          //       ...smButton,
+          //       link: data[smButton.smName.toLowerCase()],
+          //     };
+          //   });
+          // });
         });
     } catch (error) {
       console.error("Error:", error);

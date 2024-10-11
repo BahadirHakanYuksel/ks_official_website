@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 export default function PresentationUpdate() {
   const { isTablet } = useResponsiveData();
 
+  const [loading, setLoading] = useState(false);
   const languages = [
     {
       nameTR: "Türkçe",
@@ -61,6 +62,102 @@ export default function PresentationUpdate() {
     });
   };
 
+  let alertCounter = 0;
+
+  const updateElement = async (lng = "", queue = 0, url = "", link = "") => {
+    const formData = new FormData();
+
+    formData.append("action", "updatePresentationImages");
+    formData.append("url", url);
+    formData.append("link", link);
+    formData.append("queue", queue);
+    formData.append("lng", lng);
+
+    try {
+      const res = await fetch("https://katilimsigortacisi.com/php-admin/", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        throw new Error("Ağ hatası:");
+      }
+
+      if (alertCounter === 5) {
+        setLoading(false);
+        alert("Başarıyla güncellendi.");
+      }
+    } catch (error) {
+      if (alertCounter === 5) {
+        alert("Hata ! Lütfen tekrar deneyin.");
+        setLoading(false);
+      }
+    }
+  };
+
+  const updatePresenteInfos = async () => {
+    alertCounter = 0;
+    setLoading(true);
+    try {
+      // TR dilindeki resimleri güncelle
+      for (const [index, image] of presentationImages.tr.entries()) {
+        await updateElement("tr", index, image.file, image.link);
+        alertCounter++;
+      }
+
+      // EN dilindeki resimleri güncelle
+      for (const [index, image] of presentationImages.en.entries()) {
+        await updateElement("en", index, image.file, image.link);
+        alertCounter++;
+      }
+    } catch (error) {}
+  };
+
+  const getPresentationImages = async () => {
+    const formData = new FormData();
+    formData.append("action", "getPresentationImages");
+
+    try {
+      const res = await fetch("https://katilimsigortacisi.com/php-admin/", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        throw new Error("Ağ hatası: " + res.status);
+      }
+
+      const db = await res.json();
+      const updatedImages = { tr: [], en: [] };
+
+      db.forEach((item) => {
+        const { lng, queue, url, link } = item;
+        item.id > 3
+          ? (updatedImages[lng][queue] = {
+              id: item.id - 4,
+              file: null,
+              url,
+              link,
+            })
+          : (updatedImages[lng][queue] = {
+              id: item.id - 1,
+              file: null,
+              url,
+              link,
+            });
+      });
+
+      setPresentationImages(updatedImages);
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Bir hata oluştu !");
+    }
+  };
+
+  useEffect(() => {
+    getPresentationImages();
+  }, []);
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center gap-2.5">
@@ -102,7 +199,14 @@ export default function PresentationUpdate() {
                   type="file"
                   onChange={(e) => handleImageUpload(e, "tr", index)}
                 />
-                {image.url && (
+                {image.url && image.url.includes("../psi/") && (
+                  <img
+                    src={`https://katilimsigortacisi.com/${image.url}`}
+                    className="w-full aspect-video"
+                    alt={`TR Preview ${index}`}
+                  />
+                )}
+                {image.url && !image.url.includes("../psi/") && (
                   <img
                     src={image.url}
                     className="w-full aspect-video"
@@ -115,15 +219,32 @@ export default function PresentationUpdate() {
                   </div>
                 )}
               </label>
-              <div className="flex flex-col mt-1.5">
-                <header className="text-titleColor font-medium">Link</header>
-                <input
-                  type="text"
-                  placeholder="Enter link"
-                  value={image.link}
-                  onChange={(e) => handleLinkChange(e, "tr", index)}
-                  className="w-full h-12 border-2 border-solid border-ksGrayTp rounded-md bg-preKsBoxBack px-2.5"
-                />
+              <div className="flex items-center h-20 mt-2.5 gap-2.5">
+                <div className="flex flex-col h-full w-[25%]">
+                  <header className="h-6"></header>
+                  <label className="flex cursor-pointer bg-blue-500 text-white rounded-md hover:bg-blue-600 items-center justify-center duration-200 text-sm font-medium h-12 px-2.5 w-full">
+                    <input
+                      className="hidden"
+                      type="file"
+                      onChange={(e) => handleImageUpload(e, "tr", index)}
+                    />
+                    <header className="h-8"></header>
+                    Resim Yükle
+                  </label>
+                </div>
+                <div className="flex flex-col h-full w-[75%]">
+                  <header className="text-titleColor font-medium">Link</header>
+                  <input
+                    type="text"
+                    placeholder="Enter link"
+                    value={image.link}
+                    onChange={(e) => {
+                      handleLinkChange(e, "tr", index);
+                      handleLinkChange(e, "en", index);
+                    }}
+                    className="w-full h-12 border-2 border-solid border-ksGrayTp rounded-md bg-preKsBoxBack px-2.5"
+                  />
+                </div>
               </div>
             </div>
           ))}
@@ -137,11 +258,18 @@ export default function PresentationUpdate() {
                   type="file"
                   onChange={(e) => handleImageUpload(e, "en", index)}
                 />
-                {image.url && (
+                {image.url && image.url.includes("../psi/") && (
+                  <img
+                    src={`https://katilimsigortacisi.com/${image.url}`}
+                    className="w-full aspect-video"
+                    alt={`TR Preview ${index}`}
+                  />
+                )}
+                {image.url && !image.url.includes("../psi/") && (
                   <img
                     src={image.url}
                     className="w-full aspect-video"
-                    alt={`EN Preview ${index}`}
+                    alt={`TR Preview ${index}`}
                   />
                 )}
                 {image.url === "" && (
@@ -150,22 +278,47 @@ export default function PresentationUpdate() {
                   </div>
                 )}
               </label>
-              <div className="flex flex-col mt-1.5">
-                <header className="text-titleColor font-medium">Link</header>
-                <input
-                  type="text"
-                  placeholder="Enter link"
-                  value={image.link}
-                  onChange={(e) => handleLinkChange(e, "en", index)}
-                  className="w-full h-12 border-2 border-solid border-ksGrayTp rounded-md bg-preKsBoxBack px-2.5"
-                />
+              <div className="flex items-center h-20 mt-2.5 gap-2.5">
+                <div className="flex flex-col h-full w-[25%]">
+                  <header className="h-6"></header>
+                  <label className="flex cursor-pointer bg-blue-500 text-white rounded-md hover:bg-blue-600 items-center justify-center duration-200 text-sm font-medium h-12 px-2.5 w-full">
+                    <input
+                      className="hidden"
+                      type="file"
+                      onChange={(e) => handleImageUpload(e, "en", index)}
+                    />
+                    <header className="h-8"></header>
+                    Resim Yükle
+                  </label>
+                </div>
+                <div className="flex flex-col h-full w-[75%]">
+                  <header className="text-titleColor font-medium">Link</header>
+                  <input
+                    type="text"
+                    placeholder="Enter link"
+                    value={image.link}
+                    onChange={(e) => {
+                      handleLinkChange(e, "tr", index);
+                      handleLinkChange(e, "en", index);
+                    }}
+                    className="w-full h-12 border-2 border-solid border-ksGrayTp rounded-md bg-preKsBoxBack px-2.5"
+                  />
+                </div>
               </div>
             </div>
           ))}
       </div>
       <div className="flex ">
-        <button className="bg-black w-full h-16 text-xl font-medium rounded-full border-2 border-solid border-ksGrayTp hover:border-ksGreen duration-200">
-          Kaydet
+        <button
+          onClick={updatePresenteInfos}
+          className={classNames(
+            "bg-black text-white w-full h-16 text-xl font-medium rounded-full border-2 border-solid border-ksGrayTp hover:border-ksGreen duration-200 pointer-events-auto",
+            {
+              "!pointer-events-none": loading,
+            }
+          )}
+        >
+          {loading ? "Yükleniyor..." : "Güncelle"}
         </button>
       </div>
     </div>

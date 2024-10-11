@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { useEffect, useState } from "react";
 
 function ContactBox() {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const { isLaptop, isTablet, isMobile } = useResponsiveData();
 
   const [contactInfos, setContactInfos] = useState(false);
@@ -23,42 +23,58 @@ function ContactBox() {
       })
         .then((res) => res.json())
         .then((db) => {
-          const data = JSON.parse(db[0].contactInformations);
-          setContactInfos(data);
+          db.forEach((element) => {
+            if (element.id === 0) {
+              const data = JSON.parse(element.contactInformations);
+              setContactInfos(data);
 
-          let hood =
-            data.neighborhood !== "" ? `${data.neighborhood} ${t("hood")}` : "";
-          let street =
-            data.street !== "" ? `${data.street} ${t("street")}` : "";
-          let no = data.no !== "" ? `No:${data.no}` : "";
-          let apartament = data.apartment !== "" ? `Apt:${data.apartment}` : "";
-          let district = data.district !== "" ? `${data.district}/` : "";
-          let city = data.city !== "" ? `${data.city}` : "";
+              let hood =
+                data.neighborhood !== ""
+                  ? `${data.neighborhood} ${t("hood")}`
+                  : "";
+              let street =
+                data.street !== "" ? `${data.street} ${t("street")}` : "";
+              let no = data.no !== "" ? `No:${data.no}` : "";
+              let apartament =
+                data.apartment !== "" ? `Apt:${data.apartment}` : "";
+              let district = data.district !== "" ? `${data.district}/` : "";
+              let city = data.city !== "" ? `${data.city}` : "";
 
-          setIframeLink(
-            data.googleMapsIframe
-              .trim()
-              .replace("{", "")
-              .replace("}", "")
-              .replace("referrerpolicy", "referrerPolicy")
-              .replace("allowfullscreen", "allowFullScreen")
-          );
+              setIframeLink(
+                data.googleMapsIframe
+                  .trim()
+                  .replace("{", "")
+                  .replace("}", "")
+                  .replace("referrerpolicy", "referrerPolicy")
+                  .replace("allowfullscreen", "allowFullScreen")
+              );
 
-          setAddress(
-            `${hood} ${street} ${no} ${apartament} ${district}${city}`
-          );
+              setAddress(
+                `${hood} ${street} ${no} ${apartament} ${district}${city}`
+              );
 
-          setTelNoText(
-            `+90 ${data.telNo.slice(0, 3)} ${data.telNo.slice(
-              3,
-              6
-            )} ${data.telNo.slice(6, 8)} ${data.telNo.slice(8, 10)}`
-          );
+              setTelNoText(
+                `+90 ${data.telNo.slice(0, 3)} ${data.telNo.slice(
+                  3,
+                  6
+                )} ${data.telNo.slice(6, 8)} ${data.telNo.slice(8, 10)}`
+              );
+            }
+          });
         });
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+  useEffect(() => {
+    const newAddress =
+      i18n.language === "tr"
+        ? address?.replace("Hood", "Mah.").replace("St.", "Sk./Cd.")
+        : address?.replace("Mah.", "Hood").replace("Sk./Cd.", "St.");
+
+    setAddress(newAddress);
+  }, [i18n.language]);
 
   useEffect(() => {
     getContactInfos();
@@ -86,36 +102,6 @@ function ContactBox() {
       >
         {t("addressAndContactDetails")}
       </header>
-      <a
-        href={contactInfos.googleMapsLink}
-        target="_blank"
-        className={classNames(
-          "p-3.5 py-5 min-h-[122px] w-full flex flex-col gap-2.5 items-center rounded-lg bg-contactBoxTitleBack text-ksGreen relative overflow-hidden contactBoxButton duration-300 -mb-1.5"
-        )}
-      >
-        <i
-          className={classNames("fa-solid fa-location-dot text-3xl h-8", {
-            "!text-2xl": isLaptop,
-          })}
-        ></i>
-        <header
-          className={classNames("text-myText font-medium text-center", {
-            "!text-sm": isLaptop,
-          })}
-        >
-          {address}
-        </header>
-        <span
-          className={classNames(
-            "bg-gradient-to-tl to-black from-ksGreen bg-opacity-90 text-xl font-medium w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo",
-            {
-              "!text-lg": isLaptop,
-            }
-          )}
-        >
-          {t("ourAddress")}
-        </span>
-      </a>
       <div
         className={classNames("grid grid-cols-2 gap-2.5", {
           "!grid-cols-1": isMobile,
@@ -180,6 +166,36 @@ function ContactBox() {
           </span>
         </a>
       </div>
+      <a
+        href={contactInfos.googleMapsLink}
+        target="_blank"
+        className={classNames(
+          "p-3.5 py-5 min-h-[122px] w-full flex flex-col gap-2.5 items-center rounded-lg bg-contactBoxTitleBack text-ksGreen relative overflow-hidden contactBoxButton duration-300 -mt-1.5"
+        )}
+      >
+        <i
+          className={classNames("fa-solid fa-location-dot text-3xl h-8", {
+            "!text-2xl": isLaptop,
+          })}
+        ></i>
+        <header
+          className={classNames("text-myText font-medium text-center", {
+            "!text-sm": isLaptop,
+          })}
+        >
+          {address}
+        </header>
+        <span
+          className={classNames(
+            "bg-gradient-to-tl to-black from-ksGreen bg-opacity-90 text-xl font-medium w-full h-full absolute left-0 top-0 flex items-center justify-center pointer-events-none opacity-0 invisible duration-300 contactBoxInfo",
+            {
+              "!text-lg": isLaptop,
+            }
+          )}
+        >
+          {t("ourAddress")}
+        </span>
+      </a>
       <div
         className={classNames("bg-white rounded-lg overflow-hidden h-48", {
           "!h-40": isLaptop,

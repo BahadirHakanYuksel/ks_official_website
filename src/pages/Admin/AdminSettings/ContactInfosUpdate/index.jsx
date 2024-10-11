@@ -120,7 +120,12 @@ export default function ContactInfosUpdate() {
         .then((res) => res.json())
         .then((data) => {
           setLoading(false);
-          setContactInfos(JSON.parse(data[0].contactInformations));
+          data.forEach((element) => {
+            if (element.id === 0) {
+              const data = JSON.parse(element.contactInformations);
+              setContactInfos(data);
+            }
+          });
         });
     } catch (error) {
       console.error("Error:", error);

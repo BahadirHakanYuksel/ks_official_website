@@ -25,6 +25,7 @@ function AdminSettings() {
         <div className="flex items-center">
           {appList.map((item, index) => (
             <button
+              key={index}
               onClick={() => setActiveApp(index)}
               className={classNames(
                 "text-myText pointer-events-auto border-b-4 border-solid border-ksGrayTp flex items-center justify-center h-12 px-3.5 hover:border-b-green-700 opacity-70 hover:opacity-90 duration-200 text-lg",
