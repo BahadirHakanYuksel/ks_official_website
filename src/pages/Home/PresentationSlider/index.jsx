@@ -162,7 +162,7 @@ function PresentationSlider() {
           <button
             onClick={() => {
               clearInterval(sliderInterval);
-              setactiveSliderPageId(btn.id);
+              setactiveSliderPageId(btn.queue);
             }}
             key={btn.queue}
             className={classNames(

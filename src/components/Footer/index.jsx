@@ -66,6 +66,8 @@ function Footer() {
     },
   ]);
 
+  const [has_social_media_links, setHas_social_media_links] = useState(false);
+
   const getContactInfos = async () => {
     const formData = new FormData();
     formData.append("action", "getContactInfos");
@@ -78,14 +80,23 @@ function Footer() {
         .then((res) => res.json())
         .then((db) => {
           const data = JSON.parse(db[0].contactInformations);
-          // setSocialMediaButtons((prev) => {
-          //   return prev.map((smButton, i) => {
-          //     return {
-          //       ...smButton,
-          //       link: data[smButton.smName.toLowerCase()],
-          //     };
-          //   });
-          // });
+
+          if (
+            data["instagram"] !== "" ||
+            data["youtube"] !== "" ||
+            data["facebook"] !== ""
+          )
+            setHas_social_media_links(true);
+          else setHas_social_media_links(false);
+
+          setSocialMediaButtons((prev) => {
+            return prev.map((smButton, i) => {
+              return {
+                ...smButton,
+                link: data[smButton.smName.toLowerCase()],
+              };
+            });
+          });
         });
     } catch (error) {
       console.error("Error:", error);
@@ -94,7 +105,6 @@ function Footer() {
 
   useEffect(() => {
     getContactInfos();
-    return () => {};
   }, []);
 
   return (
@@ -120,6 +130,9 @@ function Footer() {
       <div
         className={classNames(
           "flex justify-between p-3 items-center bg-preKsBoxBack rounded-lg gap-10 overflow-hidden shadow-lg",
+          {
+            "!justify-center": !has_social_media_links,
+          },
           {
             "!p-2": isLaptop,
           },
@@ -150,57 +163,59 @@ function Footer() {
             <p>{t("halalInsurance")}</p>
           </div>
         </div>
-        <div
-          className={classNames("flex gap-2.5 items-center", {
-            "!flex-col": isMobile,
-          })}
-        >
-          <header
-            className={classNames(
-              "text-lg font-medium text-titleColor px-2.5 border-r-2 border-solid border-r-ksGrayTp",
-              {
-                "!text-base": isLaptop,
-              },
-              {
-                "!text-base !border-0 !border-b !border-b-ksGrayTp": isMobile,
-              }
-            )}
+        {has_social_media_links && (
+          <div
+            className={classNames("flex gap-2.5 items-center", {
+              "!flex-col": isMobile,
+            })}
           >
-            {t("socialMediaAccouts")}
-          </header>
-          <div className="flex items-center gap-2.5">
-            {socialMediaButtons.map(
-              (smButton, i) =>
-                smButton.link !== "" && (
-                  <a
-                    href={`${smButton.link}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    key={i}
-                    className={classNames(
-                      "flex flex-col items-center justify-center rounded-md bg-footerAgendaButtonBack hover:bg-ksGray text-myText hover:text-white duration-200 h-16 w-16 cursor-pointer",
-                      {
-                        "!w-14 !h-14": isLaptop,
-                      }
-                    )}
-                  >
-                    <i
-                      className={classNames(`${smButton.iconClass} text-xl`, {
-                        "!text-lg": isLaptop,
-                      })}
-                    ></i>
-                    <div
-                      className={classNames("text-xs font-medium ", {
-                        "!text-[10px]": isLaptop,
-                      })}
+            <header
+              className={classNames(
+                "text-lg font-medium text-titleColor px-2.5 border-r-2 border-solid border-r-ksGrayTp",
+                {
+                  "!text-base": isLaptop,
+                },
+                {
+                  "!text-base !border-0 !border-b !border-b-ksGrayTp": isMobile,
+                }
+              )}
+            >
+              {t("socialMediaAccouts")}
+            </header>
+            <div className="flex items-center gap-2.5">
+              {socialMediaButtons.map(
+                (smButton, i) =>
+                  smButton.link !== "" && (
+                    <a
+                      href={`${smButton.link}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      key={i}
+                      className={classNames(
+                        "flex flex-col items-center justify-center rounded-md bg-footerAgendaButtonBack hover:bg-ksGray text-myText hover:text-white duration-200 h-16 w-16 cursor-pointer",
+                        {
+                          "!w-14 !h-14": isLaptop,
+                        }
+                      )}
                     >
-                      {smButton.smName}
-                    </div>
-                  </a>
-                )
-            )}
+                      <i
+                        className={classNames(`${smButton.iconClass} text-xl`, {
+                          "!text-lg": isLaptop,
+                        })}
+                      ></i>
+                      <div
+                        className={classNames("text-xs font-medium ", {
+                          "!text-[10px]": isLaptop,
+                        })}
+                      >
+                        {smButton.smName}
+                      </div>
+                    </a>
+                  )
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div
         className={classNames("flex justify-between p-3", {
