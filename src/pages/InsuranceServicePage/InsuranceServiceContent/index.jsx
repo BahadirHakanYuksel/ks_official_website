@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useResponsiveData } from "../../../Context";
 import classNames from "classnames";
 
-function InsuranceServiceContent({ mainContent, subContent }) {
+function InsuranceServiceContent({}) {
   const { isTablet, isMobile } = useResponsiveData();
   const parseContent = (content) => {
     const parts = content.split(

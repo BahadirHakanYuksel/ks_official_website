@@ -213,12 +213,30 @@ function InsuranceServicePage() {
             {isTablet && (
               <div
                 className={classNames(
-                  "sticky left-0 top-12 flex items-center justify-between",
+                  "sticky left-0 top-12 flex items-center justify-end",
                   {
                     "!bg-backColor": responsiveServiceMenuIsOpen,
                   }
                 )}
               >
+                <AnimatePresence>
+                  {responsiveServiceMenuIsOpen && (
+                    <motion.button
+                      onClick={() => setResponsiveServiceMenuIsOpen(false)}
+                      opacity={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className={classNames(
+                        "bg-black text-myText w-20 h-8 text-white rounded-sm active:bg-black active:text-white font-medium rounded-t-lg absolute left-0",
+                        {
+                          "!text-xs !w-auto !px-2.5": isMobile,
+                        }
+                      )}
+                    >
+                      {i18n.language === "en" ? "Close" : "Kapat"}
+                    </motion.button>
+                  )}
+                </AnimatePresence>
                 <button
                   onClick={() =>
                     setResponsiveServiceMenuIsOpen(!responsiveServiceMenuIsOpen)
@@ -235,24 +253,6 @@ function InsuranceServicePage() {
                 >
                   {t("otherServices")}
                 </button>
-                <AnimatePresence>
-                  {responsiveServiceMenuIsOpen && (
-                    <motion.button
-                      onClick={() => setResponsiveServiceMenuIsOpen(false)}
-                      opacity={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className={classNames(
-                        "bg-black text-myText w-20 h-8 text-white rounded-sm active:bg-black active:text-white font-medium rounded-t-lg",
-                        {
-                          "!text-xs !w-auto !px-2.5": isMobile,
-                        }
-                      )}
-                    >
-                      {i18n.language === "en" ? "Close" : "Kapat"}
-                    </motion.button>
-                  )}
-                </AnimatePresence>
               </div>
             )}
             <AnimatePresence>
@@ -299,7 +299,7 @@ function InsuranceServicePage() {
                         <button
                           onClick={() => changeService(service.title)}
                           className={classNames(
-                            "flex items-center justify-start bg-serviceMenuBtnBack hover:text-ksGreen border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-sm text-myText font-medium rounded-md px-4 h-10",
+                            "flex items-center justify-start bg-serviceMenuBtnBack hover:text-ksGreen border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-sm text-myText font-medium rounded-md px-0.5 gap-0.5 h-10",
                             {
                               "!bg-ksGray !text-ksGreen hover:!border-transparent":
                                 encodeURIComponent(
@@ -318,6 +318,11 @@ function InsuranceServicePage() {
                             }
                           )}
                         >
+                          <img
+                            className="w-9"
+                            src={`/images${service.iconUrl}`}
+                            alt=""
+                          />
                           {service.title}
                         </button>
                       ))}
@@ -326,7 +331,7 @@ function InsuranceServicePage() {
                         <button
                           onClick={() => changeService(service.title)}
                           className={classNames(
-                            "flex items-center justify-start bg-serviceMenuBtnBack hover:text-ksGreen border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-sm text-myText font-medium rounded-md px-4 h-10",
+                            "flex items-center justify-start bg-serviceMenuBtnBack hover:text-ksGreen border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-sm text-myText font-medium rounded-md px-0.5 gap-0.5 h-10",
                             {
                               "!bg-ksGray !text-ksGreen hover:!border-transparent":
                                 encodeURIComponent(
@@ -345,6 +350,11 @@ function InsuranceServicePage() {
                             }
                           )}
                         >
+                          <img
+                            className="w-9"
+                            src={`/images${service.iconUrl}`}
+                            alt=""
+                          />
                           {service.title}
                         </button>
                       ))}
@@ -403,7 +413,7 @@ function InsuranceServicePage() {
                         <button
                           onClick={() => changeService(service.title)}
                           className={classNames(
-                            "flex items-center justify-start bg-serviceMenuBtnBack hover:text-ksGreen border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-sm text-myText font-medium rounded-md px-4 h-10",
+                            "flex items-center justify-start bg-serviceMenuBtnBack hover:text-ksGreen border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-sm text-myText font-medium rounded-md px-0.5 gap-0.5 h-10",
                             {
                               "!bg-ksGray !text-ksGreen hover:!border-transparent":
                                 encodeURIComponent(
@@ -422,6 +432,11 @@ function InsuranceServicePage() {
                             }
                           )}
                         >
+                          <img
+                            className="w-8"
+                            src={`/images${service.iconUrl}`}
+                            alt=""
+                          />
                           {service.title}
                         </button>
                       ))}
@@ -430,7 +445,7 @@ function InsuranceServicePage() {
                         <button
                           onClick={() => changeService(service.title)}
                           className={classNames(
-                            "flex items-center justify-start bg-serviceMenuBtnBack hover:text-ksGreen border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-sm text-myText font-medium rounded-md px-4 h-10",
+                            "flex items-center justify-start bg-serviceMenuBtnBack hover:text-ksGreen border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-sm text-myText font-medium rounded-md px-0.5 gap-0.5 h-10",
                             {
                               "!bg-ksGray !text-ksGreen hover:!border-transparent":
                                 encodeURIComponent(
@@ -449,6 +464,11 @@ function InsuranceServicePage() {
                             }
                           )}
                         >
+                          <img
+                            className="w-8"
+                            src={`/images${service.iconUrl}`}
+                            alt=""
+                          />
                           {service.title}
                         </button>
                       ))}

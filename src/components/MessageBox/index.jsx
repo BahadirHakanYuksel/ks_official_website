@@ -501,7 +501,7 @@ function MessageBox() {
       >
         {wait ? t("sending") : t("send")}
       </button>
-      <p className="absolute left-1/2 -translate-x-1/2 w-full flex items-center justify-center bottom-1.5 text-titleColor text-[8px] gap-0.5">
+      <p className="emailjs_text absolute left-1/2 -translate-x-1/2 w-full flex items-center justify-center text-titleColor text-[8px] gap-0.5">
         {t("emailjs1")}
         <span className="text-yellow-600 font-medium">EmailJS</span>{" "}
         {t("emailjs2")}

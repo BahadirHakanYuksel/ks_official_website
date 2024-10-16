@@ -197,9 +197,15 @@ function ContactBox() {
         </span>
       </a>
       <div
-        className={classNames("bg-white rounded-lg overflow-hidden h-48", {
-          "!h-40": isLaptop,
-        })}
+        className={classNames(
+          "bg-white rounded-lg overflow-hidden h-48",
+          {
+            "!h-36": isLaptop,
+          },
+          {
+            "!h-40": isTablet,
+          }
+        )}
       >
         <div dangerouslySetInnerHTML={{ __html: iframeLink }} />
       </div>

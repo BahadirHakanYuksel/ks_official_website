@@ -215,6 +215,10 @@ span {
   height: 24px;
 }
 
+.emailjs_text {
+  bottom: 18px;
+}
+
 @media screen and (max-width: 1025px) {
   .page {
     padding: 0 50px;
@@ -242,6 +246,10 @@ span {
   }
   .adminHeader {
     font-size: 24px;
+  }
+
+  .emailjs_text {
+    bottom: 10px;
   }
 }
 
@@ -284,6 +292,9 @@ span {
   }
   .adminHeader {
     font-size: 20px;
+  }
+  .emailjs_text {
+    bottom: 3px;
   }
 }
 @media screen and (max-width: 426px) {

@@ -29,7 +29,10 @@ function Navbar() {
       setActiveNavTitleId(99);
     }
     navMenu.forEach((button) => {
-      if (button.url === path) setActiveNavTitleId(button.id);
+      if (button.url === path) {
+        setActiveNavTitleId(button.id);
+        setNavMenuIsActive(false);
+      }
       if (button.id === 3 && path.split("/")[1] === "agenda")
         setActiveNavTitleId(button.id);
     });
@@ -52,7 +55,7 @@ function Navbar() {
       id: 2,
     },
     {
-      url: false,
+      url: undefined,
       title: t("agenda"),
       id: 3,
       subCategories: [
