@@ -16,6 +16,7 @@ function InsuranceServicePage() {
   const { individual, corporate, activeService } = useSelector(
     (state) => state.app
   );
+  const serviceContentLoadingDelay = 0; // before 600
   const { isLaptop, isTablet, isMobile } = useResponsiveData();
   const { pathServiceCategory, pathServiceName } = useParams();
   const navigate = useNavigate();
@@ -154,7 +155,7 @@ function InsuranceServicePage() {
       setResponsiveServiceMenuIsOpen(false);
       setTimeout(() => {
         document.scrollingElement.scrollTop = 0;
-      }, 600);
+      }, serviceContentLoadingDelay);
     } else document.scrollingElement.scrollTop = 0;
   }, [pathServiceName, pathServiceCategory]);
 
@@ -182,7 +183,7 @@ function InsuranceServicePage() {
             turkishToEnglish(title.replace(/ /g, "-"))
           ).toLowerCase()}`
         );
-      }, 600);
+      }, serviceContentLoadingDelay);
     } else {
       document.scrollingElement.scrollTop = 0;
       navigate(
