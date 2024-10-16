@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useResponsiveData } from "../../../Context";
 import classNames from "classnames";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 function InsuranceServiceContent({}) {
   const { isTablet, isMobile } = useResponsiveData();
@@ -129,40 +129,34 @@ function InsuranceServiceContent({}) {
   }, [activeMainContent]);
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <AnimatePresence>
-        {activeMainContent !== "alotsof" &&
-          activeContent.split("\n").map((row, i) => (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className={classNames("text-base", { "!text-sm": isMobile })}
-              key={i}
-            >
-              {parseContent(row)}
-            </motion.p>
-          ))}
-      </AnimatePresence>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flex flex-col gap-1.5"
+    >
+      {activeMainContent !== "alotsof" &&
+        activeContent.split("\n").map((row, i) => (
+          <p
+            className={classNames("text-base", { "!text-sm": isMobile })}
+            key={i}
+          >
+            {parseContent(row)}
+          </p>
+        ))}
 
-      <AnimatePresence>
-        {activeMainContent === "alotsof" &&
-          tarsimUrls.map((t, i) => (
-            <motion.a
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="h-12 bg-preKsBoxBack border-2 border-solid border-ksGrayTp rounded-md hover:bg-ksGreen text-titleColor hover:text-white duration-200 flex items-center serviceContentButton px-2.5 font-medium shadow-lg gap-1.5"
-              href={`/services_data/tr/${t.url_name}-genel-sartlar.pdf`}
-              key={i}
-              target="_blank"
-            >
-              <i className="fa-solid fa-file-pdf text-xl text-ksGreen duration-200"></i>
-              {t.service_name}
-            </motion.a>
-          ))}
-      </AnimatePresence>
-    </div>
+      {activeMainContent === "alotsof" &&
+        tarsimUrls.map((t, i) => (
+          <a
+            className="h-12 bg-preKsBoxBack border-2 border-solid border-ksGrayTp rounded-md hover:bg-ksGreen text-titleColor hover:text-white duration-200 flex items-center serviceContentButton px-2.5 font-medium shadow-lg gap-1.5"
+            href={`/services_data/tr/${t.url_name}-genel-sartlar.pdf`}
+            key={i}
+            target="_blank"
+          >
+            <i className="fa-solid fa-file-pdf text-xl text-ksGreen duration-200"></i>
+            {t.service_name}
+          </a>
+        ))}
+    </motion.div>
   );
 }
 
