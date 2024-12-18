@@ -182,12 +182,12 @@ function Agenda() {
             </div>
             <div
               className={classNames(
-                "flex gap-x-[76px] gap-y-8 flex-wrap",
+                "flex justify-between gap-y-8 flex-wrap",
                 {
-                  "!gap-x-10": isLaptop,
+                  "": isLaptop,
                 },
                 {
-                  "!gap-x-10 justify-center": isTablet,
+                  "!gap-x-10 !justify-center": isTablet,
                 }
               )}
             >

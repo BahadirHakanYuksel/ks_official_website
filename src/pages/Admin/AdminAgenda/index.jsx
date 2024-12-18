@@ -12,7 +12,7 @@ function AdminAgenda() {
   const { pathAdminCategory } = useParams();
   const { t, i18n } = useTranslation();
   const [activeAgendaCategoryId, setActiveAgendaCategoryId] = useState(0);
-  const { isMobile } = useResponsiveData();
+  const { isMobile, isTablet } = useResponsiveData();
   const navigate = useNavigate();
   const [isAgenda, setIsAgenda] = useState(false);
   const [ksData, setKsData] = useState([]);
@@ -123,9 +123,15 @@ function AdminAgenda() {
             </div>
           </div>
           <div
-            className={classNames("flex flex-wrap justify-start gap-10 mb-10", {
-              "!justify-center !gap-5": isMobile,
-            })}
+            className={classNames(
+              "flex flex-wrap justify-start gap-x-5 gap-y-10 mb-10",
+              {
+                "justify-between": isTablet,
+              },
+              {
+                "!justify-center !gap-5": isMobile,
+              }
+            )}
           >
             <button
               onClick={() => {

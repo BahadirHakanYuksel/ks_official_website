@@ -93,7 +93,7 @@
   "verifyEmail": "E-Posta Doğrula",
   "verificationCodeMessageOk": "Doğrulama kodu E-posta adresinize gönderildi.",
   "verificationCodeMessageError": "Doğrulama kodu gönderilemedi!",
-  "sendingVerificationCode": "Doğrulama kodu gönderiliyor",
+  "sendingVerificationCode": "Doğrulama kodu gönderiliyor...",
   "enterCode": "Kodu giriniz",
   "copy": "Kopyala",
   "copied": "Kopyalandı",
