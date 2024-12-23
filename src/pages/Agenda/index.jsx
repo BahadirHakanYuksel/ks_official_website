@@ -12,15 +12,33 @@ import { Helmet } from "react-helmet-async";
 
 function Agenda() {
   const { t } = useTranslation();
-  const { isLaptop, isTablet, isMobile } = useResponsiveData();
+  const { isTablet, isMobile } = useResponsiveData();
   const { pathAgendaCategory } = useParams();
   const [activeCategoryId, setactiveCategoryId] = useState(0);
   const [thisPageIsAgenda, setThisPageIsAgenda] = useState(true);
   const [ksData, setKsData] = useState([]);
   const [filter, setFilter] = useState("last");
   const navigate = useNavigate();
+  const [pointAnimCount, setPointAnimCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const pointAnimArr = [".", "..", "..."];
+
+  useEffect(() => {
+    let interval;
+    if (loading) {
+      interval = setInterval(() => {
+        if (pointAnimCount < 2) {
+          setPointAnimCount((count) => count + 1);
+        } else {
+          setPointAnimCount(0);
+        }
+      }, 500);
+    }
+    return () => clearInterval(interval);
+  }, [loading, pointAnimCount]);
 
   const getDataOnDb = async () => {
+    setLoading(true);
     const formData = new FormData();
     filter === "last" && formData.append("action", pathAgendaCategory);
     filter === "popular" &&
@@ -35,6 +53,8 @@ function Agenda() {
         .then((db) => {
           if (db.length === 0) setKsData(false);
           else setKsData(db);
+
+          setLoading(false);
         });
     } catch (error) {
       console.error("Error:", error);
@@ -180,48 +200,58 @@ function Agenda() {
                 </button>
               </div>
             </div>
-            <div
-              className={classNames(
-                "flex justify-between gap-y-8 flex-wrap",
-                {
-                  "": isLaptop,
-                },
-                {
-                  "!gap-x-10 !justify-center": isTablet,
-                }
-              )}
-            >
-              {ksData ? (
-                ksData.map((box) => (
-                  <AgendaBox
-                    key={box.id}
-                    agendaImgUrl={box.img_url}
-                    agendaTitle={box.title}
-                    agendaDate={box.dat}
-                    ksId={box.ks_id}
-                    category={categories[activeCategoryId].urlName}
-                    viewNum={box.number_of_views}
-                  />
-                ))
-              ) : (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className={classNames(
-                    "h-[200px] w-full bg-preKsBoxBack text-myText flex items-center justify-center rounded-2xl text-3xl font-medium",
-                    {
-                      "!text-2xl !h-[180px]": isTablet,
-                    },
-                    {
-                      "!text-sm !h-[120px]": isMobile,
-                    }
-                  )}
-                >
-                  {t("current")} {categories[activeCategoryId].title}{" "}
-                  {t("comingSoon")}
-                </motion.div>
-              )}
-            </div>
+            {loading ? (
+              <motion.div
+                className="text-2xl font-medium flex items-center justify-center min-h-[200px] text-ksGreen"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                {t("loading").replace("...", pointAnimArr[pointAnimCount])}
+              </motion.div>
+            ) : (
+              <div
+                className={classNames(
+                  "flex justify-between gap-y-8 flex-wrap",
+                  {
+                    "!justify-start !gap-x-20": ksData.length < 3,
+                  },
+                  {
+                    "!gap-x-10 !justify-center": isTablet,
+                  }
+                )}
+              >
+                {ksData ? (
+                  ksData.map((box) => (
+                    <AgendaBox
+                      key={box.id}
+                      agendaImgUrl={box.img_url}
+                      agendaTitle={box.title}
+                      agendaDate={box.dat}
+                      ksId={box.ks_id}
+                      category={categories[activeCategoryId].urlName}
+                      viewNum={box.number_of_views}
+                    />
+                  ))
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className={classNames(
+                      "h-[200px] w-full bg-preKsBoxBack text-myText flex items-center justify-center rounded-2xl text-3xl font-medium",
+                      {
+                        "!text-2xl !h-[180px]": isTablet,
+                      },
+                      {
+                        "!text-sm !h-[120px]": isMobile,
+                      }
+                    )}
+                  >
+                    {t("current")} {categories[activeCategoryId].title}{" "}
+                    {t("comingSoon")}
+                  </motion.div>
+                )}
+              </div>
+            )}
           </div>
         </motion.div>
       ) : (
