@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useResponsiveData } from "../../../Context";
 import classNames from "classnames";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { updateRightSidebarGetRequestHandle } from "../../../utils";
 
 function RightSidebar() {
   const { t } = useTranslation();
@@ -13,6 +15,7 @@ function RightSidebar() {
   const { isMobile } = useResponsiveData();
   const navigate = useNavigate();
   const { pathAgendaInfo } = useParams();
+  const { rightSidebarGetRequest } = useSelector((state) => state.app);
   const agendaTitles = [
     {
       urlName: "news",
@@ -37,10 +40,11 @@ function RightSidebar() {
     pathAgendaInfo.split("-")[pathAgendaInfo.split("-").length - 1]
   }`;
   const [loading, setLoading] = useState(false);
+
   const getDataOnDb = async () => {
     setLoading(true);
     const formData = new FormData();
-    formData.append("action", "news");
+    formData.append("action", "news-limit");
 
     try {
       await fetch("https://katilimsigortacisi.com/php-admin/", {
@@ -55,7 +59,7 @@ function RightSidebar() {
       console.error("Error:", error);
     }
 
-    formData.append("action", "articles");
+    formData.append("action", "articles-limit");
     try {
       await fetch("https://katilimsigortacisi.com/php-admin/", {
         method: "POST",
@@ -69,7 +73,7 @@ function RightSidebar() {
       console.error("Error:", error);
     }
 
-    formData.append("action", "announcements");
+    formData.append("action", "announcements-limit");
     try {
       await fetch("https://katilimsigortacisi.com/php-admin/", {
         method: "POST",
@@ -87,11 +91,12 @@ function RightSidebar() {
   const firstLoadingPage = async () => {
     await getDataOnDb();
     setLoading(false);
+    updateRightSidebarGetRequestHandle(false);
   };
 
   useEffect(() => {
     firstLoadingPage();
-  }, []);
+  }, [rightSidebarGetRequest]);
 
   return (
     <div

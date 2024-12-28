@@ -39,7 +39,10 @@ function AgendaHome() {
   const getDataOnDb = async () => {
     setButtonsDisable(true);
     const formData = new FormData();
-    formData.append("action", agendaTitles[activeAgendaTitleId].urlName);
+    formData.append(
+      "action",
+      `${agendaTitles[activeAgendaTitleId].urlName}-limit`
+    );
 
     try {
       await fetch("https://katilimsigortacisi.com/php-admin/", {

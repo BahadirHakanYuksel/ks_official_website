@@ -6,6 +6,7 @@ import {
   rigtSlider,
   updateMainContent,
   updateResNavMenu,
+  updateRightSidebarGetRequest,
   updateService,
 } from "../stores/app";
 import { updateLng } from "../stores/lng";
@@ -71,4 +72,8 @@ export const openTeamModalHandle = (id) => {
 
 export const closeTeamModalHandle = () => {
   stores.dispatch(closeTeamModal());
+};
+
+export const updateRightSidebarGetRequestHandle = (status) => {
+  stores.dispatch(updateRightSidebarGetRequest(status));
 };

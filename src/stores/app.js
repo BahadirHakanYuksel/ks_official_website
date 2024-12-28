@@ -106,6 +106,7 @@ const initialState = {
   activeMainContent: false,
   activeSubContent: false,
   responsiveNavMenuIsActive: false,
+  rightSidebarGetRequest: false,
 };
 
 const app = createSlice({
@@ -134,6 +135,9 @@ const app = createSlice({
     closeResNavMenu: (state) => {
       state.responsiveNavMenuIsActive = false;
     },
+    updateRightSidebarGetRequest: (state, action) => {
+      state.rightSidebarGetRequest = action.payload;
+    },
   },
 });
 
@@ -145,4 +149,5 @@ export const {
   updateMainContent,
   updateResNavMenu,
   closeResNavMenu,
+  updateRightSidebarGetRequest,
 } = app.actions;

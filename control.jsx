@@ -15,18 +15,148 @@ function Agenda() {
   const { isTablet, isMobile } = useResponsiveData();
   const { pathAgendaCategory } = useParams();
   const [localDataPath, setLocalDataPath] = useState(pathAgendaCategory);
-  const [activeCategoryId, setActiveCategoryId] = useState(0);
+  const [activeCategoryId, setactiveCategoryId] = useState(0);
   const [thisPageIsAgenda, setThisPageIsAgenda] = useState(true);
   const [ksData, setKsData] = useState([]);
   const [filter, setFilter] = useState("last");
-  const [filterControl, setfilterControl] = useState(filter);
   const navigate = useNavigate();
   const [pointAnimCount, setPointAnimCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const pointAnimArr = [".", "..", "..."];
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [alf, setAlf] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1); // Şu anki sayfa numarası
+  const [total_pages, setTotalPages] = useState(1); // Toplam sayfa sayısı
+
+  useEffect(() => {
+    let interval;
+    if (loading) {
+      interval = setInterval(() => {
+        if (pointAnimCount < 2) {
+          setPointAnimCount((count) => count + 1);
+        } else {
+          setPointAnimCount(0);
+        }
+      }, 500);
+    }
+    return () => clearInterval(interval);
+  }, [loading, pointAnimCount]);
+
+  const getDataOnDb = async () => {
+    setLoading(true);
+
+    const limit = 9;
+    const offset = (currentPage - 1) * limit;
+
+    const formData = new FormData();
+    filter === "last" && formData.append("action", pathAgendaCategory);
+    filter === "popular" &&
+      formData.append("action", `${pathAgendaCategory}_most_viewed`);
+    formData.append("page", currentPage);
+    formData.append("offset", offset);
+
+    try {
+      await fetch("https://katilimsigortacisi.com/php-admin/", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then(({ data, totalPages }) => {
+          if (data.length === 0) {
+            setKsData([]);
+            console.log("last - data.length === 0 - sıfırlandı");
+          } else {
+            console.log("last - data.length !!!== 0");
+
+            if (filter === "last") {
+              console.log("filter === last");
+              if (ksData.length === 0) {
+                console.log("last - ksData.length === 0");
+                setKsData(data);
+              } else if (
+                ksData &&
+                ksData.length > 0 &&
+                ksData[ksData.length - 1].ks_id !== data[0].ks_id
+              ) {
+                setKsData((prev) => [...prev, ...data]); // Verileri güncelle
+                console.log("last - ksData && ksData.length > 0");
+              }
+            } else if (filter === "popular") {
+              console.log("filter === popular");
+              if (ksData.length === 0) {
+                console.log("popular - ksData.length === 0");
+                setKsData(data);
+              } else if (ksData && ksData.length > 0) {
+                console.log("popular - ksData && ksData.length > 0");
+                setKsData((prev) => [...prev, ...data]); // Verileri güncelle
+              }
+            }
+
+            setTotalPages(totalPages); // Toplam sayfa sayısını güncelle
+
+            setLoading(false);
+          }
+        });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const updateAgendaCategory = () => {
+    console.log("pathAgendaCategory");
+    document.scrollingElement.scrollTop = 0;
+    let pageControlCounter = 0;
+    categories.forEach((category) => {
+      convertFromTextToUrl(category.urlName) === pathAgendaCategory
+        ? setactiveCategoryId(category.id)
+        : pageControlCounter++;
+
+      // console.log(category);
+    });
+    pageControlCounter === 3
+      ? setThisPageIsAgenda(false)
+      : setThisPageIsAgenda(true);
+
+    if (pathAgendaCategory !== localDataPath) {
+      setLocalDataPath(pathAgendaCategory);
+      beforeRequest();
+    }
+    getDataOnDb();
+  };
+
+  useEffect(() => {
+    updateAgendaCategory();
+  }, [pathAgendaCategory]);
+
+  useEffect(() => {
+    console.log("currentPage");
+
+    getDataOnDb();
+  }, [currentPage]);
+
+  useEffect(() => {
+    console.log("filter");
+    filterMain();
+  }, [filter]);
+
+  const filterMain = async () => {
+    await beforeRequest();
+    await getDataOnDb();
+  };
+
+  const beforeRequest = () => {
+    setCurrentPage(1);
+    setKsData([]);
+  };
+
+  useEffect(() => {
+    console.log("ksData", ksData);
+  }, [ksData, loading]);
+
+  const loadMore = async () => {
+    if (currentPage < total_pages) {
+      await setCurrentPage(currentPage + 1); // Sayfa numarasını bir arttır
+    }
+  };
 
   const categories = [
     {
@@ -49,96 +179,6 @@ function Agenda() {
     },
   ];
 
-  useEffect(() => {
-    let interval;
-    if (loading) {
-      interval = setInterval(() => {
-        setPointAnimCount((count) => (count < 2 ? count + 1 : 0));
-      }, 500);
-    }
-    return () => clearInterval(interval);
-  }, [loading]);
-
-  const getDataOnDb = async (reset = false) => {
-    setLoading(true);
-
-    const limit = 9;
-    const offset = (currentPage - 1) * limit;
-
-    const formData = new FormData();
-    formData.append(
-      "action",
-      filter === "last"
-        ? pathAgendaCategory
-        : `${pathAgendaCategory}_most_viewed`
-    );
-    formData.append("page", currentPage);
-    formData.append("offset", offset);
-
-    try {
-      const response = await fetch(
-        "https://katilimsigortacisi.com/php-admin/",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      const { data, totalPages: total } = await response.json();
-
-      setKsData((prevData) => (reset ? data : [...prevData, ...data]));
-      setTotalPages(total);
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const updateAgendaCategory = async () => {
-    document.scrollingElement.scrollTop = 0;
-
-    const categoryMatch = categories.find(
-      (category) =>
-        convertFromTextToUrl(category.urlName) === pathAgendaCategory
-    );
-
-    if (categoryMatch) {
-      setActiveCategoryId(categoryMatch.id);
-      setThisPageIsAgenda(true);
-    } else {
-      setThisPageIsAgenda(false);
-    }
-
-    if (pathAgendaCategory !== localDataPath) {
-      setLocalDataPath(pathAgendaCategory);
-      setCurrentPage(1);
-      await getDataOnDb(true);
-    }
-  };
-
-  const loadMore = async () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prevPage) => prevPage + 1);
-    }
-  };
-
-  useEffect(() => {
-    updateAgendaCategory();
-  }, [pathAgendaCategory]);
-
-  useEffect(() => {
-    getDataOnDb(currentPage === 1);
-  }, [currentPage]);
-
-  useEffect(() => {
-    if (filterControl !== filter) {
-      setfilterControl(filter);
-      setCurrentPage(1);
-    }
-    getDataOnDb(true);
-  }, [filter]);
-
   return (
     <>
       {thisPageIsAgenda ? (
@@ -149,9 +189,9 @@ function Agenda() {
           className="flex flex-col gap-5"
         >
           <Helmet>
-            <title>{categories[activeCategoryId]?.title}</title>
+            <title>{categories[activeCategoryId].title}</title>
           </Helmet>
-          <PageTitle>{categories[activeCategoryId]?.title}</PageTitle>
+          <PageTitle>{categories[activeCategoryId].title}</PageTitle>
           <div className="page flex flex-col gap-5">
             <div
               className={classNames("flex justify-between items-center", {
@@ -266,7 +306,7 @@ function Agenda() {
                         agendaTitle={box.title}
                         agendaDate={box.dat}
                         ksId={box.ks_id}
-                        category={categories[activeCategoryId]?.urlName}
+                        category={categories[activeCategoryId].urlName}
                         viewNum={box.number_of_views}
                       />
                     ))
@@ -284,12 +324,12 @@ function Agenda() {
                         }
                       )}
                     >
-                      {t("current")} {categories[activeCategoryId]?.title}{" "}
+                      {t("current")} {categories[activeCategoryId].title}{" "}
                       {t("comingSoon")}
                     </motion.div>
                   )}
                 </div>
-                {currentPage < totalPages && ksData.length > 0 && (
+                {currentPage < total_pages && ksData.length > 0 && (
                   <center>
                     <button
                       onClick={loadMore}
@@ -305,7 +345,7 @@ function Agenda() {
                             "...",
                             pointAnimArr[pointAnimCount]
                           )
-                        : t("more") + " "}
+                        : "Daha Fazla "}
 
                       {i18n.language === "tr"
                         ? categories[activeCategoryId].title.slice(0, -3)
