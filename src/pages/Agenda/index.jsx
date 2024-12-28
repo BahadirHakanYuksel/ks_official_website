@@ -26,7 +26,6 @@ function Agenda() {
   const pointAnimArr = [".", "..", "..."];
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [alf, setAlf] = useState(false);
 
   const categories = [
     {
