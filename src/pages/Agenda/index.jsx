@@ -27,6 +27,8 @@ function Agenda() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const request_url = import.meta.env.VITE_REQUEST_URL;
+
   const categories = [
     {
       urlName: "news",
@@ -75,13 +77,10 @@ function Agenda() {
     formData.append("offset", offset);
 
     try {
-      const response = await fetch(
-        "https://katilimsigortacisi.com/php-admin/",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(request_url, {
+        method: "POST",
+        body: formData,
+      });
 
       const { data, totalPages: total } = await response.json();
 

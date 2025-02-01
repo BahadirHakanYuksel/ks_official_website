@@ -6,11 +6,13 @@ export default function EditCounsellor() {
   const { counsellorId } = useParams();
   const [counsellor, setCounsellor] = useState(false);
   const getCounsellor = async () => {
+    const request_url = import.meta.env.VITE_REQUEST_URL;
+    const get_counsellor = import.meta.env.VITE_REQUEST_COUNSELLOR_GET;
     const formData = new FormData();
-    formData.append("action", "get-counsellor");
+    formData.append("action", get_counsellor);
     formData.append("counsellor_id", counsellorId);
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })

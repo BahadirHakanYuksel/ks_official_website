@@ -5,6 +5,7 @@ import classNames from "classnames";
 import EditTeam from "./EditTeam";
 import { useSelector } from "react-redux";
 import DeleteModal from "./DeleteModal";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function AdminTeam() {
   const [action, setAction] = useState(0);
@@ -15,11 +16,13 @@ export default function AdminTeam() {
   const { teamModal } = useSelector((state) => state.modal);
 
   const getCounsellors = async () => {
+    const request_url = import.meta.env.VITE_REQUEST_URL;
+    const getKsTeam = import.meta.env.VITE_REQUEST_GET_TEAM;
     const formData = new FormData();
-    formData.append("action", "team");
+    formData.append("action", getKsTeam);
 
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })
@@ -49,6 +52,7 @@ export default function AdminTeam() {
           (act, i) =>
             action !== i && (
               <button
+                key={i}
                 onClick={() => setAction(i)}
                 className={classNames(
                   "bg-preKsBoxBack hover:border-ksGreen duration-200 text-myText text-lg font-medium w-52 rounded-full h-12 border-2 border-solid border-preKsBoxIcon opacity-60 pointer-events-none",
@@ -65,7 +69,11 @@ export default function AdminTeam() {
       {action !== 0 ? (
         <EditTeam operationId={action} />
       ) : (
-        <div className="w-full flex gap-x-5 gap-y-16 flex-wrap justify-center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="w-full flex gap-x-5 gap-y-16 flex-wrap justify-center"
+        >
           {counsellors.map((counsellor, i) => (
             <Supporter
               admin
@@ -83,7 +91,7 @@ export default function AdminTeam() {
               }
             />
           ))}
-        </div>
+        </motion.div>
       )}
     </div>
   );

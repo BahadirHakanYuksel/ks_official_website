@@ -6,7 +6,6 @@ import InsuranceServices from "./InsuranceServices";
 import PresentationSlider from "./PresentationSlider";
 import ContactHome from "./ContactHome";
 import { useTranslation } from "react-i18next";
-import { useResponsiveData } from "../../Context";
 import classNames from "classnames";
 import { Helmet } from "react-helmet-async";
 import { useEffect } from "react";
@@ -14,8 +13,6 @@ import Team from "../Team";
 
 function Home() {
   const { t } = useTranslation();
-
-  const { isMobile } = useResponsiveData();
 
   useEffect(() => {
     document.scrollingElement.scrollTop = 0;

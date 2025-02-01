@@ -14,9 +14,10 @@ export default function Supporter({
   id,
   admin = false,
   trying = false,
+  isEditCard = false,
 }) {
   const [hasLinks, setHasLinks] = useState(false);
-  const { isMobile } = useResponsiveData();
+  const { isLaptop, isMobile } = useResponsiveData();
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
@@ -38,6 +39,18 @@ export default function Supporter({
 
   return (
     <div className="supporterCard w-[320px] min-h-[332px] max-h-[342px] aspect-square h-auto bg-preKsBoxBack border-2 border-solid border-ksGrayTp hover:border-ksGreen rounded-md duration-200 p-5 pt-14 pb-10 shadow-lg relative">
+      {isEditCard && (
+        <>
+          {isLaptop && (
+            <section className="absolute h-8 flex items-center -left-20 text-gray-400 top-2/3 -translate-y-1/2 text -rotate-90 text-sm font-medium italic">
+              Bu şekilde görünecek
+            </section>
+          )}
+          <section className="absolute h-8 flex items-center -right-20 text-gray-400 top-1/3 -translate-y-1/2 text rotate-90 text-sm font-medium italic">
+            Bu şekilde görünecek
+          </section>
+        </>
+      )}
       <div
         className={classNames(
           "absolute left-1/2 -translate-x-1/2 bg-goUpButtonBack border-4 border-solid border-backColor w-[90px] h-auto aspect-square rounded-lg -top-[90px] translate-y-1/2 text-titleColor font-medium text-4xl flex items-center justify-center overflow-hidden",

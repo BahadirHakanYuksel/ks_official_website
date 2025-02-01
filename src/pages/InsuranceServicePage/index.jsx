@@ -296,8 +296,9 @@ function InsuranceServicePage() {
                   </div>
                   <div className="flex flex-col w-full gap-1.5">
                     {activeCategoryIndex === 0 &&
-                      individual.map((service) => (
+                      individual.map((service, index) => (
                         <button
+                          key={index}
                           onClick={() => changeService(service.title)}
                           className={classNames(
                             "flex items-center justify-start bg-serviceMenuBtnBack hover:text-ksGreen border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-sm text-myText font-medium rounded-md px-0.5 gap-0.5 h-10",
@@ -328,8 +329,9 @@ function InsuranceServicePage() {
                         </button>
                       ))}
                     {activeCategoryIndex === 1 &&
-                      corporate.map((service) => (
+                      corporate.map((service, index) => (
                         <button
+                          key={index}
                           onClick={() => changeService(service.title)}
                           className={classNames(
                             "flex items-center justify-start bg-serviceMenuBtnBack hover:text-ksGreen border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-sm text-myText font-medium rounded-md px-0.5 gap-0.5 h-10",
@@ -410,8 +412,9 @@ function InsuranceServicePage() {
                   </div>
                   <div className="flex flex-col w-full gap-1.5">
                     {activeCategoryIndex === 0 &&
-                      individual.map((service) => (
+                      individual.map((service, index) => (
                         <button
+                          key={index}
                           onClick={() => changeService(service.title)}
                           className={classNames(
                             "flex items-center justify-start bg-serviceMenuBtnBack hover:text-ksGreen border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-sm text-myText font-medium rounded-md px-0.5 gap-0.5 h-10",
@@ -442,8 +445,9 @@ function InsuranceServicePage() {
                         </button>
                       ))}
                     {activeCategoryIndex === 1 &&
-                      corporate.map((service) => (
+                      corporate.map((service, index) => (
                         <button
+                          key={index}
                           onClick={() => changeService(service.title)}
                           className={classNames(
                             "flex items-center justify-start bg-serviceMenuBtnBack hover:text-ksGreen border-2 border-solid border-transparent hover:border-ksGreen duration-200 text-sm text-myText font-medium rounded-md px-0.5 gap-0.5 h-10",

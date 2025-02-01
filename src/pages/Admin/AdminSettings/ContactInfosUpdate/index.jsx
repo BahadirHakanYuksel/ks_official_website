@@ -2,9 +2,11 @@ import { useTranslation } from "react-i18next";
 import { SettingsHeader } from "..";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
+import { useResponsiveData } from "../../../../Context";
 
 export default function ContactInfosUpdate() {
   const { t } = useTranslation();
+  const { isTablet } = useResponsiveData();
 
   const [contactInfos, setContactInfos] = useState({
     telNo: "",
@@ -89,9 +91,12 @@ export default function ContactInfosUpdate() {
     setContactInfos({ ...contactInfos, [name]: value });
   };
 
+  const request_url = import.meta.env.VITE_REQUEST_URL;
+
   const updateContactInfos = async () => {
+    const update_contact = import.meta.env.VITE_REQUEST_ADMIN_KS_CONTACT_UPDATE;
     const formData = new FormData();
-    formData.append("action", "updateContactInfos");
+    formData.append("action", update_contact);
     formData.append("contactInformations", JSON.stringify(contactInfos));
 
     try {
@@ -109,8 +114,9 @@ export default function ContactInfosUpdate() {
   }, []);
 
   const getContactInfos = async () => {
+    const getContact = import.meta.env.VITE_REQUEST_ADMIN_KS_CONTACT_GET;
     const formData = new FormData();
-    formData.append("action", "getContactInfos");
+    formData.append("action", getContact);
     setLoading(true);
     try {
       await fetch("https://katilimsigortacisi.com/php-admin/", {
@@ -144,7 +150,11 @@ export default function ContactInfosUpdate() {
       {!loading ? (
         <>
           <div className="flex flex-col gap-3.5">
-            <div className="grid grid-cols-2 gap-2.5 w-full">
+            <div
+              className={classNames("grid grid-cols-2 gap-2.5 w-full", {
+                "!grid-cols-1": isTablet,
+              })}
+            >
               <div className="flex flex-col ">
                 <div className="flex items-center gap-2.5">
                   <header>Tel No</header>

@@ -26,7 +26,7 @@ function AdminLayout() {
     {
       dbUrlKey: false,
       url: `/admin-${adminUrl}`,
-      title: t("homepage"),
+      title: t("fastMenu"),
       id: 0,
     },
     {
@@ -36,20 +36,28 @@ function AdminLayout() {
       id: 1,
     },
     {
+      dbUrlKey: false,
+      url: `/admin-${adminUrl}/admin-team`,
+      title: t("team"),
+      id: 2,
+    },
+    {
       dbUrlKey: "accountInfos",
       url: `/admin-${adminUrl}/account-settings`,
       title: t("accountSettings"),
-      id: 2,
+      id: 3,
     },
   ];
 
   const loadingAgainOperations = async () => {
     if (localStorage.getItem("ks_user") !== null) {
+      const request_url = import.meta.env.VITE_REQUEST_URL;
+      const auth_ks = import.meta.env.VITE_REQUEST_AUTH_KS;
       const localUserId = localStorage.getItem("ks_user");
       const formData = new FormData();
-      formData.append("action", "auth");
+      formData.append("action", auth_ks);
       try {
-        await fetch("https://katilimsigortacisi.com/php-admin/", {
+        await fetch(request_url, {
           method: "POST",
           body: formData,
         })
@@ -105,7 +113,7 @@ function AdminLayout() {
                     "text-[18px] font-medium text-ksGreen active:scale-105 duration-200"
                   )}
                 >
-                  Admin
+                  KS Admin
                 </button>
               )}
               {!isMobile && (
@@ -118,7 +126,11 @@ function AdminLayout() {
                   {t("piap")}
                 </button>
               )}
-              <div className="flex gap-2.5">
+              <div
+                className={classNames("flex gap-2", {
+                  "!gap-1": isMobile,
+                })}
+              >
                 {!isLaptop &&
                   !isMobile &&
                   !isTablet &&
@@ -136,6 +148,26 @@ function AdminLayout() {
                       {btn.title}
                     </button>
                   ))}
+                {isLaptop && (
+                  <button
+                    onClick={() => navigate(adminMenuData[0].url)}
+                    className={classNames(
+                      "text-base font-medium text-myText bg-serviceMenuBtnBack shadow-md px-2 flex items-center justify-center rounded-sm !h-8 duration-200",
+                      {
+                        "!text-ksGreen":
+                          adminMenuData[0].id === activeNavMenuButtonId,
+                      },
+                      {
+                        "!text-sm": isTablet,
+                      },
+                      {
+                        "!text-xs": isMobile,
+                      }
+                    )}
+                  >
+                    {i18n.language === "tr" ? "Hızlı Menü" : "Fast Menu"}
+                  </button>
+                )}
                 <button
                   onClick={() =>
                     openModalBoxHandle({
@@ -144,7 +176,7 @@ function AdminLayout() {
                     })
                   }
                   className={classNames(
-                    "text-base font-medium text-myText bg-serviceMenuBtnBack shadow-md px-2 flex items-center justify-center rounded-sm h-8 duration-200 hover:bg-red-700 hover:text-white",
+                    "text-base font-medium text-myText bg-serviceMenuBtnBack shadow-md px-2 flex items-center justify-center rounded-sm !h-8 duration-200 hover:bg-red-700 hover:text-white",
                     {
                       "!h-6 !text-sm": isTablet,
                     },
@@ -178,7 +210,9 @@ function AdminLayout() {
                       )
                   )}
                 </div>
-                <ThemeButton />
+                <div className="h-8 flex items-center">
+                  <ThemeButton />
+                </div>
               </div>
             </nav>
             <AnimatePresence>{modalInfos && <ModalBox />}</AnimatePresence>

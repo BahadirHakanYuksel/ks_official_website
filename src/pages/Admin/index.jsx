@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useResponsiveData } from "../../Context";
 import classNames from "classnames";
 
 function Admin() {
@@ -27,7 +26,7 @@ function Admin() {
     },
     {
       url: `/admin-${adminUrl}/admin-team`,
-      title: "Danışman Ekibi",
+      title: t("team"),
       id: 3,
     },
     {
@@ -54,7 +53,7 @@ function Admin() {
         <header className="mb-5">{t("adminWelcomeMessage")}</header>
         <div
           className={classNames(
-            "fastMenu flex items-center justify-center gap-8 absolute left-1/2 -translate-x-1/2 -bottom-12"
+            "fastMenu flex items-center justify-center gap-8 absolute left-1/2 -translate-x-1/2 -bottom-12 "
           )}
         >
           {fastMenuData.map((menu) => (
@@ -70,7 +69,7 @@ function Admin() {
           ))}
         </div>
       </div>
-      <div className="h-[150px] bg-gradient-to-t to-ksGray from-ksGreen rounded-b-md"></div>
+      <div className="h-[150px] bg-gradient-to-t to-ksGray from-ksGreen rounded-b-md adminBackground2"></div>
       <div className="text-titleColor font-medium text-sm flex items-center justify-center h-10">
         2024-{t("piap")}
       </div>

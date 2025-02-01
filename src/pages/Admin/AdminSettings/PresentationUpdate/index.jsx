@@ -4,7 +4,11 @@ import { SettingsHeader } from "../PasswordUpdate";
 import { useEffect, useState } from "react";
 
 export default function PresentationUpdate() {
-  const { isTablet } = useResponsiveData();
+  const { isTablet, isMobile } = useResponsiveData();
+  const request_url = import.meta.env.VITE_REQUEST_URL;
+  const getPresentaImg = import.meta.env.VITE_REQUEST_PRESENTATIONS_IMAGES_GET;
+  const updatePresentaImg = import.meta.env
+    .VITE_REQUEST_PRESENTATIONS_IMAGES_UPDATE;
 
   const [loading, setLoading] = useState(false);
   const languages = [
@@ -67,14 +71,14 @@ export default function PresentationUpdate() {
   const updateElement = async (lng = "", queue = 0, url = "", link = "") => {
     const formData = new FormData();
 
-    formData.append("action", "updatePresentationImages");
+    formData.append("action", updatePresentaImg);
     formData.append("url", url);
     formData.append("link", link);
     formData.append("queue", queue);
     formData.append("lng", lng);
 
     try {
-      const res = await fetch("https://katilimsigortacisi.com/php-admin/", {
+      const res = await fetch(request_url, {
         method: "POST",
         body: formData,
       });
@@ -115,10 +119,10 @@ export default function PresentationUpdate() {
 
   const getPresentationImages = async () => {
     const formData = new FormData();
-    formData.append("action", "getPresentationImages");
+    formData.append("action", getPresentaImg);
 
     try {
-      const res = await fetch("https://katilimsigortacisi.com/php-admin/", {
+      const res = await fetch(request_url, {
         method: "POST",
         body: formData,
       });
@@ -159,8 +163,12 @@ export default function PresentationUpdate() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex items-center gap-2.5">
+    <div className="flex flex-col gap-5 pb-8">
+      <div
+        className={classNames("flex items-center justify-between", {
+          "!flex-col gap-2.5": isMobile,
+        })}
+      >
         <SettingsHeader>Reklam Panosu Düzenleme</SettingsHeader>
         <div className="flex flex-wrap h-11 -mt-2.5">
           {languages.map((lng, i) => (
@@ -184,12 +192,18 @@ export default function PresentationUpdate() {
                 }
               )}
             >
-              {lng.nameTR}
+              {!isMobile && activeLng === "tr" && lng.nameTR}
+              {!isMobile && activeLng === "en" && lng.nameEN}
+              {isMobile && lng.value.toUpperCase()}
             </button>
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-5">
+      <div
+        className={classNames("grid grid-cols-3 gap-5", {
+          "!grid-cols-1": isTablet,
+        })}
+      >
         {activeLng === "tr" &&
           presentationImages.tr.map((image, index) => (
             <div key={index}>

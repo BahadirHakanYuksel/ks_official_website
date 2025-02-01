@@ -19,11 +19,13 @@ export default function Team({ type = "default" }) {
   const [loading, setLoading] = useState(false);
 
   const getCounsellors = async () => {
+    const request_url = import.meta.env.VITE_REQUEST_URL;
+    const ks_team = import.meta.env.VITE_REQUEST_GET_TEAM;
     const formData = new FormData();
-    formData.append("action", "team");
+    formData.append("action", ks_team);
     setLoading(true);
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })

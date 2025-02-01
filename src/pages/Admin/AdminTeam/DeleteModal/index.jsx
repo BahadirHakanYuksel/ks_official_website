@@ -6,11 +6,13 @@ export default function DeleteModal() {
 
   const deleteTeam = async () => {
     const formData = new FormData();
-    formData.append("action", "delete-counsellor");
+    const request_url = import.meta.env.VITE_REQUEST_URL;
+    const counsellorDel = import.meta.env.VITE_REQUEST_COUNSELLOR_DELETE;
+    formData.append("action", counsellorDel);
     formData.append("counsellor_id", teamModal.id);
 
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })

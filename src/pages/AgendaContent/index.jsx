@@ -37,11 +37,8 @@ function AgendaContent() {
         );
       } else if (part.startsWith("### ") && part.endsWith(" ###")) {
         return (
-          <div className="flex justify-start items-center">
-            <header
-              className={classNames("!text-4xl relative", {})}
-              key={index}
-            >
+          <div key={index} className="flex justify-start items-center">
+            <header className={classNames("!text-4xl relative", {})}>
               {part.slice(3, -3)}
               <div className="absolute h-1 -bottom-2 w-full rounded-full bg-green-600"></div>
             </header>
@@ -49,11 +46,8 @@ function AgendaContent() {
         );
       } else if (part.startsWith("## ") && part.endsWith(" ##")) {
         return (
-          <div className="flex justify-start items-center">
-            <header
-              className={classNames("!text-3xl relative", {})}
-              key={index}
-            >
+          <div key={index} className="flex justify-start items-center">
+            <header className={classNames("!text-3xl relative", {})}>
               {part.slice(2, -2)}
               <div className="absolute h-1 -bottom-2 w-full rounded-full bg-green-600"></div>
             </header>
@@ -61,7 +55,7 @@ function AgendaContent() {
         );
       } else if (part.startsWith("# ") && part.endsWith(" #")) {
         return (
-          <div className="flex justify-start items-center">
+          <div key={index} className="flex justify-start items-center">
             <header
               className={classNames("!text-2xl font-medium relative", {
                 "!text-lg": isMobile,
@@ -110,7 +104,7 @@ function AgendaContent() {
   };
   const { pathAgendaInfo, pathAgendaCategory } = useParams();
   const path = useLocation().pathname;
-  const { isMobile } = useResponsiveData();
+  const { isTablet, isMobile } = useResponsiveData();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -126,7 +120,8 @@ function AgendaContent() {
 
   const getContentOnDb = async () => {
     setLoading(true);
-
+    const request_url = import.meta.env.VITE_REQUEST_URL;
+    const getRequest = import.meta.env.VITE_REQUEST_GET_AGENDA;
     const formData = new FormData();
     const myID = `${
       pathAgendaInfo.split("-")[pathAgendaInfo.split("-").length - 1]
@@ -134,10 +129,10 @@ function AgendaContent() {
 
     formData.append("ks_id", myID);
 
-    formData.append("action", "id_case");
+    formData.append("action", getRequest);
 
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })
@@ -306,7 +301,7 @@ function AgendaContent() {
             )}
           </AnimatePresence>
           <div
-            className={classNames("w-[75%] flex flex-col gap-2.5", {
+            className={classNames("w-[70%] flex flex-col gap-2.5", {
               "!w-full": isMobile,
             })}
           >
@@ -324,7 +319,7 @@ function AgendaContent() {
                   "!text-xs": isMobile,
                 })}
               >
-                <p className={classNames("flex gap-1.5")}>
+                <section className={classNames("flex gap-1.5")}>
                   <header className=" font-medium text-titleColor">
                     {t("category")}
                   </header>
@@ -337,25 +332,25 @@ function AgendaContent() {
                     {ksContentData.grup === "M" && t("articles")}
                     {ksContentData.grup === "D" && t("announcements")}
                   </button>
-                </p>
-                <p className={classNames("flex gap-1.5")}>
+                </section>
+                <section className={classNames("flex gap-1.5")}>
                   <header className=" font-medium text-titleColor">
                     {t("publicationDate")}
                   </header>
                   : {dates.loadDate}
-                </p>
-                <p className={classNames("flex gap-1.5")}>
+                </section>
+                <section className={classNames("flex gap-1.5")}>
                   <header className="font-medium text-titleColor">
                     {t("lastUpdateDate")}
                   </header>
                   : {dates.uploadDate}
-                </p>
-                <p className={classNames("flex gap-1.5")}>
+                </section>
+                <section className={classNames("flex gap-1.5")}>
                   <header className=" font-medium text-titleColor">
                     {t("author")}
                   </header>
                   : {ksContentData.writer}
-                </p>
+                </section>
               </div>
             </div>
             <div className="w-full aspect-video rounded-md overflow-hidden">
@@ -365,12 +360,16 @@ function AgendaContent() {
                 alt=""
               />
             </div>
-            <div className="flex items-center justify-between h-8">
+            <div
+              className={classNames("flex items-center justify-between h-10", {
+                "!h-8": isTablet,
+              })}
+            >
               <div className="flex gap-2 h-full items-center">
                 <button
                   onClick={toggleMenu}
                   className={classNames(
-                    "flex gap-1.5 items-center justify-center text-sm font-medium bg-preKsBoxBack text-preKsBoxIcon h-full w-20 rounded-sm hover:text-ksGreen duration-200 border-2 border-solid border-ksGrayTp hover:border-ksGreen",
+                    "flex gap-1.5 items-center justify-center text-sm font-medium bg-preKsBoxBack text-preKsBoxIcon h-full w-24 rounded-sm hover:text-ksGreen duration-200 border-2 border-solid border-ksGrayTp hover:border-ksGreen",
                     {
                       "!text-xs !w-[70px]": isMobile,
                     }
@@ -421,18 +420,18 @@ function AgendaContent() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-2.5 mt-5">
+            <article className="flex flex-col gap-2.5 mt-5">
               {paragraph.map((row, i) => (
-                <div
+                <section
                   className={classNames("text-base", {
                     "!text-sm": isMobile,
                   })}
                   key={i}
                 >
                   {parseContent(row)}
-                </div>
+                </section>
               ))}
-            </div>
+            </article>
           </div>
           <RightSidebar />
         </motion.div>

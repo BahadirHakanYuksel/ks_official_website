@@ -171,12 +171,18 @@ function ModalBox() {
     } else setAllInputIsOk(false);
   };
 
+  const request_url = import.meta.env.VITE_REQUEST_URL;
+  const agenda_edit = import.meta.env.VITE_REQUEST_AGENDA_EDIT;
+  const agenda_delete = import.meta.env.VITE_REQUEST_AGENDA_DELETE;
+  const agenda_add = import.meta.env.VITE_REQUEST_AGENDA_ADD;
+  const agenda_list = import.meta.env.VITE_REQUEST_AGENDA_LIST;
+
   const SaveAndUpdateOperations = async () => {
     if (modalInfos.operation === "edit") {
       setLoading(true);
 
       const myForm = new FormData();
-      myForm.append("action", "edit-list");
+      myForm.append("action", agenda_edit);
       myForm.append("title", modalData.ksTitle);
       myForm.append("dsc", modalData.ksContent);
       myForm.append("writer", modalData.ksWriter);
@@ -187,7 +193,7 @@ function ModalBox() {
       myForm.append("img_url", modalData.ksImgUrl);
       myForm.append("grup", modalData.ksCategory);
       try {
-        await fetch("https://katilimsigortacisi.com/php-admin/", {
+        await fetch(request_url, {
           method: "POST",
           body: myForm,
         })
@@ -206,7 +212,7 @@ function ModalBox() {
       }
     } else if (modalInfos.operation === "add") {
       const myForm = new FormData();
-      myForm.append("action", "add-todo");
+      myForm.append("action", agenda_add);
       myForm.append("title", modalData.ksTitle);
       myForm.append("dsc", modalData.ksContent);
       myForm.append("writer", modalData.ksWriter);
@@ -217,7 +223,7 @@ function ModalBox() {
       myForm.append("img_url", modalData.ksImgUrl);
       myForm.append("grup", modalData.ksCategory);
       try {
-        await fetch("https://katilimsigortacisi.com/php-admin/", {
+        await fetch(request_url, {
           method: "POST",
           body: myForm,
         })
@@ -240,11 +246,11 @@ function ModalBox() {
   const deleteOperation = async () => {
     // delete on db
     const myForm = new FormData();
-    myForm.append("action", "delete-list");
+    myForm.append("action", agenda_delete);
     myForm.append("ks_id", modalData.ksId);
 
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: myForm,
       })
@@ -290,9 +296,9 @@ function ModalBox() {
 
   const getControlDataOnDb = async () => {
     const myForm = new FormData();
-    myForm.append("action", "list");
+    myForm.append("action", agenda_list);
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: myForm,
       })

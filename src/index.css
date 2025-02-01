@@ -242,6 +242,7 @@ span {
     padding: 0 50px;
   }
   .adminWelcomeText {
+    justify-content: center;
     font-size: 36px;
   }
   .adminHeader {
@@ -279,22 +280,35 @@ span {
     padding: 0 20px;
   }
   .adminWelcomeText {
+    justify-content: start;
+    align-items: center;
+    padding-top: 60px;
     font-size: 28px;
+    display: flex;
+    flex-direction: column;
     height: 300px;
+  }
+  .fastMenu {
+    position: relative;
+    gap: 20px;
+    left: 0;
+    transform: translate(0);
+    flex-wrap: wrap;
+    margin-top: -30px;
   }
   .fastMenuBox {
     width: 128px;
     height: 128px;
     font-size: 16px;
   }
-  .fastMenu {
-    gap: 20px;
-  }
   .adminHeader {
     font-size: 20px;
   }
   .emailjs_text {
     bottom: 3px;
+  }
+  .adminSettingsGrid {
+    grid-template-columns: 30% 40% auto;
   }
 }
 @media screen and (max-width: 426px) {
@@ -331,23 +345,18 @@ span {
   .introductionOfKs {
     height: 160px;
   }
-
   .adminWelcomeText {
+    height: 280px;
     font-size: 18px;
     text-align: center;
-    height: 300px;
   }
+
   .fastMenuBox {
     width: 100px;
     height: 100px;
     font-size: 12px;
   }
-  .fastMenu {
-    gap: 8px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    bottom: -105px;
-  }
+
   .adminHeader {
     font-size: 18px;
   }
@@ -382,6 +391,10 @@ span {
     grid-template-columns: repeat(1, 1fr);
     gap: 10px;
   }
+  .adminSettingsGrid {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 @media screen and (max-width: 376px) {
@@ -415,5 +428,11 @@ span {
   .homeInsuranceServices {
     grid-template-columns: repeat(1, 1fr);
     gap: 12px;
+  }
+  .adminWelcomeText {
+    height: 380px;
+  }
+  .supporterCard {
+    width: 280px;
   }
 }

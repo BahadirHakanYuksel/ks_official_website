@@ -120,7 +120,6 @@ function InsuranceServiceContent({}) {
     if (activeMainContent !== "alotsof") {
       const response = await fetch(activeMainContent);
       const description = await response.text();
-      // console.log("Burdayım : ", description);
       setActiveContent(description);
     }
   };
@@ -136,12 +135,12 @@ function InsuranceServiceContent({}) {
     >
       {activeMainContent !== "alotsof" &&
         activeContent.split("\n").map((row, i) => (
-          <p
+          <article
             className={classNames("text-base", { "!text-sm": isMobile })}
             key={i}
           >
             {parseContent(row)}
-          </p>
+          </article>
         ))}
 
       {activeMainContent === "alotsof" &&

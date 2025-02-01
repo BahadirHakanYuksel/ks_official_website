@@ -1,10 +1,9 @@
 import classNames from "classnames";
 import { motion } from "framer-motion";
 import { useResponsiveData } from "../../Context";
-import { useEffect, useState } from "react";
 
 function PageTitle({ children }) {
-  const { isLaptop, isTablet, isMobile } = useResponsiveData();
+  const { isTablet, isMobile } = useResponsiveData();
 
   return (
     <motion.header

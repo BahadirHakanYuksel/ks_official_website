@@ -60,11 +60,13 @@ function PresentationSlider() {
   }, [activeSliderPageId]);
 
   const getPresentationImages = async () => {
+    const request_url = import.meta.env.VITE_REQUEST_URL;
+    const getPreImg = import.meta.env.VITE_REQUEST_PRESENTATION_IMAGES;
     const formData = new FormData();
-    formData.append("action", "getPresentationImages");
+    formData.append("action", getPreImg);
 
     try {
-      const res = await fetch("https://katilimsigortacisi.com/php-admin/", {
+      const res = await fetch(request_url, {
         method: "POST",
         body: formData,
       });

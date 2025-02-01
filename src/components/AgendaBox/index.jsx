@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { convertFromTextToUrl } from "../../consts";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import classNames from "classnames";
 import { useResponsiveData } from "../../Context";
 import { motion } from "framer-motion";
@@ -14,26 +14,25 @@ function AgendaBox({
   ksId,
   viewNum,
 }) {
-  const { isLaptop, isTablet, isMobile } = useResponsiveData();
-  const { t, i18n } = useTranslation();
+  const { isLaptop, isTablet } = useResponsiveData();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [myDate, setmyDate] = useState(agendaDate);
 
+  const agenda_now = import.meta.env.VITE_REQUEST_AGENDA_NOW;
+  const request_url = import.meta.env.VITE_REQUEST_URL;
+
   const updateViewNumber = async () => {
     const formData = new FormData();
-    formData.append("action", "updateAgendaNumberOfViews");
+    formData.append("action", agenda_now);
     formData.append("ks_id", ksId);
     formData.append("number_of_views", `${Number(viewNum) + 1}`);
 
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
-      })
-        .then((res) => res.json())
-        .then((db) => {
-          // console.log(db);
-        });
+      });
     } catch (error) {
       console.error("Error:", error);
     }

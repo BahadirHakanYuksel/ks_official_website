@@ -43,11 +43,16 @@ function RightSidebar() {
 
   const getDataOnDb = async () => {
     setLoading(true);
+    const request_url = import.meta.env.VITE_REQUEST_URL;
+    const neli = import.meta.env.VITE_REQUEST_AGENDA_NEWS_LIMIT;
+    const arli = import.meta.env.VITE_REQUEST_AGENDA_ARTICLES_LIMIT;
+    const anli = import.meta.env.VITE_REQUEST_AGENDA_ANNOUNCEMENTS_LIMIT;
+
     const formData = new FormData();
-    formData.append("action", "news-limit");
+    formData.append("action", neli);
 
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })
@@ -59,9 +64,9 @@ function RightSidebar() {
       console.error("Error:", error);
     }
 
-    formData.append("action", "articles-limit");
+    formData.append("action", arli);
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })
@@ -73,9 +78,9 @@ function RightSidebar() {
       console.error("Error:", error);
     }
 
-    formData.append("action", "announcements-limit");
+    formData.append("action", anli);
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })
@@ -100,7 +105,7 @@ function RightSidebar() {
 
   return (
     <div
-      className={classNames("flex flex-col w-[25%] gap-14", {
+      className={classNames("flex flex-col w-[30%] gap-14", {
         "!w-full": isMobile,
       })}
     >

@@ -37,6 +37,7 @@ function AgendaHome() {
   ];
 
   const getDataOnDb = async () => {
+    const request_url = import.meta.env.VITE_REQUEST_URL;
     setButtonsDisable(true);
     const formData = new FormData();
     formData.append(
@@ -45,7 +46,7 @@ function AgendaHome() {
     );
 
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })

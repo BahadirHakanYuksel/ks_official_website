@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { updateKsAdminHandle } from "../../../../utils";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { useResponsiveData } from "../../../../Context";
 
 function PasswordUpdate() {
   const [inputData, setInputData] = useState({
@@ -13,6 +14,7 @@ function PasswordUpdate() {
 
   const { ksAdmin } = useSelector((state) => state.admin);
   const { t } = useTranslation();
+  const { isMobile } = useResponsiveData();
 
   const [passwordChangeIsActive, setPasswordChangeIsActive] = useState(false);
   const [passwordType, setPasswordType] = useState("password");
@@ -37,18 +39,20 @@ function PasswordUpdate() {
   };
 
   const updatePasswordOnDb = async () => {
+    const request_url = import.meta.env.VITE_REQUEST_URL;
+    const update_admin = import.meta.env.VITE_REQUEST_ADMIN_KS_UPDATE;
     const formData = new FormData();
-    formData.append("action", "updateAdmin");
+    formData.append("action", update_admin);
     formData.append("email", ksAdmin.email);
     formData.append("password", inputData.newPassword);
 
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })
         .then((res) => res.json())
-        .then((db) => {
+        .then(() => {
           setPasswordChangeIsActive(!passwordChangeIsActive);
           updateKsAdminHandle({ ...ksAdmin, password: inputData.newPassword });
         });
@@ -57,8 +61,16 @@ function PasswordUpdate() {
     }
   };
 
+  const handleChangeInputs = (e) => {
+    setInputData({
+      ...inputData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   useEffect(() => {
     newPasswordControl();
+    console.log("inputData", inputData);
   }, [inputData]);
 
   return (
@@ -96,19 +108,30 @@ function PasswordUpdate() {
             <input
               disabled={true}
               type={passwordType}
-              className="w-full h-12 border-2 border-solid border-ksGrayTp rounded-md bg-preKsBoxBack pr-36 pl-2.5 disabled:pointer-events-none disabled:opacity-90 focus:border-ksGreen"
+              className="w-full h-12 border-2 border-solid border-ksGrayTp rounded-md bg-preKsBoxBack pr-12 pl-2.5 disabled:pointer-events-none disabled:opacity-90 focus:border-ksGreen"
               value={ksAdmin.password}
               maxLength={30}
             />
             <button
+              title={
+                passwordType === "text" ? t("hidePassword") : t("showPassword")
+              }
               onClick={changePasswordType}
-              className="absolute flex items-center justify-center bg-ksGray text-white right-2.5 top-1/2 h-8 w-32 rounded text-myText"
+              className="absolute flex items-center justify-center bg-ksGray text-green-200 right-2.5 top-1/2 h-8 w-8 rounded text-sm"
             >
-              {passwordType === "text" ? t("hidePassword") : t("showPassword")}
+              {passwordType === "text" ? (
+                <i className="fa-solid fa-eye-slash"></i>
+              ) : (
+                <i className="fa-solid fa-eye"></i>
+              )}
             </button>
           </div>
           <div className="flex flex-col gap-1 ">
-            <header className="text-lg font-medium h-7"></header>
+            <header
+              className={classNames("text-lg font-medium h-7", {
+                "!h-3": isMobile,
+              })}
+            ></header>
             <button
               onClick={() => setPasswordChangeIsActive(!passwordChangeIsActive)}
               type="text"
@@ -126,44 +149,56 @@ function PasswordUpdate() {
               exit={{ opacity: 0 }}
               className="grid adminSettingsGrid gap-2.5"
             >
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1 relative">
                 <header className="text-lg font-medium">
                   {t("newAdminPassword")}
                 </header>
                 <input
+                  id="newPassword"
+                  name="newPassword"
                   type={passwordType}
                   className="w-full h-12 border-2 border-solid border-ksGrayTp rounded-md bg-preKsBoxBack px-2.5 disabled:pointer-events-none disabled:opacity-90 focus:border-ksGreen"
                   value={inputData.newPassword}
-                  onChange={(e) =>
-                    setInputData({
-                      ...inputData,
-                      newPassword: e.target.value,
-                    })
-                  }
+                  onChange={handleChangeInputs}
                   maxLength={30}
                   autoComplete="off"
                 />
+                <button
+                  title={
+                    passwordType === "text"
+                      ? t("hidePassword")
+                      : t("showPassword")
+                  }
+                  onClick={changePasswordType}
+                  className="absolute flex items-center justify-center bg-ksGray text-green-200 right-2.5 top-1/2 h-8 w-8 rounded text-sm"
+                >
+                  {passwordType === "text" ? (
+                    <i className="fa-solid fa-eye-slash"></i>
+                  ) : (
+                    <i className="fa-solid fa-eye"></i>
+                  )}
+                </button>
               </div>
               <div className="flex flex-col gap-1">
                 <header className="text-lg font-medium">
                   {t("newAdminPasswordAgain")}
                 </header>
                 <input
+                  name="newPasswordAgain"
                   type={passwordType}
                   className="w-full h-12 border-2 border-solid border-ksGrayTp rounded-md bg-preKsBoxBack px-2.5 disabled:pointer-events-none disabled:opacity-90 focus:border-ksGreen"
                   value={inputData.newPasswordAgain}
-                  onChange={(e) =>
-                    setInputData({
-                      ...inputData,
-                      newPasswordAgain: e.target.value,
-                    })
-                  }
+                  onChange={handleChangeInputs}
                   maxLength={30}
                   autoComplete="off"
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <header className="text-lg font-medium h-7"></header>
+                <header
+                  className={classNames("text-lg font-medium h-7", {
+                    "!h-3": isMobile,
+                  })}
+                ></header>
                 <button
                   disabled={updatePasswordButtonIsDisabled}
                   onClick={updatePasswordOnDb}
@@ -184,9 +219,17 @@ function PasswordUpdate() {
 export default PasswordUpdate;
 
 export const SettingsHeader = ({ children }) => {
+  const { isMobile } = useResponsiveData();
   return (
     <div className="flex items-center">
-      <header className="text-titleColor bg-serviceMenuBack px-5 h-11 flex items-center justify-center font-medium text-xl border-b-2 border-solid border-ksGreen mb-2.5">
+      <header
+        className={classNames(
+          "text-titleColor bg-serviceMenuBack px-5 h-11 flex items-center justify-center font-medium text-xl border-b-2 border-solid border-ksGreen mb-2.5",
+          {
+            "!text-base": isMobile,
+          }
+        )}
+      >
         {children}
       </header>
     </div>

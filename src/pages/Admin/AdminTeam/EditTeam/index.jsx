@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import Supporter from "../../../Team/Supporter";
 import classNames from "classnames";
 import PageTitle from "../../../../components/PageTitle";
+import { motion } from "framer-motion";
+import { useResponsiveData } from "../../../../Context";
+import TeamHeader from "./teamHeader";
 
 export default function EditTeam({ operationId, edit_data }) {
   // operationId === 1 => Add Supporter
@@ -39,6 +42,11 @@ export default function EditTeam({ operationId, edit_data }) {
   const [seeProfileImage, setSeeProfileImage] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [smLinkIsOk, setSmLinkIsOk] = useState(false);
+  const { isTablet, isMobile, isLaptop } = useResponsiveData();
+  const request_url = import.meta.env.VITE_REQUEST_URL;
+  const getKsTeam = import.meta.env.VITE_REQUEST_GET_TEAM;
+  const add_counsellor = import.meta.env.VITE_REQUEST_COUNSELLOR_ADD;
+  const edit_counsellor = import.meta.env.VITE_REQUEST_COUNSELLOR_EDIT;
 
   const changeInformations = (e) => {
     const { name, value } = e.target;
@@ -67,10 +75,10 @@ export default function EditTeam({ operationId, edit_data }) {
 
   const saveCounsellor = async () => {
     const counsellorDataRequest = new FormData();
-    counsellorDataRequest.append("action", "team");
+    counsellorDataRequest.append("action", getKsTeam);
     let counsellorId = "######";
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: counsellorDataRequest,
       })
@@ -83,7 +91,7 @@ export default function EditTeam({ operationId, edit_data }) {
     }
 
     const formData = new FormData();
-    formData.append("action", "add-counsellor");
+    formData.append("action", add_counsellor);
     formData.append("counsellor_id", counsellorId);
     formData.append("counsellor_name", supporterInformations.name);
     formData.append("counsellor_surname", supporterInformations.surname);
@@ -100,7 +108,7 @@ export default function EditTeam({ operationId, edit_data }) {
     );
 
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })
@@ -136,7 +144,7 @@ export default function EditTeam({ operationId, edit_data }) {
 
   const updateCounsellor = async () => {
     const formData = new FormData();
-    formData.append("action", "edit-counsellor");
+    formData.append("action", edit_counsellor);
     formData.append("counsellor_id", supporterInformations.id);
     formData.append("counsellor_name", supporterInformations.name);
     formData.append("counsellor_surname", supporterInformations.surname);
@@ -151,7 +159,7 @@ export default function EditTeam({ operationId, edit_data }) {
     );
 
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })
@@ -213,11 +221,34 @@ export default function EditTeam({ operationId, edit_data }) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   return (
-    <div className="w-full flex flex-col gap-12">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="w-full flex flex-col gap-12 pb-16"
+    >
       {operationId === 2 && <PageTitle>Danışman Düzenle</PageTitle>}
-      <div className="w-full flex gap-5 flex-wrap justify-center items-center">
-        <div className="w-[900px] h-[420px] grid grid-cols-2">
-          <div className="w-full  bg-preKsBoxBack border-2 border-solid border-gray-500 border-r-0 rounded-lg rounded-r-none p-3 h-full relative">
+      <div
+        className={classNames(
+          "w-full flex gap-5 flex-wrap justify-center items-center",
+          {
+            "!gap-28": isLaptop,
+          }
+        )}
+      >
+        <div
+          className={classNames("w-[900px] h-[420px] grid grid-cols-2", {
+            "!grid-cols-1 !h-auto": isMobile,
+          })}
+        >
+          <div
+            className={classNames(
+              "w-full  bg-preKsBoxBack border-2 border-solid border-gray-500 border-r-0 rounded-lg rounded-r-none p-3 h-full relative",
+              {
+                "!border-r-2 !rounded-t-lg !rounded-b-none !border-b-0":
+                  isMobile,
+              }
+            )}
+          >
             <header className="text-lg font-medium absolute h-10 flex items-center justify-center -top-10 left-0">
               {operationId === 1
                 ? "Yeni Danışman Ekle"
@@ -225,9 +256,7 @@ export default function EditTeam({ operationId, edit_data }) {
             </header>
             <div className="flex items-center gap-2.5 mb-2.5">
               <div className="flex flex-col gap-1.5">
-                <header className="text-base font-medium text-gray-400 flex">
-                  Danışman Resmi
-                </header>
+                <TeamHeader>Danışman Resmi</TeamHeader>
                 <div className="w-[120px] h-[120px] rounded-lg bg-backColor flex items-center justify-center ">
                   {!seeProfileImage ? (
                     <label
@@ -291,9 +320,10 @@ export default function EditTeam({ operationId, edit_data }) {
 
             <div className="grid grid-cols-2 gap-2.5">
               <div className="flex flex-col w-full">
-                <header className="text-base font-medium text-gray-400 flex">
+                <TeamHeader>
                   Danışman Adı <span className="text-ksGreen">*</span>
-                </header>
+                </TeamHeader>
+
                 <input
                   className="text-myText border-2 border-solid border-gray-400 focus:border-ksGreen duration-200 h-10 rounded bg-transparent px-2.5"
                   type="text"
@@ -303,9 +333,9 @@ export default function EditTeam({ operationId, edit_data }) {
                 />
               </div>
               <div className="flex flex-col w-full">
-                <header className="text-base font-medium text-gray-400 flex">
+                <TeamHeader>
                   Danışman Soyadı <span className="text-ksGreen">*</span>
-                </header>
+                </TeamHeader>
                 <input
                   className="text-myText border-2 border-solid border-gray-400 focus:border-ksGreen duration-200 h-10 rounded bg-transparent px-2.5"
                   type="text"
@@ -316,9 +346,7 @@ export default function EditTeam({ operationId, edit_data }) {
               </div>
             </div>
             <div className="flex flex-col w-full mt-1.5">
-              <header className="text-base font-medium text-gray-400 flex">
-                Açıklama
-              </header>
+              <TeamHeader>Açıklama</TeamHeader>
               <textarea
                 className="text-myText border-2 border-solid border-gray-400 focus:border-ksGreen duration-200 h-40 resize-none rounded bg-transparent p-2.5"
                 type="text"
@@ -328,13 +356,26 @@ export default function EditTeam({ operationId, edit_data }) {
               />
             </div>
           </div>
-          <div className="w-full  bg-preKsBoxBack border-2 border-solid border-gray-500 border-l-0 rounded-lg rounded-l-none p-3 h-full flex flex-col gap-2.5">
-            <header className="text-lg font-medium">
+          <div
+            className={classNames(
+              "w-full  bg-preKsBoxBack border-2 border-solid border-gray-500 border-l-0 rounded-lg rounded-l-none p-3 h-full flex flex-col gap-2.5",
+              {
+                "!border-l-2 !rounded-t-none !rounded-b-lg !border-t-0":
+                  isMobile,
+              }
+            )}
+          >
+            <header className="text-lg font-medium -mb-2">
               Sosyal Medya Hesapları
             </header>
-            <div className="flex gap-5 items-center">
+            <div
+              className={classNames("flex gap-5 items-center", {
+                "!gap-2.5": isTablet,
+              })}
+            >
               {socialMediaIcons.map((icon, i) => (
                 <button
+                  key={i}
                   onClick={() => {
                     setActiveSocialMediaLink(i);
                     smLinkRef.current.focus();
@@ -381,13 +422,16 @@ export default function EditTeam({ operationId, edit_data }) {
               ))}
             </div>
             <div className="flex flex-col w-full">
-              <header className="flex">
-                {
-                  supporterInformations.socialMediaLinks[activeSocialMediaLink]
-                    .name
-                }{" "}
+              <TeamHeader>
+                <p className="text-ksGreen">
+                  {
+                    supporterInformations.socialMediaLinks[
+                      activeSocialMediaLink
+                    ].name
+                  }
+                </p>
                 {activeSocialMediaLink === 0 ? "Adresi" : "Linki"}
-              </header>
+              </TeamHeader>
               <input
                 ref={smLinkRef}
                 className="border-2 border-solid border-gray-400 bg-transparent focus:border-ksGreen duration-200 h-12 rounded px-2.5 w-full"
@@ -436,8 +480,9 @@ export default function EditTeam({ operationId, edit_data }) {
           description={supporterInformations.description}
           social_links={supporterInformations.socialMediaLinks}
           img_url={seeProfileImage}
+          isEditCard={true}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -4,14 +4,14 @@ import PasswordUpdate from "./PasswordUpdate";
 import ContactInfosUpdate from "./ContactInfosUpdate";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { openModalBoxHandle } from "../../../utils";
 import classNames from "classnames";
 import PresentationUpdate from "./PresentationUpdate";
+import { useResponsiveData } from "../../../Context";
 
 function AdminSettings() {
   const { t } = useTranslation();
-
-  const [activeApp, setActiveApp] = useState(1);
+  const { isMobile } = useResponsiveData();
+  const [activeApp, setActiveApp] = useState(0);
   const appList = ["İletişim Bilgileri", "Reklam Panosu", "Şifre Güncelleme"];
 
   return (
@@ -21,40 +21,25 @@ function AdminSettings() {
       className="flex flex-col gap-5"
     >
       <PageTitle>{t("accountSettings")}</PageTitle>
-      <div className="flex justify-between items-center -mt-5">
-        <div className="flex items-center">
-          {appList.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveApp(index)}
-              className={classNames(
-                "text-myText pointer-events-auto border-b-4 border-solid border-ksGrayTp flex items-center justify-center h-12 px-3.5 hover:border-b-green-700 opacity-70 hover:opacity-90 duration-200 text-lg",
-                {
-                  "!text-myText !opacity-100 !pointer-events-none !border-ksGreen":
-                    index === activeApp,
-                }
-              )}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-        <div className="flex items-center gap-2.5">
-          <p className="text-base font-medium text-titleColor">
-            {t("accountExit")}
-          </p>
+      <div className="grid grid-cols-3 items-center -mt-5">
+        {appList.map((item, index) => (
           <button
-            onClick={() =>
-              openModalBoxHandle({
-                operation: "logOut",
-                myData: false,
-              })
-            }
-            className="flex items-center justify-center rounded-full border-2 border-solid border-red-700 text-myText font-medium hover:bg-red-600 hover:text-white duration-150 bg-preKsBoxBack h-10 px-5"
+            key={index}
+            onClick={() => setActiveApp(index)}
+            className={classNames(
+              "text-myText pointer-events-auto border-b-4 border-solid border-ksGrayTp flex items-center justify-center h-12 px-3.5 hover:border-b-green-700 opacity-70 hover:opacity-90 duration-200 text-lg",
+              {
+                "!text-myText !opacity-100 !pointer-events-none !border-ksGreen":
+                  index === activeApp,
+              },
+              {
+                "!text-sm": isMobile,
+              }
+            )}
           >
-            {t("logOut")}
+            {item}
           </button>
-        </div>
+        ))}
       </div>
       {activeApp === 0 && <ContactInfosUpdate />}
       {activeApp === 1 && <PresentationUpdate />}

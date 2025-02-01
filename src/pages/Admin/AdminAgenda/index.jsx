@@ -53,6 +53,7 @@ function AdminAgenda() {
   ];
 
   const getDataOnDb = async () => {
+    const request_url = import.meta.env.VITE_REQUEST_URL;
     const limit = 9;
     const offset = (currentPage - 1) * limit;
     setLoading(true);
@@ -62,7 +63,7 @@ function AdminAgenda() {
     formData.append("offset", offset);
 
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })

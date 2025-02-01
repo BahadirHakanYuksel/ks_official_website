@@ -30,7 +30,7 @@ function About() {
       <PageTitle>{t("about-us")}</PageTitle>
       <div className="page flex flex-col gap-5">
         {parag.map((row, i) => (
-          <p key={i}>{parseContent(row)}</p>
+          <article key={i}>{parseContent(row)}</article>
         ))}
       </div>
     </motion.div>

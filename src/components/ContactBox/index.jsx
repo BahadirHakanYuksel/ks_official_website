@@ -12,12 +12,14 @@ function ContactBox() {
   const [iframeLink, setIframeLink] = useState(undefined);
   const [telNoText, setTelNoText] = useState(undefined);
 
+  const request_url = import.meta.env.VITE_REQUEST_URL;
+
   const getContactInfos = async () => {
     const formData = new FormData();
     formData.append("action", "getContactInfos");
 
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })
