@@ -2,16 +2,21 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateKsAdminHandle } from "../../../utils";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 function LoginPage() {
   const navigate = useNavigate();
+  const [pointAnimCount, setPointAnimCount] = useState(0);
+  const pointAnimArr = [".", "..", "..."];
   const [loginButtonDisabled, setLoginButtonDisabled] = useState(true);
+  const [controlMessage, setControlMessage] = useState({
+    checking: false,
+    isCorrect: null,
+  });
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-
-  const { ksAdmin } = useSelector((state) => state.admin);
   const validateEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
@@ -25,22 +30,40 @@ function LoginPage() {
       setLoginButtonDisabled(false);
     else setLoginButtonDisabled(true);
   };
-
   useEffect(() => {
     inputsControl();
   }, [loginData]);
 
-  const loginAdminPanel = (e) => {
+  const loginAdminPanel = async (e) => {
     e.preventDefault();
-    getUsers();
-    // document.location.reload();
+    setControlMessage({ checking: true, isCorrect: null });
+    setLoginButtonDisabled(true);
+    await getUsers();
   };
 
+  useEffect(() => {
+    let interval;
+    if (
+      controlMessage.isCorrect === null ||
+      controlMessage.isCorrect === true
+    ) {
+      interval = setInterval(() => {
+        setPointAnimCount((count) => (count < 2 ? count + 1 : 0));
+      }, 500);
+    }
+    return () => clearInterval(interval);
+  }, [controlMessage.isCorrect]);
+
   const getUsers = async () => {
+    const request_url = import.meta.env.VITE_REQUEST_URL;
+    const auth_ks = import.meta.env.VITE_REQUEST_AUTH_KS;
+
     const formData = new FormData();
-    formData.append("action", "auth");
+    formData.append("action", auth_ks);
+    let isOK = false;
+
     try {
-      await fetch("https://katilimsigortacisi.com/php-admin/", {
+      await fetch(request_url, {
         method: "POST",
         body: formData,
       })
@@ -50,16 +73,32 @@ function LoginPage() {
             if (
               loginData.email.trim() === user.email &&
               loginData.password.trim() === user.password
-            ) {
-              updateKsAdminHandle(user);
-              localStorage.setItem("ks_user", user.id);
-            }
+            )
+              isOK = true;
+
+            setTimeout(() => {
+              if (isOK) {
+                setControlMessage({ ...controlMessage, isCorrect: true });
+                setTimeout(() => {
+                  updateKsAdminHandle(user);
+                  localStorage.setItem("ks_user", user.id);
+                  setLoginButtonDisabled(false);
+                }, 1500);
+              } else {
+                setControlMessage({ ...controlMessage, isCorrect: false });
+                setLoginButtonDisabled(false);
+              }
+            }, 2500);
           });
         });
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    console.log("cm : ", controlMessage);
+  }, [controlMessage.isCorrect]);
 
   return (
     <div className="flex items-center justify-center w-full h-screen bg-backColor">
@@ -98,7 +137,53 @@ function LoginPage() {
             }
           />
         </div>
+        {controlMessage.checking && (
+          <>
+            {controlMessage.isCorrect === null ? (
+              <motion.p
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-myText font-medium text-sm"
+              >
+                Kontrol Ediliyor
+                <span className="text-green-500">
+                  {pointAnimArr[pointAnimCount]}
+                </span>
+              </motion.p>
+            ) : (
+              <>
+                {controlMessage.isCorrect ? (
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-green-500 font-medium text-base"
+                  >
+                    Giriş Başarılı
+                    <span className="text-myText">
+                      , Yönlendiriliyorsunuz{" "}
+                      <span className="text-green-500">
+                        {pointAnimArr[pointAnimCount]}
+                      </span>
+                    </span>
+                  </motion.p>
+                ) : (
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-red-500 font-medium text-sm"
+                  >
+                    Giriş Bilgileriniz Hatalı!
+                  </motion.p>
+                )}
+              </>
+            )}
+          </>
+        )}
+
         <button
+          onClick={() =>
+            setControlMessage({ ...controlMessage, checking: true })
+          }
           disabled={loginButtonDisabled}
           type="submit"
           className="text-lg font-medium bg-ksGray hover:bg-ksGreen active:bg-preKsBoxIcon duration-200 text-white h-12 rounded-md mt-2 disabled:pointer-events-none disabled:opacity-80"
