@@ -69,36 +69,38 @@ function LoginPage() {
       })
         .then((res) => res.json())
         .then((data) => {
-          data.forEach((user) => {
-            if (
-              loginData.email.trim() === user.email &&
-              loginData.password.trim() === user.password
-            )
-              isOK = true;
+          const active_admin = data.find(
+            (user) =>
+              user.email === loginData.email.trim() &&
+              user.password === loginData.password.trim()
+          );
 
-            setTimeout(() => {
-              if (isOK) {
-                setControlMessage({ ...controlMessage, isCorrect: true });
-                setTimeout(() => {
-                  updateKsAdminHandle(user);
-                  localStorage.setItem("ks_user", user.id);
-                  setLoginButtonDisabled(false);
-                }, 1500);
-              } else {
-                setControlMessage({ ...controlMessage, isCorrect: false });
+          setTimeout(() => {
+            if (
+              active_admin !== null &&
+              active_admin !== undefined &&
+              active_admin !== ""
+            ) {
+              setControlMessage({ ...controlMessage, isCorrect: true });
+              setTimeout(() => {
+                updateKsAdminHandle(active_admin);
+                localStorage.setItem("ks_user", active_admin.id);
                 setLoginButtonDisabled(false);
-              }
-            }, 2500);
-          });
+              }, 1500);
+            } else {
+              setControlMessage({ ...controlMessage, isCorrect: false });
+              setLoginButtonDisabled(false);
+            }
+          }, 2500);
         });
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    console.log("cm : ", controlMessage);
-  }, [controlMessage.isCorrect]);
+  // useEffect(() => {
+  //   console.log("cm : ", controlMessage);
+  // }, [controlMessage.isCorrect]);
 
   return (
     <div className="flex items-center justify-center w-full h-screen bg-backColor">

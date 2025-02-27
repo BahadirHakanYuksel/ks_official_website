@@ -14,6 +14,27 @@ import Team from "../Team";
 function Home() {
   const { t } = useTranslation();
 
+  // Örnek: Tüm todoları listeleme
+  const fetchTodos = async () => {
+    try {
+      const response = await fetch("https://katilimsigortacisi.com:3000/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          action: "list",
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  // fetchTodos();
+
   useEffect(() => {
     document.scrollingElement.scrollTop = 0;
   }, []);
