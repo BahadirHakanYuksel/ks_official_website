@@ -204,13 +204,13 @@ function MessageBox() {
         <div className="flex flex-col gap-0.5">
           <header
             className={classNames(
-              "text-lg font-medium flex gap-1 items-center",
+              "text-lg font-medium flex gap-1 items-center text-myText",
               {
                 "!text-base": isLaptop,
               }
             )}
           >
-            <span>{t("yourName")}</span>
+            <span className="text-myText">{t("yourName")}</span>
             <span
               className={classNames(
                 "text-xs font-medium text-gray-400",
@@ -250,7 +250,7 @@ function MessageBox() {
               }
             )}
           >
-            <span>{t("yourSurname")}</span>
+            <span className="text-myText">{t("yourSurname")}</span>
             <span
               className={classNames(
                 "text-xs font-medium text-gray-400",
@@ -292,7 +292,7 @@ function MessageBox() {
               }
             )}
           >
-            <span>{t("yourEmail")}</span>
+            <span className="text-myText">{t("yourEmail")}</span>
             <span
               className={classNames(
                 "text-xs font-medium text-gray-400",
@@ -447,7 +447,7 @@ function MessageBox() {
               }
             )}
           >
-            <span>{t("yourMessage")}</span>
+            <span className="text-myText">{t("yourMessage")}</span>
             <span
               className={classNames(
                 "text-xs font-medium text-gray-400",

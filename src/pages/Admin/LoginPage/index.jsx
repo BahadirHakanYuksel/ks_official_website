@@ -56,10 +56,12 @@ function LoginPage() {
 
   const getUsers = async () => {
     const request_url = import.meta.env.VITE_REQUEST_URL;
-    const auth_ks = import.meta.env.VITE_REQUEST_AUTH_KS;
+    const login_ks = import.meta.env.VITE_REQUEST_LOGIN_KS;
 
     const formData = new FormData();
-    formData.append("action", auth_ks);
+    formData.append("action", login_ks);
+    formData.append("email", loginData.email.trim());
+    formData.append("password", loginData.password.trim());
     let isOK = false;
 
     try {
@@ -69,22 +71,12 @@ function LoginPage() {
       })
         .then((res) => res.json())
         .then((data) => {
-          const active_admin = data.find(
-            (user) =>
-              user.email === loginData.email.trim() &&
-              user.password === loginData.password.trim()
-          );
-
           setTimeout(() => {
-            if (
-              active_admin !== null &&
-              active_admin !== undefined &&
-              active_admin !== ""
-            ) {
+            if (data.status === "success") {
               setControlMessage({ ...controlMessage, isCorrect: true });
               setTimeout(() => {
-                updateKsAdminHandle(active_admin);
-                localStorage.setItem("ks_user", active_admin.id);
+                updateKsAdminHandle(data.user);
+                localStorage.setItem("ks_user", data.user.id);
                 setLoginButtonDisabled(false);
               }, 1500);
             } else {
@@ -92,6 +84,30 @@ function LoginPage() {
               setLoginButtonDisabled(false);
             }
           }, 2500);
+
+          // const active_admin = data.find(
+          //   (user) =>
+          //     user.email === loginData.email.trim() &&
+          //     user.password === loginData.password.trim()
+          // );
+
+          // setTimeout(() => {
+          //   if (
+          //     active_admin !== null &&
+          //     active_admin !== undefined &&
+          //     active_admin !== ""
+          //   ) {
+          //     setControlMessage({ ...controlMessage, isCorrect: true });
+          //     setTimeout(() => {
+          //       updateKsAdminHandle(active_admin);
+          //       localStorage.setItem("ks_user", active_admin.id);
+          //       setLoginButtonDisabled(false);
+          //     }, 1500);
+          //   } else {
+          //     setControlMessage({ ...controlMessage, isCorrect: false });
+          //     setLoginButtonDisabled(false);
+          //   }
+          // }, 2500);
         });
     } catch (error) {
       console.log(error);
